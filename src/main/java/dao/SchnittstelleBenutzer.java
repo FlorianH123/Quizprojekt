@@ -1,15 +1,16 @@
 package dao;
 
-/**
- * Created by Florian on 13.06.2017.
- */
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import model.User;
+
+/**
+ * Created by Florian on 13.06.2017.
+ * Schnittstelle zum Austausch von Daten der user Tabelle
+ */
 
 public class SchnittstelleBenutzer {
     private static final String CLASS_NAME = "org.postgresql.Driver";
@@ -41,7 +42,7 @@ public class SchnittstelleBenutzer {
 
     public void addUser( User aUser ) {
         Connection con = getConnection();
-        Statement stmt = null;
+        Statement stmt;
 
         try {
             stmt = con.createStatement();

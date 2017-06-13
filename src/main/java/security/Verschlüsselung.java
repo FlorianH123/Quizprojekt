@@ -1,11 +1,12 @@
 package security;
 
-/**
- * Created by Florian on 13.06.2017.
- */
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * Created by Florian on 13.06.2017.
+ * Algorithmus um die Passwörter zu verschlüsseln
+ */
 public class Verschlüsselung {
     private static final String ERR_KEIN_ALGORITHMUS = "Es wurde kein SHA Verschlüsselungsalgorithmus gefunden!";
 

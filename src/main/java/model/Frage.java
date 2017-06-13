@@ -1,9 +1,11 @@
 package model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Created by Florian on 13.06.2017.
+ * Containerklasse für eine Frage
  */
-import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class Frage {

@@ -2,6 +2,7 @@ package model;
 
 /**
  * Created by Florian on 13.06.2017.
+ * Containerklasse für einen Benutzer
  */
 public class User {
     private String name;
