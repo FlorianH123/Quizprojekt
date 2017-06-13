@@ -10,17 +10,16 @@ public class Verschlüsselung {
     private static final String ERR_KEIN_ALGORITHMUS = "Es wurde kein SHA Verschlüsselungsalgorithmus gefunden!";
 
     private static byte[] verschlüsselePasswort(String passwort) {
-        MessageDigest md = null;
+        MessageDigest md;
 
         try {
             md = MessageDigest.getInstance("SHA");
+            md.update(passwort.getBytes());
+            return md.digest();
         } catch (NoSuchAlgorithmException e) {
             System.err.println(ERR_KEIN_ALGORITHMUS);
         }
-
-        md.update(passwort.getBytes());
-
-        return md.digest();
+        return null;
     }
 
     public static byte[] generatePasswort(String passwort) {

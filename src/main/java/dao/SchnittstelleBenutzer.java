@@ -60,10 +60,10 @@ public class SchnittstelleBenutzer {
 
     }
 
-    public int currentID() {
+    private int currentID() {
         Connection con = getConnection();
-        Statement stmt = null;
-        ResultSet rs = null;
+        Statement stmt;
+        ResultSet rs;
 
         int nummer = -1;
 
