@@ -23,7 +23,7 @@ public class SchnittstelleBenutzer {
         }
 
         catch (ClassNotFoundException e) {
-            System.err.println("Kein Treiber gefunden");
+            System.err.println( "Kein Treiber gefunden" );
         }
     }
 
