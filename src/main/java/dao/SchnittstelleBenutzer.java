@@ -28,6 +28,76 @@ public class SchnittstelleBenutzer {
         }
     }
 
+    //TODO Implementieren
+    public User getUserByID(int id) {
+        Connection con = getConnection();
+        Statement stmt;
+
+        return null;
+    }
+
+    public void addUser( User aUser ) {
+        Connection con = getConnection();
+        Statement stmt;
+        String statement = "INSERT INTO user (id, e_mail, passwort, avatar_link, name) VALUES ("
+                + currentID() + "," + aUser.getE_mail() + "," + aUser.getPasswort() +
+                "," + aUser.getAvatar_link() + "," + aUser.getName() + ")";
+
+        doSQLQuery(statement);
+    }
+
+    public void removeUser( User aUser ) {
+
+    }
+
+    private int currentID() {
+        String statement = "SELECT count(*) AS anzahl FROM user";
+        ResultSet rs = doSQLQuery(statement);
+        int nummer = -1;
+
+        try {
+            rs.next();
+            nummer = rs.getInt("anzahl");
+            nummer++;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return nummer;
+    }
+
+    private void doSQLUpdate(String statement) {
+        Connection con = getConnection();
+        Statement stmt;
+
+        try {
+            stmt = con.createStatement();
+
+            stmt.executeUpdate(statement);
+
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private ResultSet doSQLQuery(String statement) {
+        Connection con = getConnection();
+        Statement stmt;
+        ResultSet rs = null;
+
+        try {
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(statement);
+
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return rs;
+    }
+
     private Connection getConnection() {
         Connection con = null;
 
@@ -38,49 +108,5 @@ public class SchnittstelleBenutzer {
         }
 
         return con;
-    }
-
-    public void addUser( User aUser ) {
-        Connection con = getConnection();
-        Statement stmt;
-
-        try {
-            stmt = con.createStatement();
-
-            stmt.executeUpdate( "INSERT INTO user (id, e_mail, passwort, avatar_link, name) VALUES ("
-                    + currentID() + "," + aUser.getE_mail() + "," + aUser.getPasswort() +
-                    "," + aUser.getAvatar_link() + "," + aUser.getName() + ")" );
-
-            con.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void removeUser( User aUser ) {
-
-    }
-
-    private int currentID() {
-        Connection con = getConnection();
-        Statement stmt;
-        ResultSet rs;
-
-        int nummer = -1;
-
-        try {
-            stmt = con.createStatement();
-            rs = stmt.executeQuery( "SELECT count(*) AS anzahl FROM user" );
-
-            rs.next();
-            nummer = rs.getInt( "anzahl" );
-            nummer++;
-
-            con.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return nummer;
     }
 }
