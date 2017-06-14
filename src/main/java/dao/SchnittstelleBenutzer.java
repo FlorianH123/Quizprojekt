@@ -32,18 +32,32 @@ public class SchnittstelleBenutzer {
     public User getUserByID(int id) {
         Connection con = getConnection();
         Statement stmt;
+        ResultSet rs;
+        User aUser = new User("","","","");
 
-        return null;
+        String statement = "SELECT * FROM benutzer WHERE id = " + id;
+        rs = doSQLQuery(statement);
+
+        try {
+            while (rs.next()) {
+                aUser.setE_mail(rs.getString(2));
+                aUser.setPasswort(rs.getString(3));
+                aUser.setAvatar_link(rs.getString(4));
+                aUser.setName(rs.getString(5));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return aUser;
     }
 
     public void addUser( User aUser ) {
         Connection con = getConnection();
         Statement stmt;
-        String statement = "INSERT INTO user (id, e_mail, passwort, avatar_link, name) VALUES ("
-                + currentID() + "," + aUser.getE_mail() + "," + aUser.getPasswort() +
-                "," + aUser.getAvatar_link() + "," + aUser.getName() + ")";
+        String statement = "INSERT INTO benutzer VALUES ('" + currentID() + "','" + aUser.getE_mail() + "','" + aUser.getPasswort() + "','" + aUser.getAvatar_link() + "','" + aUser.getName() + "')";
 
-        doSQLQuery(statement);
+        doSQLUpdate(statement);
     }
 
     public void removeUser( User aUser ) {
@@ -51,7 +65,7 @@ public class SchnittstelleBenutzer {
     }
 
     private int currentID() {
-        String statement = "SELECT count(*) AS anzahl FROM user";
+        String statement = "SELECT count(*) AS anzahl FROM benutzer";
         ResultSet rs = doSQLQuery(statement);
         int nummer = -1;
 
@@ -111,6 +125,9 @@ public class SchnittstelleBenutzer {
     }
 
     public static void main (String argv[]) {
-        System.out.println(new SchnittstelleBenutzer().currentID());
+        SchnittstelleBenutzer sch = new SchnittstelleBenutzer();
+        User aUser = sch.getUserByID(1);
+        System.out.println(aUser.getE_mail() + aUser.getAvatar_link() + aUser.getName() + aUser.getPasswort());
+        System.out.println(sch.currentID());
     }
 }
