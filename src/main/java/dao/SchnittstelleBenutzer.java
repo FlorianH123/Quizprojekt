@@ -109,4 +109,8 @@ public class SchnittstelleBenutzer {
 
         return con;
     }
+
+    public static void main (String argv[]) {
+        System.out.println(new SchnittstelleBenutzer().currentID());
+    }
 }
