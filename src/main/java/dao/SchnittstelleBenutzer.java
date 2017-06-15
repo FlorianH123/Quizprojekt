@@ -5,11 +5,12 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import constants.DB_Constants;
 import model.User;
 
 /**
  * Created by Florian on 13.06.2017.
- * Schnittstelle zum Austausch von Daten der user Tabelle
+ * Schnittstelle zum Austausch von Daten der benutzer Tabelle
  */
 
 public class SchnittstelleBenutzer {
@@ -18,84 +19,133 @@ public class SchnittstelleBenutzer {
     private static final String USER = "benutzerverwaltung";
     private static final String PASSWORD = "D2r@!FG45%";
 
+
     public SchnittstelleBenutzer() {
         try {
-            Class.forName(CLASS_NAME);
+            Class.forName( CLASS_NAME );
         }
 
-        catch (ClassNotFoundException e) {
-            System.err.println( "Kein Treiber gefunden" );
+        catch ( ClassNotFoundException e ) {
+            System.err.println( DB_Constants.ERR_MSG_DRIVER );
         }
     }
 
-    //TODO Implementieren
-    public User getUserByID(int id) {
-        Connection con = getConnection();
-        Statement stmt;
+    /**
+     * Methode die einen Benutzer zu einer übergebenen ID zurück gibt
+     * @param id ID des Benutzers
+     * @return Benutzer
+     */
+    public User getUserByID( int id ) {
         ResultSet rs;
-        User aUser = new User("","","","");
+        User aUser = new User();
 
         String statement = "SELECT * FROM benutzer WHERE id = " + id;
-        rs = doSQLQuery(statement);
+        rs = doSQLQuery( statement );
 
         try {
-            while (rs.next()) {
-                aUser.setE_mail(rs.getString(2));
-                aUser.setPasswort(rs.getString(3));
-                aUser.setAvatar_link(rs.getString(4));
-                aUser.setName(rs.getString(5));
+            while ( rs.next() ) {
+                aUser.setE_mail( rs.getString( 2 ) );
+                aUser.setPasswort( rs.getString( 3 ) );
+                aUser.setAvatar_link( rs.getString( 4 ) );
+                aUser.setName( rs.getString( 5 ) );
             }
-        } catch (SQLException e) {
+        } catch ( SQLException e ) {
+            System.err.println( DB_Constants.ERR_MSG_GET_USER );
             e.printStackTrace();
         }
 
         return aUser;
     }
 
-    public void addUser( User aUser ) {
-        Connection con = getConnection();
-        Statement stmt;
-        String statement = "INSERT INTO benutzer VALUES ('" + currentID() + "','" + aUser.getE_mail() + "','" + aUser.getPasswort() + "','" + aUser.getAvatar_link() + "','" + aUser.getName() + "')";
+    /**
+     * Methode die das Passwort eines Benutzers zurueckgibt
+     * @param id ID des Benutzers
+     * @return passwort des Benutzers
+     */
+    public String getPasswordByID( int id ) {
+        ResultSet rs;
+        String passwort = "";
+        String statement = "SELECT passwort FROM benutzer WHERE id = " + id;
 
-        doSQLUpdate(statement);
+        rs = doSQLQuery( statement );
+
+        try {
+            rs.next();
+
+            passwort = rs.getString( "passwort" );
+        } catch ( SQLException e ) {
+            System.err.println( DB_Constants.ERR_MSG_GET_PASSWORD );
+            e.printStackTrace();
+        }
+
+        return passwort;
+    }
+
+    /**
+     * Methode die ein Benutzer zu der DB benutzer hinzufügt
+     * @param aUser ein Benutzer
+     */
+    public void addUser( User aUser ) {
+        String statement = "INSERT INTO benutzer VALUES ('" + getNextID() + "','" + aUser.getE_mail() + "','" + aUser.getPasswort() + "','" + aUser.getAvatar_link() + "','" + aUser.getName() + "')";
+
+        doSQLUpdate( statement );
     }
 
     public void removeUser( User aUser ) {
 
     }
 
-    private int currentID() {
+    /**
+     * Methode die die naechste ID zurueckgibt
+     * @return ID + 1
+     */
+    private int getNextID() {
         String statement = "SELECT count(*) AS anzahl FROM benutzer";
-        ResultSet rs = doSQLQuery(statement);
+        ResultSet rs = doSQLQuery( statement );
         int nummer = -1;
 
         try {
             rs.next();
-            nummer = rs.getInt("anzahl");
+            nummer = rs.getInt( "anzahl" );
             nummer++;
-        } catch (SQLException e) {
+        } catch ( SQLException e ) {
+            System.err.println( DB_Constants.ERR_MSG_CURRENT_ID );
             e.printStackTrace();
         }
 
         return nummer;
     }
 
-    private void doSQLUpdate(String statement) {
+    /**
+     * Methode um ein SQL Update auszuführen
+     * @param statement SQL Statement
+     */
+    private void doSQLUpdate( String statement ) {
         Connection con = getConnection();
         Statement stmt;
 
         try {
             stmt = con.createStatement();
-
             stmt.executeUpdate(statement);
-
             con.close();
-        } catch (SQLException e) {
+        } catch ( SQLException e ) {
+            System.err.println( DB_Constants.ERR_MSG_UPDATE );
             e.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch ( SQLException e ) {
+            }
+
         }
     }
 
-    private ResultSet doSQLQuery(String statement) {
+    /**
+     * Methode um ein SQL Query auszuführen
+     * @param statement SQL Statement
+     * @return ResultSet der Abfrage
+     */
+    private ResultSet doSQLQuery( String statement ) {
         Connection con = getConnection();
         Statement stmt;
         ResultSet rs = null;
@@ -103,31 +153,43 @@ public class SchnittstelleBenutzer {
         try {
             stmt = con.createStatement();
             rs = stmt.executeQuery(statement);
-
             con.close();
-        } catch (SQLException e) {
+        } catch ( SQLException e ) {
+            System.err.println( DB_Constants.ERR_MSG_QUERY );
             e.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch ( SQLException e ) {
+            }
         }
 
         return rs;
     }
 
+    /**
+     * Methode um eine Verbindung aufzubauen
+     * @return Connection
+     */
     private Connection getConnection() {
         Connection con = null;
 
         try {
             con = DriverManager.getConnection( URL, USER, PASSWORD );
-        } catch (SQLException e) {
+        } catch ( SQLException e ) {
+            System.err.println( DB_Constants.ERR_MSG_CONNECTION );
             e.printStackTrace();
         }
 
         return con;
     }
 
+    //TODO Löschen
     public static void main (String argv[]) {
         SchnittstelleBenutzer sch = new SchnittstelleBenutzer();
         User aUser = sch.getUserByID(1);
-        System.out.println(aUser.getE_mail() + aUser.getAvatar_link() + aUser.getName() + aUser.getPasswort());
-        System.out.println(sch.currentID());
+        System.out.println("Passwort: " + sch.getPasswordByID(1));
+        System.out.println(aUser.toString());
+        System.out.println(sch.getNextID());
     }
 }

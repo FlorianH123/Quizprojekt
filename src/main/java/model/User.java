@@ -10,6 +10,13 @@ public class User {
     private String avatar_link;
     private String passwort;
 
+    public User() {
+        this.e_mail = "";
+        this.passwort = "";
+        this.avatar_link = "";
+        this.name = "";
+    }
+
     public User( String e_mail, String passwort, String avatar_link, String name ) {
         this.e_mail = e_mail;
         this.passwort = passwort;
@@ -47,5 +54,15 @@ public class User {
 
     public void setPasswort(String passwort) {
         this.passwort = passwort;
+    }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("E-Mail: ").append(e_mail).append("\n").append("Passwort: ")
+                .append(passwort).append("\n").append("Avatar Link: ")
+                .append(avatar_link).append("\n").append("Name: ").append(name);
+
+        return sb.toString();
     }
 }
