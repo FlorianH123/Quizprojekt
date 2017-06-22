@@ -99,7 +99,7 @@ public class SchnittstelleBenutzer {
      * Methode die die naechste ID zurueckgibt
      * @return ID + 1
      */
-    private int getNextID() {
+    public int getNextID() {
         String statement = "SELECT count(*) AS anzahl FROM benutzer";
         ResultSet rs = doSQLQuery( statement );
         int nummer = -1;

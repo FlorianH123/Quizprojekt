@@ -9,6 +9,7 @@ public class User {
     private String e_mail;
     private String avatar_link;
     private String passwort;
+    private int id;
 
     public User() {
         this.e_mail = "";
@@ -17,11 +18,21 @@ public class User {
         this.name = "";
     }
 
-    public User( String e_mail, String passwort, String avatar_link, String name ) {
+    public User(String e_mail, String passwort, String avatar_link, String name ) {
         this.e_mail = e_mail;
         this.passwort = passwort;
         this.avatar_link = avatar_link;
         this.name = name;
+        this.id = 0;
+
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
