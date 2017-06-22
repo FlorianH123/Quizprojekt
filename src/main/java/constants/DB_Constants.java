@@ -2,6 +2,7 @@ package constants;
 
 /**
  * Created by Florian on 15.06.2017.
+ * Datenbank Konstanten
  */
 public class DB_Constants {
 

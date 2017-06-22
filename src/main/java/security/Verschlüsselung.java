@@ -27,6 +27,7 @@ public class Verschlüsselung {
         return verschlüsselePasswort(passwort);
     }
 
+
     // TODO Lösche main nach Test
     public static void main(String args[]) {
         byte[] test = generatePasswort("passwort123");

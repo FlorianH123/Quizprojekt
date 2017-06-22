@@ -11,8 +11,7 @@ public class ProfileService {
     private SchnittstelleBenutzer schnittBenutzer = new SchnittstelleBenutzer();
 
     public User addUser(User aUser) {
-        aUser.setId(schnittBenutzer.getNextID());
-        aUser.setPasswort((String)Verschlüsselung.generatePasswort(aUser.getPasswort()));
+        //TODO Passwort verschlüsseln
         schnittBenutzer.addUser(aUser);
         return aUser;
     }
