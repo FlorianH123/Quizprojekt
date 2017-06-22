@@ -133,10 +133,11 @@ public class SchnittstelleBenutzer {
             e.printStackTrace();
         } finally {
             try {
-                con.close();
+                if (con != null) {
+                    con.close();
+                }
             } catch ( SQLException e ) {
             }
-
         }
     }
 
@@ -153,6 +154,7 @@ public class SchnittstelleBenutzer {
         try {
             stmt = con.createStatement();
             rs = stmt.executeQuery(statement);
+
             con.close();
         } catch ( SQLException e ) {
             System.err.println( DB_Constants.ERR_MSG_QUERY );
