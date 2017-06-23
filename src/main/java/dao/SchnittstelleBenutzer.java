@@ -62,17 +62,18 @@ public class SchnittstelleBenutzer {
      */
     public boolean checkEmail( String email ) {
         ResultSet rs;
-        String re_mail;
+        String re_mail = "";
         //TODO Select statement in extra resource auslagern
-        String statement = "SELECT e_mail FROM benutzer WHERE e_mail = " + email;
+        String statement = "SELECT e_mail FROM benutzer WHERE e_mail = '" + email + "'";
 
         rs = doSQLQuery( statement );
 
         try {
-            rs.next();
+            if( rs.next() ) {
+                re_mail = rs.getString("e_mail");
+            }
 
-            re_mail = rs.getString("e_mail");
-            //Existiert schon wein eine email gefunden wurde. -> Benutzer kann nicht angelegt werden.
+            //Existiert schon weil eine email gefunden wurde
             if ( !re_mail.isEmpty() ) {
                 return true;
             }
@@ -163,6 +164,7 @@ public class SchnittstelleBenutzer {
                     con.close();
                 }
             } catch ( SQLException e ) {
+
             }
         }
     }
