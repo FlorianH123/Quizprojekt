@@ -15,10 +15,16 @@ public class ProfileService {
      * @param aUser Benutzer
      * @return User
      */
-    public User addUser(User aUser) {
-        //TODO Passwort verschlüsseln
-        //TODO Rückgabetyp und Wert ändern z.B ob alles geklappt hat
-        schnittBenutzer.addUser(aUser);
-        return aUser;
+    public String addUser(User aUser) {
+        //TODO Methodenname angeben
+        if (schnittBenutzer.checkEmail(aUser.getE_mail()) == false){
+            //TODO Passwort verschlüsseln
+            //TODO Rückgabetyp und Wert ändern z.B ob alles geklappt hat
+            schnittBenutzer.addUser(aUser);
+            return "Hat geklappt!";
+        }
+
+        return "Benutzer bereits vorhanden";
     }
 }
+
