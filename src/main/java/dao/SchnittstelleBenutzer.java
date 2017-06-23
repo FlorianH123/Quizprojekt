@@ -58,6 +58,32 @@ public class SchnittstelleBenutzer {
     }
 
     /**
+     *
+     */
+    public boolean checkEmail( String email ) {
+        ResultSet rs;
+        String re_mail;
+        //TODO Select statement in extra resource auslagern
+        String statement = "SELECT e_mail FROM benutzer WHERE e_mail = " + email;
+
+        rs = doSQLQuery( statement );
+
+        try {
+            rs.next();
+
+            re_mail = rs.getString("e_mail");
+            //Existiert schon wein eine email gefunden wurde. -> Benutzer kann nicht angelegt werden.
+            if ( !re_mail.isEmpty() ) {
+                return true;
+            }
+        } catch ( SQLException e ) {
+            System.err.println(e.getMessage());
+        }
+
+        return false;
+    }
+
+    /**
      * Methode die das Passwort eines Benutzers zurueckgibt
      * @param id ID des Benutzers
      * @return passwort des Benutzers
