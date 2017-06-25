@@ -1,10 +1,14 @@
 package dao;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
+
 import constants.DB_Constants;
 import model.User;
 
@@ -14,19 +18,24 @@ import model.User;
  */
 
 public class SchnittstelleBenutzer {
-    private static final String CLASS_NAME = "org.postgresql.Driver";
-    private static final String URL = "jdbc:postgresql://134.96.217.36:5432/benutzerverwaltung";
-    private static final String USER = "benutzerverwaltung";
-    private static final String PASSWORD = "D2r@!FG45%";
+    private static final String CLASS_NAME = "class-name";
+    private static final String URL = "url";
+    private static final String USER = "user";
+    private static final String PASSWORD = "password";
+    private static final String FILENAME = "DBconfig.properties";
+    private Properties properties;
 
 
     public SchnittstelleBenutzer() {
         try {
-            Class.forName( CLASS_NAME );
-        }
-
-        catch ( ClassNotFoundException e ) {
+            InputStream is = SchnittstelleBenutzer.class.getClassLoader().getResourceAsStream(FILENAME);
+            properties = new Properties();
+            properties.load(is);
+            Class.forName( properties.getProperty(CLASS_NAME) );
+        } catch ( ClassNotFoundException e ) {
             System.err.println( DB_Constants.ERR_MSG_DRIVER );
+        } catch ( IOException e) {
+            System.err.println( e.getMessage());
         }
     }
 
@@ -203,9 +212,14 @@ public class SchnittstelleBenutzer {
      */
     private Connection getConnection() {
         Connection con = null;
+        String url, user, password;
 
         try {
-            con = DriverManager.getConnection( URL, USER, PASSWORD );
+            url = properties.getProperty(URL);
+            user = properties.getProperty(USER);
+            password = properties.getProperty(PASSWORD);
+
+            con = DriverManager.getConnection( url, user, password );
         } catch ( SQLException e ) {
             System.err.println( DB_Constants.ERR_MSG_CONNECTION );
             e.printStackTrace();
