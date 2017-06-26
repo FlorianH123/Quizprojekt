@@ -20,9 +20,10 @@ public class SchnittstelleBenutzer {
 
     public SchnittstelleBenutzer() {
         properties = new Properties();
+        InputStream is;
 
         try {
-            InputStream is = SchnittstelleBenutzer.class.getClassLoader().getResourceAsStream(FILENAME);
+            is = SchnittstelleBenutzer.class.getClassLoader().getResourceAsStream(FILENAME);
             properties.load(is);
             Class.forName( properties.getProperty(CLASS_NAME) );
         } catch ( ClassNotFoundException e ) {
@@ -34,6 +35,7 @@ public class SchnittstelleBenutzer {
 
     /**
      * Methode die einen Benutzer zu einer übergebenen ID zurück gibt
+     * Falls die ID nicht existiert wird eine DataNotFoundException geworfen
      * @param id ID des Benutzers
      * @return Benutzer
      */
@@ -44,31 +46,85 @@ public class SchnittstelleBenutzer {
         User aUser = new User();
 
         try {
-            connection.setAutoCommit(false);
-            statement = connection.prepareStatement(PS_GET_USER_BY_ID);
-            statement.setInt(1, id);
+            connection.setAutoCommit( false );
+            statement = connection.prepareStatement(PS_GET_USER_BY_ID, ResultSet.TYPE_SCROLL_INSENSITIVE,
+                                                                       ResultSet.CONCUR_READ_ONLY);
+
+            statement.setInt( INDEX_1, id );
             rs = statement.executeQuery();
 
-            if (!rs.next()) {
-                throw new DataNotFoundException( ERR_MSG_DATA_NOT_FOUND );
+            if ( !rs.next() ) {
+                throw new DataNotFoundException( ERR_MSG_ID_NOT_FOUND );
             }
 
             else {
-
                 rs.previous();
                 while ( rs.next() ) {
-                    aUser.setE_mail(rs.getString(E_MAIL));
-                    aUser.setPasswort(rs.getString(PASSWORT));
-                    aUser.setAvatar_link(rs.getString(AVATAR_LINK));
-                    aUser.setName(rs.getString(NAME));
+                    aUser.setId(rs.getInt( ID ));
+                    aUser.setE_mail(rs.getString( E_MAIL ));
+                    aUser.setPasswort(rs.getString( PASSWORT ));
+                    aUser.setAvatar_link(rs.getString( AVATAR_LINK ));
+                    aUser.setName(rs.getString( NAME ));
                 }
             }
+
+            connection.close();
         } catch ( SQLException e ) {
             System.err.println( ERR_MSG_GET_USER );
             e.printStackTrace();
+        } finally {
+            if( connection != null ) {
+                try {
+                    connection.close();
+                } catch ( SQLException e ) {
+                    //TODO Log Datei erstellen
+                }
+            }
         }
 
         return aUser;
+    }
+
+    /**
+     * Methode die das Passwort eines Benutzers zurueckgibt
+     * Falls die ID nicht existiert wird eine DataNotFoundException geworfen
+     * @param id ID des Benutzers
+     * @return passwort des Benutzers
+     */
+    public String getPasswordByID( int id ) {
+        Connection connection = getConnection();
+        PreparedStatement statement;
+        ResultSet rs;
+        String passwort = "";
+
+        try {
+            connection.setAutoCommit(false);
+            statement = connection.prepareStatement( PS_GET_PASSWORD_BY_ID, ResultSet.TYPE_SCROLL_INSENSITIVE,
+                                                                            ResultSet.CONCUR_READ_ONLY);
+            statement.setInt( INDEX_1, id );
+            rs = statement.executeQuery();
+
+            if (!rs.next()) {
+                throw new DataNotFoundException(ERR_MSG_ID_NOT_FOUND);
+            }
+
+            rs.previous();
+            passwort = rs.getString( PASSWORT );
+            connection.close();
+        } catch ( SQLException e ) {
+            System.err.println( ERR_MSG_GET_PASSWORD );
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    //TODO Log Datei erstellen
+                }
+            }
+        }
+
+        return passwort;
     }
 
     public boolean checkID ( int id ) {
@@ -78,9 +134,9 @@ public class SchnittstelleBenutzer {
         int re_id = 0;
 
         try {
-            connection.setAutoCommit(false);
-            statement = connection.prepareStatement(PS_CHECK_ID);
-            statement.setInt(1, id);
+            connection.setAutoCommit( false );
+            statement = connection.prepareStatement( PS_CHECK_ID );
+            statement.setInt( INDEX_1, id );
             rs = statement.executeQuery();
 
             if( rs.next() ) {
@@ -90,8 +146,18 @@ public class SchnittstelleBenutzer {
             if ( re_id != 0 ) {
                 return true;
             }
+
+            connection.close();
         } catch ( SQLException e ) {
             System.err.println(e.getMessage());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    //TODO Log Datei erstellen
+                }
+            }
         }
 
         return false;
@@ -109,9 +175,9 @@ public class SchnittstelleBenutzer {
         String re_mail = "";
 
         try {
-            connection.setAutoCommit(false);
-            statement = connection.prepareStatement(PS_CHECK_EMAIL);
-            statement.setString(1, email);
+            connection.setAutoCommit( false );
+            statement = connection.prepareStatement( PS_CHECK_EMAIL );
+            statement.setString( INDEX_1, email );
             rs = statement.executeQuery();
 
             if( rs.next() ) {
@@ -122,64 +188,55 @@ public class SchnittstelleBenutzer {
             if ( re_mail.isEmpty() ) {
                 return false;
             }
+
+            connection.close();
         } catch ( SQLException e ) {
             System.err.println(e.getMessage());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    //TODO Log Datei erstellen
+                }
+            }
         }
 
         return true;
     }
 
-    /**
-     * Methode die das Passwort eines Benutzers zurueckgibt
-     * @param id ID des Benutzers
-     * @return passwort des Benutzers
-     */
-    public String getPasswordByID( int id ) {
-        Connection connection = getConnection();
-        PreparedStatement statement;
-        ResultSet rs;
-        String passwort = "";
-
-        try {
-            connection.setAutoCommit(false);
-            statement = connection.prepareStatement(PS_GET_PASSWORD_BY_ID);
-            statement.setInt(1, id);
-            rs = statement.executeQuery();
-
-            rs.next();
-
-            passwort = rs.getString( PASSWORT );
-        } catch ( SQLException e ) {
-            System.err.println( ERR_MSG_GET_PASSWORD );
-            e.printStackTrace();
-        }
-
-        return passwort;
-    }
 
     /**
      * Methode die ein Benutzer zu der DB benutzer hinzufügt
      * @param aUser ein Benutzer
      */
     public void addUser( User aUser ) {
-        //String statement = "INSERT INTO benutzer VALUES ('" + aUser.getId() + "','" + aUser.getE_mail() + "','" + aUser.getPasswort() + "','" + aUser.getAvatar_link() + "','" + aUser.getName() + "')";
-        //"INSERT INTO benutzer VALUES (?,?,?,?,?)";
         PreparedStatement statement;
         Connection connection = getConnection();
+
         try {
-            connection.setAutoCommit(false);
-            statement = connection.prepareStatement(PS_ADD_USER);
-            statement.setInt(1,aUser.getId());
-            statement.setString(2, aUser.getE_mail());
-            statement.setString(3, aUser.getPasswort());
-            statement.setString(4, aUser.getAvatar_link());
-            statement.setString(5, aUser.getName());
+            connection.setAutoCommit( false );
+            statement = connection.prepareStatement( PS_ADD_USER );
+
+            statement.setInt( INDEX_1, aUser.getId() );
+            statement.setString( INDEX_2, aUser.getE_mail() );
+            statement.setString( INDEX_3, aUser.getPasswort() );
+            statement.setString( INDEX_4, aUser.getAvatar_link() );
+            statement.setString( INDEX_5, aUser.getName() );
             statement.executeUpdate();
 
+            connection.close();
         } catch ( SQLException e ) {
             e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    //TODO Log Datei erstellen
+                }
+            }
         }
-        //doSQLUpdate( statement );
     }
 
     /**
@@ -187,8 +244,6 @@ public class SchnittstelleBenutzer {
      * @return ID + 1
      */
     public int getNextID() {
-        //String statement = "SELECT count(*) AS anzahl FROM benutzer";
-        //ResultSet rs = doSQLQuery( statement );
         ResultSet rs;
         PreparedStatement statement;
         Connection connection = getConnection();
@@ -202,67 +257,22 @@ public class SchnittstelleBenutzer {
             rs.next();
             nummer = rs.getInt( ANZAHL );
             nummer++;
+
+            connection.close();
         } catch ( SQLException e ) {
             System.err.println( ERR_MSG_CURRENT_ID );
             e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    //TODO Log Datei erstellen
+                }
+            }
         }
 
         return nummer;
-    }
-
-    /**
-     * Methode um ein SQL Update auszuführen
-     * @param statement SQL Statement
-     */
-    private void doSQLUpdate( String statement ) {
-        Connection con = getConnection();
-        Statement stmt;
-
-        try {
-            stmt = con.createStatement();
-            stmt.executeUpdate(statement);
-            con.close();
-        } catch ( SQLException e ) {
-            System.err.println( ERR_MSG_UPDATE );
-            e.printStackTrace();
-        } finally {
-            try {
-                if (con != null) {
-                    con.close();
-                }
-            } catch ( SQLException e ) {
-            }
-        }
-    }
-
-    /**
-     * Methode um ein SQL Query auszuführen
-     * @param statement SQL Statement
-     * @return ResultSet der Abfrage
-     */
-    private ResultSet doSQLQuery( String statement ) {
-        Connection con = getConnection();
-        Statement stmt;
-        ResultSet rs = null;
-
-        try {
-            stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            rs = stmt.executeQuery(statement);
-
-            con.close();
-        } catch ( SQLException e ) {
-            System.err.println( ERR_MSG_QUERY );
-            e.printStackTrace();
-        } finally {
-            try {
-                if (con != null) {
-                    con.close();
-                }
-            } catch ( SQLException e ) {
-            }
-        }
-
-        return rs;
     }
 
     /**
@@ -282,16 +292,16 @@ public class SchnittstelleBenutzer {
         } catch ( SQLException e ) {
             System.err.println( ERR_MSG_CONNECTION );
             e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    //TODO Log Datei erstellen
+                }
+            }
         }
 
         return con;
-    }
-
-    //TODO Löschen
-    public static void main (String argv[]) {
-        SchnittstelleBenutzer sch = new SchnittstelleBenutzer();
-        User aUser = sch.getUserByID(1);
-
-        System.out.println(aUser.toString());
     }
 }

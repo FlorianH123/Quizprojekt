@@ -26,7 +26,7 @@ public class DB_Constants {
     public static final String ERR_MSG_QUERY        = "Fehler: SQL Query Statement fehlgeschlagen!";
     public static final String ERR_MSG_CONNECTION   = "Fehler: Es konnte keine Verbindung aufgebaut werden!";
     public static final String ERR_MSG_GET_PASSWORD = "Fehler: Es konnte kein Passwort zu dieser ID gefunden werden!";
-    public static final String ERR_MSG_DATA_NOT_FOUND = "Fehler: Die angebene ID ist nicht vorhanden";
+    public static final String ERR_MSG_ID_NOT_FOUND = "Fehler: Die angebene ID ist nicht vorhanden";
 
     //Prepared Statements
     public static final String PS_CHECK_EMAIL        = "SELECT "+ E_MAIL + " FROM benutzer WHERE " + E_MAIL + " = ?";
@@ -35,5 +35,11 @@ public class DB_Constants {
     public static final String PS_GET_PASSWORD_BY_ID = "SELECT " + PASSWORT + " FROM benutzer WHERE " + ID + " = ?";
     public static final String PS_ADD_USER           = "INSERT INTO benutzer VALUES (?,?,?,?,?)";
     public static final String PS_GET_NEXT_ID        = "SELECT count(*) AS anzahl FROM benutzer";
+
+    public static final int INDEX_1 = 1;
+    public static final int INDEX_2 = 2;
+    public static final int INDEX_3 = 3;
+    public static final int INDEX_4 = 4;
+    public static final int INDEX_5 = 5;
 //----------------------------------------------------------------------------------------------------------------------
 }
