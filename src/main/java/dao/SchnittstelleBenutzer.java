@@ -22,9 +22,10 @@ public class SchnittstelleBenutzer {
     private Properties properties;
 
     public SchnittstelleBenutzer() {
+        properties = new Properties();
+
         try {
             InputStream is = SchnittstelleBenutzer.class.getClassLoader().getResourceAsStream(FILENAME);
-            properties = new Properties();
             properties.load(is);
             Class.forName( properties.getProperty(CLASS_NAME) );
         } catch ( ClassNotFoundException e ) {
