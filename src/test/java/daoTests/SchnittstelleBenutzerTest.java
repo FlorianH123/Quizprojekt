@@ -16,10 +16,8 @@ public class SchnittstelleBenutzerTest {
     private User aUser2 = new User(2        ,"testaccount2@mail.de", "passwort2", "link.link", "testaccount2");
     private User aUser3 = new User(3        ,"testaccount3@mail.de", "passwort3", "link.link", "testaccount3");
     private User aUser4 = new User(0        ,"testaccount4@mail.de", "passwort4", "link.link", "testaccount4");
-    private User aUser5 = new User(999999999,"testaccount5@mail.de", "passwort5", "link.link", "testaccount5");
 
-    SchnittstelleBenutzer schnittBenutzer = new SchnittstelleBenutzer();
-
+    private SchnittstelleBenutzer schnittBenutzer = new SchnittstelleBenutzer();
     private boolean equals;
 
     @Test
@@ -62,7 +60,7 @@ public class SchnittstelleBenutzerTest {
 
     @Test (expected = DataNotFoundException.class)
     public void getUserByID_with_exceptionTest() throws Exception {
-        schnittBenutzer.getUserByID(0);
+        schnittBenutzer.getUserByID(aUser4.getId());
     }
 
     @Test
