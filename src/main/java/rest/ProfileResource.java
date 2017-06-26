@@ -1,14 +1,12 @@
 package rest;
 
+import dao.SchnittstelleBenutzer;
 import model.User;
 import org.glassfish.jersey.server.Uri;
 import service.ProfileService;
 
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -50,4 +48,12 @@ public class ProfileResource {
                 .build();
     }
 
+    @GET
+    @Path("/{messageID}")
+    public Response getUser (@PathParam("messageID") int messageID) {
+        return Response.ok()
+                .entity(profileService.getUser(messageID))
+                .build();
+
+    }
 }

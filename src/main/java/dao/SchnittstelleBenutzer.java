@@ -171,7 +171,6 @@ public class SchnittstelleBenutzer {
                     con.close();
                 }
             } catch ( SQLException e ) {
-
             }
         }
     }
@@ -196,7 +195,9 @@ public class SchnittstelleBenutzer {
             e.printStackTrace();
         } finally {
             try {
-                con.close();
+                if (con != null) {
+                    con.close();
+                }
             } catch ( SQLException e ) {
             }
         }

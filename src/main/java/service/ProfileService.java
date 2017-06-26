@@ -25,5 +25,9 @@ public class ProfileService {
         //TODO Passwort verschlüsseln
         schnittBenutzer.addUser(aUser);
     }
+
+    public User getUser(int id) {
+        return schnittBenutzer.getUserByID(id);
+    }
 }
 
