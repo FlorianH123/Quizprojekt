@@ -63,7 +63,9 @@ public class SchnittstelleBenutzer {
     }
 
     /**
-     *
+     * Methode um zu ueberpruefen, ob eine E-Mail Adresse bereits vorhanden ist
+     * @param email
+     * @return die E-Mail Adresse
      */
     public boolean checkEmail( String email ) {
         ResultSet rs;
