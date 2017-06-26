@@ -62,10 +62,33 @@ public class SchnittstelleBenutzer {
         return aUser;
     }
 
+    public boolean checkID ( int id ) {
+        ResultSet rs;
+        int re_id = 0;
+
+        String statement = "SELECT id FROM benutzer WHERE id = " + id;
+
+        rs = doSQLQuery( statement );
+
+        try {
+            if( rs.next() ) {
+                re_id = rs.getInt( ID );
+            }
+
+            if ( re_id != 0 ) {
+                return true;
+            }
+        } catch ( SQLException e ) {
+            System.err.println(e.getMessage());
+        }
+
+        return false;
+    }
+
     /**
      * Methode um zu ueberpruefen, ob eine E-Mail Adresse bereits vorhanden ist
      * @param email E-Mail des gesuchten Users
-     * @return die E-Mail Adresse
+     * @return true falls vorhanden false falls nicht vorhanden
      */
     public boolean checkEmail( String email ) {
         ResultSet rs;
@@ -230,5 +253,8 @@ public class SchnittstelleBenutzer {
         System.out.println("Passwort: " + sch.getPasswordByID(1));
         System.out.println(aUser.toString());
         System.out.println(sch.getNextID());
+        boolean id = sch.checkID(0);
+
+        System.out.println(id);
     }
 }

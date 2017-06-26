@@ -2,8 +2,10 @@ package service;
 
 import dao.SchnittstelleBenutzer;
 import exception.DataAlreadyExistsException;
+import exception.DataNotFoundException;
 import model.User;
 
+import static constants.Service_Constants.MSG_ID_NOT_FOUND;
 import static constants.Service_Constants.MSG_USER_ALREADY_EXISTS;
 
 /**
@@ -27,7 +29,11 @@ public class ProfileService {
     }
 
     public User getUser(int id) {
-        return schnittBenutzer.getUserByID(id);
+        if (schnittBenutzer.checkID( id ) == false) {
+            throw new DataNotFoundException( MSG_ID_NOT_FOUND );
+        }
+
+        return schnittBenutzer.getUserByID( id );
     }
 }
 
