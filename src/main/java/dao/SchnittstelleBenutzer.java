@@ -64,7 +64,7 @@ public class SchnittstelleBenutzer {
 
     /**
      * Methode um zu ueberpruefen, ob eine E-Mail Adresse bereits vorhanden ist
-     * @param email
+     * @param email E-Mail des gesuchten Users
      * @return die E-Mail Adresse
      */
     public boolean checkEmail( String email ) {
@@ -123,10 +123,6 @@ public class SchnittstelleBenutzer {
         String statement = "INSERT INTO benutzer VALUES ('" + aUser.getId() + "','" + aUser.getE_mail() + "','" + aUser.getPasswort() + "','" + aUser.getAvatar_link() + "','" + aUser.getName() + "')";
 
         doSQLUpdate( statement );
-    }
-
-    public void removeUser( User aUser ) {
-
     }
 
     /**
