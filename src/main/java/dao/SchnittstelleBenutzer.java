@@ -37,13 +37,17 @@ public class SchnittstelleBenutzer {
      * @return Benutzer
      */
     public User getUserByID( int id ) {
+        PreparedStatement statement;
+        Connection connection = getConnection();
         ResultSet rs;
         User aUser = new User();
 
-        String statement = "SELECT * FROM benutzer WHERE id = " + id;
-        rs = doSQLQuery( statement );
-
         try {
+            connection.setAutoCommit(false);
+            statement = connection.prepareStatement(PS_GET_USER_BY_ID);
+            statement.setInt(1, id);
+            rs = statement.executeQuery();
+
             while ( rs.next() ) {
                 aUser.setE_mail( rs.getString( E_MAIL ) );
                 aUser.setPasswort( rs.getString( PASSWORT ));
@@ -59,14 +63,17 @@ public class SchnittstelleBenutzer {
     }
 
     public boolean checkID ( int id ) {
+        PreparedStatement statement;
+        Connection connection = getConnection();
         ResultSet rs;
         int re_id = 0;
 
-        String statement = "SELECT id FROM benutzer WHERE id = " + id;
-
-        rs = doSQLQuery( statement );
-
         try {
+            connection.setAutoCommit(false);
+            statement = connection.prepareStatement(PS_CHECK_ID);
+            statement.setInt(1, id);
+            rs = statement.executeQuery();
+
             if( rs.next() ) {
                 re_id = rs.getInt( ID );
             }
@@ -87,30 +94,30 @@ public class SchnittstelleBenutzer {
      * @return true falls vorhanden false falls nicht vorhanden
      */
     public boolean checkEmail( String email ) {
-        PreparedStatement pStatement = null;
+        Connection connection = getConnection();
+        PreparedStatement statement;
         ResultSet rs;
         String re_mail = "";
-        //TODO Select statement in extra resource auslagern
-        String statement = "SELECT e_mail FROM benutzer WHERE e_mail = '" + email + "'";
-        String pStringStatement = "SELECT ? FROM ? WHERE ? = '" + email + "'";
-
-
-        rs = doSQLQuery( statement );
 
         try {
+            connection.setAutoCommit(false);
+            statement = connection.prepareStatement(PS_CHECK_EMAIL);
+            statement.setString(1, email);
+            rs = statement.executeQuery();
+
             if( rs.next() ) {
                 re_mail = rs.getString(E_MAIL);
             }
 
-            //Existiert schon weil eine email gefunden wurde
-            if ( !re_mail.isEmpty() ) {
-                return true;
+            //Existiert nicht weil keine email gefunden wurde
+            if ( re_mail.isEmpty() ) {
+                return false;
             }
         } catch ( SQLException e ) {
             System.err.println(e.getMessage());
         }
 
-        return false;
+        return true;
     }
 
     /**
@@ -119,13 +126,17 @@ public class SchnittstelleBenutzer {
      * @return passwort des Benutzers
      */
     public String getPasswordByID( int id ) {
+        Connection connection = getConnection();
+        PreparedStatement statement;
         ResultSet rs;
         String passwort = "";
-        String statement = "SELECT passwort FROM benutzer WHERE id = " + id;
-
-        rs = doSQLQuery( statement );
 
         try {
+            connection.setAutoCommit(false);
+            statement = connection.prepareStatement(PS_GET_PASSWORD_BY_ID);
+            statement.setInt(1, id);
+            rs = statement.executeQuery();
+
             rs.next();
 
             passwort = rs.getString( PASSWORT );
@@ -142,9 +153,24 @@ public class SchnittstelleBenutzer {
      * @param aUser ein Benutzer
      */
     public void addUser( User aUser ) {
-        String statement = "INSERT INTO benutzer VALUES ('" + aUser.getId() + "','" + aUser.getE_mail() + "','" + aUser.getPasswort() + "','" + aUser.getAvatar_link() + "','" + aUser.getName() + "')";
+        //String statement = "INSERT INTO benutzer VALUES ('" + aUser.getId() + "','" + aUser.getE_mail() + "','" + aUser.getPasswort() + "','" + aUser.getAvatar_link() + "','" + aUser.getName() + "')";
+        //"INSERT INTO benutzer VALUES (?,?,?,?,?)";
+        PreparedStatement statement;
+        Connection connection = getConnection();
+        try {
+            connection.setAutoCommit(false);
+            statement = connection.prepareStatement(PS_ADD_USER);
+            statement.setInt(1,aUser.getId());
+            statement.setString(2, aUser.getE_mail());
+            statement.setString(3, aUser.getPasswort());
+            statement.setString(4, aUser.getAvatar_link());
+            statement.setString(5, aUser.getName());
+            statement.executeUpdate();
 
-        doSQLUpdate( statement );
+        } catch ( SQLException e ) {
+            e.printStackTrace();
+        }
+        //doSQLUpdate( statement );
     }
 
     /**
@@ -152,11 +178,18 @@ public class SchnittstelleBenutzer {
      * @return ID + 1
      */
     public int getNextID() {
-        String statement = "SELECT count(*) AS anzahl FROM benutzer";
-        ResultSet rs = doSQLQuery( statement );
+        //String statement = "SELECT count(*) AS anzahl FROM benutzer";
+        //ResultSet rs = doSQLQuery( statement );
+        ResultSet rs;
+        PreparedStatement statement;
+        Connection connection = getConnection();
         int nummer = -1;
 
         try {
+            connection.setAutoCommit(false);
+            statement = connection.prepareStatement(PS_GET_NEXT_ID);
+            rs = statement.executeQuery();
+
             rs.next();
             nummer = rs.getInt( ANZAHL );
             nummer++;
@@ -254,6 +287,7 @@ public class SchnittstelleBenutzer {
         System.out.println(sch.getNextID());
         boolean id = sch.checkID(0);
 
+        System.out.println("Email schon vorhanden:" + sch.checkEmail(aUser.getE_mail()));
         System.out.println(id);
     }
 }
