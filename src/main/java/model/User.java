@@ -20,6 +20,7 @@ public class User {
         this.passwort = "";
         this.avatar_link = "";
         this.name = "";
+        this.id = schnittBen.getNextID();
     }
 
     public User(String e_mail, String passwort, String avatar_link, String name ) {

@@ -9,8 +9,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
-import constants.DB_Constants;
 import model.User;
+
+import static constants.DB_Constants.*;
 
 /**
  * Created by Florian on 13.06.2017.
@@ -33,7 +34,7 @@ public class SchnittstelleBenutzer {
             properties.load(is);
             Class.forName( properties.getProperty(CLASS_NAME) );
         } catch ( ClassNotFoundException e ) {
-            System.err.println( DB_Constants.ERR_MSG_DRIVER );
+            System.err.println( ERR_MSG_DRIVER );
         } catch ( IOException e) {
             System.err.println( e.getMessage());
         }
@@ -59,7 +60,7 @@ public class SchnittstelleBenutzer {
                 aUser.setName( rs.getString( 5 ) );
             }
         } catch ( SQLException e ) {
-            System.err.println( DB_Constants.ERR_MSG_GET_USER );
+            System.err.println( ERR_MSG_GET_USER );
             e.printStackTrace();
         }
 
@@ -110,7 +111,7 @@ public class SchnittstelleBenutzer {
 
             passwort = rs.getString( "passwort" );
         } catch ( SQLException e ) {
-            System.err.println( DB_Constants.ERR_MSG_GET_PASSWORD );
+            System.err.println( ERR_MSG_GET_PASSWORD );
             e.printStackTrace();
         }
 
@@ -145,7 +146,7 @@ public class SchnittstelleBenutzer {
             nummer = rs.getInt( "anzahl" );
             nummer++;
         } catch ( SQLException e ) {
-            System.err.println( DB_Constants.ERR_MSG_CURRENT_ID );
+            System.err.println( ERR_MSG_CURRENT_ID );
             e.printStackTrace();
         }
 
@@ -165,7 +166,7 @@ public class SchnittstelleBenutzer {
             stmt.executeUpdate(statement);
             con.close();
         } catch ( SQLException e ) {
-            System.err.println( DB_Constants.ERR_MSG_UPDATE );
+            System.err.println( ERR_MSG_UPDATE );
             e.printStackTrace();
         } finally {
             try {
@@ -194,7 +195,7 @@ public class SchnittstelleBenutzer {
 
             con.close();
         } catch ( SQLException e ) {
-            System.err.println( DB_Constants.ERR_MSG_QUERY );
+            System.err.println( ERR_MSG_QUERY );
             e.printStackTrace();
         } finally {
             try {
@@ -221,7 +222,7 @@ public class SchnittstelleBenutzer {
 
             con = DriverManager.getConnection( url, user, password );
         } catch ( SQLException e ) {
-            System.err.println( DB_Constants.ERR_MSG_CONNECTION );
+            System.err.println( ERR_MSG_CONNECTION );
             e.printStackTrace();
         }
 
