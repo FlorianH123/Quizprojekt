@@ -26,5 +26,6 @@ public class DB_Constants {
     public static final String ERR_MSG_QUERY        = "Fehler: SQL Query Statement fehlgeschlagen!";
     public static final String ERR_MSG_CONNECTION   = "Fehler: Es konnte keine Verbindung aufgebaut werden!";
     public static final String ERR_MSG_GET_PASSWORD = "Fehler: Es konnte kein Passwort zu dieser ID gefunden werden!";
+    public static final String ERR_MSG_DATA_NOT_FOUND = "Fehler: Die angebene ID ist nicht vorhanden";
 //----------------------------------------------------------------------------------------------------------------------
 }

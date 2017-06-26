@@ -7,29 +7,41 @@ import dao.SchnittstelleBenutzer;
  * Containerklasse für einen Benutzer
  */
 public class User {
-    private String name;
-    private String e_mail;
-    private String avatar_link;
-    private String passwort;
     private int id;
+    private String e_mail;
+    private String passwort;
+    private String avatar_link;
+    private String name;
 
     private SchnittstelleBenutzer schnittBen = new SchnittstelleBenutzer();
 
     public User() {
+        this.id = schnittBen.getNextID();
         this.e_mail = "";
         this.passwort = "";
         this.avatar_link = "";
         this.name = "";
-        this.id = schnittBen.getNextID();
     }
 
     public User(String e_mail, String passwort, String avatar_link, String name ) {
+        this.id = schnittBen.getNextID();
         this.e_mail = e_mail;
         this.passwort = passwort;
         this.avatar_link = avatar_link;
         this.name = name;
-        this.id = schnittBen.getNextID();
+    }
 
+    public User(int id, String e_mail, String passwort, String avatar_link, String name ) {
+        this.id = id;
+        this.e_mail = e_mail;
+        this.passwort = passwort;
+        this.avatar_link = avatar_link;
+        this.name = name;
+
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getId() {
@@ -71,7 +83,7 @@ public class User {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("E-Mail: ").append(e_mail).append("\n").append("Passwort: ")
+        sb.append("ID: ").append(id).append("\n").append("E-Mail: ").append(e_mail).append("\n").append("Passwort: ")
                 .append(passwort).append("\n").append("Avatar Link: ")
                 .append(avatar_link).append("\n").append("Name: ").append(name);
 

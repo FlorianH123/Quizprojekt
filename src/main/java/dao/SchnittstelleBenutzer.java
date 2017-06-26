@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;
 
+import exception.DataNotFoundException;
 import model.User;
 
 import static constants.DB_Constants.*;
@@ -44,12 +45,21 @@ public class SchnittstelleBenutzer {
         rs = doSQLQuery( statement );
 
         try {
-            while ( rs.next() ) {
-                aUser.setE_mail( rs.getString( E_MAIL ) );
-                aUser.setPasswort( rs.getString( PASSWORT ));
-                aUser.setAvatar_link( rs.getString( AVATAR_LINK ));
-                aUser.setName( rs.getString( NAME ));
+            if (!rs.next()) {
+                throw new DataNotFoundException( ERR_MSG_DATA_NOT_FOUND );
             }
+
+            else {
+                rs.previous();
+                while ( rs.next() ) {
+                    aUser.setId(rs.getInt( ID ));
+                    aUser.setE_mail( rs.getString( E_MAIL ) );
+                    aUser.setPasswort( rs.getString( PASSWORT ));
+                    aUser.setAvatar_link( rs.getString( AVATAR_LINK ));
+                    aUser.setName( rs.getString( NAME ));
+                }
+            }
+
         } catch ( SQLException e ) {
             System.err.println( ERR_MSG_GET_USER );
             e.printStackTrace();
@@ -204,7 +214,7 @@ public class SchnittstelleBenutzer {
         ResultSet rs = null;
 
         try {
-            stmt = con.createStatement();
+            stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs = stmt.executeQuery(statement);
 
             con.close();
@@ -249,11 +259,7 @@ public class SchnittstelleBenutzer {
     public static void main (String argv[]) {
         SchnittstelleBenutzer sch = new SchnittstelleBenutzer();
         User aUser = sch.getUserByID(1);
-        System.out.println("Passwort: " + sch.getPasswordByID(1));
-        System.out.println(aUser.toString());
-        System.out.println(sch.getNextID());
-        boolean id = sch.checkID(0);
 
-        System.out.println(id);
+        System.out.println(aUser.toString());
     }
 }
