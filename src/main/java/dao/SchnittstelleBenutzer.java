@@ -2,11 +2,7 @@ package dao;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Properties;
 
 import model.User;
@@ -91,10 +87,13 @@ public class SchnittstelleBenutzer {
      * @return true falls vorhanden false falls nicht vorhanden
      */
     public boolean checkEmail( String email ) {
+        PreparedStatement pStatement = null;
         ResultSet rs;
         String re_mail = "";
         //TODO Select statement in extra resource auslagern
         String statement = "SELECT e_mail FROM benutzer WHERE e_mail = '" + email + "'";
+        String pStringStatement = "SELECT ? FROM ? WHERE ? = '" + email + "'";
+
 
         rs = doSQLQuery( statement );
 
