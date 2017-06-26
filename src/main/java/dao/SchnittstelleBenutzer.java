@@ -43,43 +43,25 @@ public class SchnittstelleBenutzer {
         ResultSet rs;
         User aUser = new User();
 
-        String statement = "SELECT * FROM benutzer WHERE id = " + id;
-        rs = doSQLQuery( statement );
-
-        try {
-            if (!rs.next()) {
-                throw new DataNotFoundException( ERR_MSG_DATA_NOT_FOUND );
-            }
-
-            else {
-                rs.previous();
-                while ( rs.next() ) {
-                    aUser.setId(rs.getInt( ID ));
-                    aUser.setE_mail( rs.getString( E_MAIL ) );
-                    aUser.setPasswort( rs.getString( PASSWORT ));
-                    aUser.setAvatar_link( rs.getString( AVATAR_LINK ));
-                    aUser.setName( rs.getString( NAME ));
-                }
-            }
-
-        } catch ( SQLException e ) {
-            System.err.println( ERR_MSG_GET_USER );
-            e.printStackTrace();
-        }
-
-        return aUser;
-
         try {
             connection.setAutoCommit(false);
             statement = connection.prepareStatement(PS_GET_USER_BY_ID);
             statement.setInt(1, id);
             rs = statement.executeQuery();
 
-            while ( rs.next() ) {
-                aUser.setE_mail( rs.getString( E_MAIL ) );
-                aUser.setPasswort( rs.getString( PASSWORT ));
-                aUser.setAvatar_link( rs.getString( AVATAR_LINK ));
-                aUser.setName( rs.getString( NAME ));
+            if (!rs.next()) {
+                throw new DataNotFoundException( ERR_MSG_DATA_NOT_FOUND );
+            }
+
+            else {
+
+                rs.previous();
+                while ( rs.next() ) {
+                    aUser.setE_mail(rs.getString(E_MAIL));
+                    aUser.setPasswort(rs.getString(PASSWORT));
+                    aUser.setAvatar_link(rs.getString(AVATAR_LINK));
+                    aUser.setName(rs.getString(NAME));
+                }
             }
         } catch ( SQLException e ) {
             System.err.println( ERR_MSG_GET_USER );
