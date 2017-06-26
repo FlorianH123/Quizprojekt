@@ -19,13 +19,7 @@ import static constants.DB_Constants.*;
  */
 
 public class SchnittstelleBenutzer {
-    private static final String CLASS_NAME = "class-name";
-    private static final String URL = "url";
-    private static final String USER = "user";
-    private static final String PASSWORD = "password";
-    private static final String FILENAME = "DBconfig.properties";
     private Properties properties;
-
 
     public SchnittstelleBenutzer() {
         try {
@@ -54,10 +48,10 @@ public class SchnittstelleBenutzer {
 
         try {
             while ( rs.next() ) {
-                aUser.setE_mail( rs.getString( 2 ) );
-                aUser.setPasswort( rs.getString( 3 ) );
-                aUser.setAvatar_link( rs.getString( 4 ) );
-                aUser.setName( rs.getString( 5 ) );
+                aUser.setE_mail( rs.getString( E_MAIL ) );
+                aUser.setPasswort( rs.getString( PASSWORT ));
+                aUser.setAvatar_link( rs.getString( AVATAR_LINK ));
+                aUser.setName( rs.getString( NAME ));
             }
         } catch ( SQLException e ) {
             System.err.println( ERR_MSG_GET_USER );
@@ -80,7 +74,7 @@ public class SchnittstelleBenutzer {
 
         try {
             if( rs.next() ) {
-                re_mail = rs.getString("e_mail");
+                re_mail = rs.getString(E_MAIL);
             }
 
             //Existiert schon weil eine email gefunden wurde
@@ -109,7 +103,7 @@ public class SchnittstelleBenutzer {
         try {
             rs.next();
 
-            passwort = rs.getString( "passwort" );
+            passwort = rs.getString( PASSWORT );
         } catch ( SQLException e ) {
             System.err.println( ERR_MSG_GET_PASSWORD );
             e.printStackTrace();
@@ -143,7 +137,7 @@ public class SchnittstelleBenutzer {
 
         try {
             rs.next();
-            nummer = rs.getInt( "anzahl" );
+            nummer = rs.getInt( ANZAHL );
             nummer++;
         } catch ( SQLException e ) {
             System.err.println( ERR_MSG_CURRENT_ID );
@@ -218,7 +212,7 @@ public class SchnittstelleBenutzer {
         try {
             url = properties.getProperty(URL);
             user = properties.getProperty(USER);
-            password = properties.getProperty(PASSWORD);
+            password = properties.getProperty(DB_PASSWORD);
 
             con = DriverManager.getConnection( url, user, password );
         } catch ( SQLException e ) {
