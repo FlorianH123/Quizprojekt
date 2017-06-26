@@ -1,6 +1,7 @@
 package daoTests;
 
 import dao.SchnittstelleBenutzer;
+import exception.DataNotFoundException;
 import model.User;
 import org.junit.Test;
 
@@ -19,32 +20,78 @@ public class SchnittstelleBenutzerTest {
 
     SchnittstelleBenutzer schnittBenutzer = new SchnittstelleBenutzer();
 
-    @Test
-    public void getUserByID() throws Exception {
-        boolean equals;
+    private boolean equals;
 
-        //Szenarios für erfolgreiche Tests
+    @Test
+    public void getUserByIDTest() throws Exception {
         equals = schnittBenutzer.getUserByID(1).getE_mail().equals(aUser1.getE_mail()) &&
                  schnittBenutzer.getUserByID(1).getPasswort().equals(aUser1.getPasswort()) &&
                  schnittBenutzer.getUserByID(1).getAvatar_link().equals(aUser1.getAvatar_link()) &&
                  schnittBenutzer.getUserByID(1).getName().equals(aUser1.getName());
         assertTrue(equals);
+    }
 
+    @Test
+    public void getUserByIDTest2() throws Exception {
         equals = schnittBenutzer.getUserByID(2).getE_mail().equals(aUser2.getE_mail()) &&
                  schnittBenutzer.getUserByID(2).getPasswort().equals(aUser2.getPasswort()) &&
                  schnittBenutzer.getUserByID(2).getAvatar_link().equals(aUser2.getAvatar_link()) &&
                  schnittBenutzer.getUserByID(2).getName().equals(aUser2.getName());
         assertTrue(equals);
+    }
 
+    @Test
+    public void getUserByIDTest3() throws Exception {
         equals = schnittBenutzer.getUserByID(3).getE_mail().equals(aUser3.getE_mail()) &&
                  schnittBenutzer.getUserByID(3).getPasswort().equals(aUser3.getPasswort()) &&
                  schnittBenutzer.getUserByID(3).getAvatar_link().equals(aUser3.getAvatar_link()) &&
                  schnittBenutzer.getUserByID(3).getName().equals(aUser3.getName());
         assertTrue(equals);
 
-        System.out.println(schnittBenutzer.getUserByID(0).toString());
-        //Szenarios für erfolglose Tests
-        assertEquals("ok", null, schnittBenutzer.getUserByID(0));
+    }
+
+    @Test
+    public void getUserByIDTest4() throws Exception {
+        equals = schnittBenutzer.getUserByID(3).getE_mail().equals(aUser2.getE_mail()) &&
+                schnittBenutzer.getUserByID(3).getPasswort().equals(aUser2.getPasswort()) &&
+                schnittBenutzer.getUserByID(3).getAvatar_link().equals(aUser2.getAvatar_link()) &&
+                schnittBenutzer.getUserByID(3).getName().equals(aUser2.getName());
+        assertFalse(equals);
+
+    }
+
+    @Test (expected = DataNotFoundException.class)
+    public void getUserByID_with_exceptionTest() throws Exception {
+        schnittBenutzer.getUserByID(0);
+    }
+
+    @Test
+    public void getPasswordByIDTest() throws Exception {
+        equals = schnittBenutzer.getPasswordByID(1).equals(aUser1.getPasswort());
+        assertTrue(equals);
+    }
+
+    @Test
+    public void getPasswordByIDTest2() throws Exception {
+        equals = schnittBenutzer.getPasswordByID(2).equals(aUser2.getPasswort());
+        assertTrue(equals);
+    }
+
+    @Test
+    public void getPasswordByIDTest3() throws Exception {
+        equals = schnittBenutzer.getPasswordByID(3).equals(aUser3.getPasswort());
+        assertTrue(equals);
+    }
+
+    @Test
+    public void getPasswordByIDTest4() throws Exception {
+        equals = schnittBenutzer.getPasswordByID(3).equals(aUser2.getPasswort());
+        assertFalse(equals);
+    }
+
+    @Test (expected = DataNotFoundException.class)
+    public void getPasswordByIDTest_with_exceptionTest() throws Exception {
+        schnittBenutzer.getPasswordByID(0);
     }
 
     @Test
@@ -53,10 +100,6 @@ public class SchnittstelleBenutzerTest {
 
     @Test
     public void checkEmail() throws Exception {
-    }
-
-    @Test
-    public void getPasswordByID() throws Exception {
     }
 
     @Test

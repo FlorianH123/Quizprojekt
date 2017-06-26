@@ -108,7 +108,6 @@ public class SchnittstelleBenutzer {
                 throw new DataNotFoundException(ERR_MSG_ID_NOT_FOUND);
             }
 
-            rs.previous();
             passwort = rs.getString( PASSWORT );
             connection.close();
         } catch ( SQLException e ) {
@@ -292,14 +291,6 @@ public class SchnittstelleBenutzer {
         } catch ( SQLException e ) {
             System.err.println( ERR_MSG_CONNECTION );
             e.printStackTrace();
-        } finally {
-            if (con != null) {
-                try {
-                    con.close();
-                } catch (SQLException e) {
-                    //TODO Log Datei erstellen
-                }
-            }
         }
 
         return con;
