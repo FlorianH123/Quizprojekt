@@ -1,5 +1,7 @@
 package model;
 
+import dao.SchnittstelleBenutzer;
+
 /**
  * Created by Florian on 13.06.2017.
  * Containerklasse für einen Benutzer
@@ -10,6 +12,8 @@ public class User {
     private String avatar_link;
     private String passwort;
     private int id;
+
+    private SchnittstelleBenutzer schnittBen = new SchnittstelleBenutzer();
 
     public User() {
         this.e_mail = "";
@@ -23,16 +27,12 @@ public class User {
         this.passwort = passwort;
         this.avatar_link = avatar_link;
         this.name = name;
-        this.id = 0;
+        this.id = schnittBen.getNextID();
 
     }
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {

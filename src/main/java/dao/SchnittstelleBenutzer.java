@@ -122,7 +122,7 @@ public class SchnittstelleBenutzer {
      * @param aUser ein Benutzer
      */
     public void addUser( User aUser ) {
-        String statement = "INSERT INTO benutzer VALUES ('" + getNextID() + "','" + aUser.getE_mail() + "','" + aUser.getPasswort() + "','" + aUser.getAvatar_link() + "','" + aUser.getName() + "')";
+        String statement = "INSERT INTO benutzer VALUES ('" + aUser.getId() + "','" + aUser.getE_mail() + "','" + aUser.getPasswort() + "','" + aUser.getAvatar_link() + "','" + aUser.getName() + "')";
 
         doSQLUpdate( statement );
     }

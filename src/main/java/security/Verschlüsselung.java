@@ -31,6 +31,8 @@ public class Verschlüsselung {
     // TODO Lösche main nach Test
     public static void main(String args[]) {
         byte[] test = generatePasswort("passwort123");
+        String s = new String(test);
+        System.out.println(s);
 
         for (byte b : test)
             System.out.printf("%02x", b);

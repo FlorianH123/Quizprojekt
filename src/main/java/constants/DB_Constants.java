@@ -5,7 +5,6 @@ package constants;
  * Datenbank Konstanten
  */
 public class DB_Constants {
-
 // fuer SchnittstelleBenutzer ------------------------------------------------------------------------------------------
     public static final String ERR_MSG_CURRENT_ID = "Fehler: Es konnte keine ID berechnet werden1";
     public static final String ERR_MSG_DRIVER = "Kein Treiber gefunden!";
