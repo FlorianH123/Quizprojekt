@@ -51,7 +51,6 @@ public class SchnittstelleBenutzer {
         User aUser = new User();
 
         try {
-            connection.setAutoCommit( false );
             statement = connection.prepareStatement(PS_GET_USER_BY_ID, ResultSet.TYPE_SCROLL_INSENSITIVE,
                                                                        ResultSet.CONCUR_READ_ONLY);
 
@@ -105,7 +104,6 @@ public class SchnittstelleBenutzer {
         String passwort = "";
 
         try {
-            connection.setAutoCommit(false);
             statement = connection.prepareStatement( PS_GET_PASSWORD_BY_ID, ResultSet.TYPE_SCROLL_INSENSITIVE,
                                                                             ResultSet.CONCUR_READ_ONLY);
             statement.setInt( INDEX_1, id );
@@ -143,7 +141,6 @@ public class SchnittstelleBenutzer {
         int re_id = 0;
 
         try {
-            connection.setAutoCommit( false );
             statement = connection.prepareStatement( PS_CHECK_ID );
             statement.setInt( INDEX_1, id );
             rs = statement.executeQuery();
@@ -186,7 +183,6 @@ public class SchnittstelleBenutzer {
         String re_mail = "";
 
         try {
-            connection.setAutoCommit( false );
             statement = connection.prepareStatement( PS_CHECK_EMAIL );
             statement.setString( INDEX_1, email );
             rs = statement.executeQuery();
@@ -226,7 +222,6 @@ public class SchnittstelleBenutzer {
         Connection connection = getConnection();
 
         try {
-            connection.setAutoCommit( false );
             statement = connection.prepareStatement( PS_ADD_USER );
 
             statement.setInt( INDEX_1, aUser.getId() );
@@ -268,7 +263,6 @@ public class SchnittstelleBenutzer {
         int nummer = -1;
 
         try {
-            connection.setAutoCommit(false);
             statement = connection.prepareStatement(PS_GET_NEXT_ID);
             rs = statement.executeQuery();
 
@@ -315,13 +309,5 @@ public class SchnittstelleBenutzer {
         }
 
         return con;
-    }
-    public static void main (String args[]) {
-        User aUser = new User("testmail3@mail.de", "yfggg", "link.link","fgyggg");
-        SchnittstelleBenutzer sc = new SchnittstelleBenutzer();
-        sc.addUser(aUser);
-        sc.getUserByID(1);
-
-
     }
 }
