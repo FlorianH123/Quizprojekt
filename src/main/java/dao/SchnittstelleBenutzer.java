@@ -45,15 +45,15 @@ public class SchnittstelleBenutzer {
     public User getUserByID( int id ) {
         Validator.check(id > 0, ERR_MSG_ID_GREATER_ZERO);
 
-        PreparedStatement statement;
-        Connection connection = getConnection();
-        ResultSet rs;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
         User aUser = new User();
 
         try {
+            connection = getConnection();
             statement = connection.prepareStatement(PS_GET_USER_BY_ID, ResultSet.TYPE_SCROLL_INSENSITIVE,
                                                                        ResultSet.CONCUR_READ_ONLY);
-
             statement.setInt( INDEX_1, id );
             rs = statement.executeQuery();
 
@@ -77,10 +77,26 @@ public class SchnittstelleBenutzer {
             System.err.println( ERR_MSG_GET_USER );
             e.printStackTrace();
         } finally {
-            if( connection != null ) {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    //TODO LOG DAtei erstellen
+                }
+            }
+
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    //TODO LOG DAtei erstellen
+                }
+            }
+
+            if (connection != null) {
                 try {
                     connection.close();
-                } catch ( SQLException e ) {
+                } catch (SQLException e) {
                     //TODO Log Datei erstellen
                 }
             }
@@ -98,12 +114,13 @@ public class SchnittstelleBenutzer {
     public String getPasswordByID( int id ) {
         Validator.check(id > 0, ERR_MSG_ID_GREATER_ZERO);
 
-        Connection connection = getConnection();
-        PreparedStatement statement;
-        ResultSet rs;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
         String passwort = "";
 
         try {
+            connection = getConnection();
             statement = connection.prepareStatement( PS_GET_PASSWORD_BY_ID, ResultSet.TYPE_SCROLL_INSENSITIVE,
                                                                             ResultSet.CONCUR_READ_ONLY);
             statement.setInt( INDEX_1, id );
@@ -120,6 +137,22 @@ public class SchnittstelleBenutzer {
             System.err.println( ERR_MSG_GET_PASSWORD );
             e.printStackTrace();
         } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    //TODO LOG DAtei erstellen
+                }
+            }
+
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    //TODO LOG DAtei erstellen
+                }
+            }
+
             if (connection != null) {
                 try {
                     connection.close();
@@ -135,12 +168,13 @@ public class SchnittstelleBenutzer {
     public boolean checkID ( int id ) {
         Validator.check(id > 0, ERR_MSG_ID_GREATER_ZERO);
 
-        PreparedStatement statement;
-        Connection connection = getConnection();
-        ResultSet rs;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
         int re_id = 0;
 
         try {
+            connection = getConnection();
             statement = connection.prepareStatement( PS_CHECK_ID );
             statement.setInt( INDEX_1, id );
             rs = statement.executeQuery();
@@ -157,6 +191,22 @@ public class SchnittstelleBenutzer {
             //TODO LOG Datei erstellen
             System.err.println(e.getMessage());
         } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    //TODO LOG DAtei erstellen
+                }
+            }
+
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    //TODO LOG DAtei erstellen
+                }
+            }
+
             if (connection != null) {
                 try {
                     connection.close();
@@ -177,12 +227,13 @@ public class SchnittstelleBenutzer {
     public boolean checkEmail( String email ) {
         Validator.check(!email.isEmpty(), ERR_MSG_EMAIL_EMPTY);
 
-        Connection connection = getConnection();
-        PreparedStatement statement;
-        ResultSet rs;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
         String re_mail = "";
 
         try {
+            connection = getConnection();
             statement = connection.prepareStatement( PS_CHECK_EMAIL );
             statement.setString( INDEX_1, email );
             rs = statement.executeQuery();
@@ -200,6 +251,22 @@ public class SchnittstelleBenutzer {
             //TODO LOG Datei erstellen
             System.err.println(e.getMessage());
         } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    //TODO LOG DAtei erstellen
+                }
+            }
+
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    //TODO LOG DAtei erstellen
+                }
+            }
+
             if (connection != null) {
                 try {
                     connection.close();
@@ -212,16 +279,16 @@ public class SchnittstelleBenutzer {
         return true;
     }
 
-
     /**
      * Methode die ein Benutzer zu der DB benutzer hinzufügt
      * @param aUser ein Benutzer
      */
     public void addUser( User aUser ) {
+        Connection connection = null;
         PreparedStatement statement = null;
-        Connection connection = getConnection();
 
         try {
+            connection = getConnection();
             statement = connection.prepareStatement( PS_ADD_USER );
 
             statement.setInt( INDEX_1, aUser.getId() );
@@ -257,12 +324,13 @@ public class SchnittstelleBenutzer {
      * @return ID + 1
      */
     public int getNextID() {
-        ResultSet rs;
-        PreparedStatement statement;
-        Connection connection = getConnection();
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
         int nummer = -1;
 
         try {
+            connection = getConnection();
             statement = connection.prepareStatement(PS_GET_NEXT_ID);
             rs = statement.executeQuery();
 
@@ -275,6 +343,22 @@ public class SchnittstelleBenutzer {
             System.err.println( ERR_MSG_CURRENT_ID );
             e.printStackTrace();
         } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    //TODO LOG DAtei erstellen
+                }
+            }
+
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    //TODO LOG DAtei erstellen
+                }
+            }
+
             if (connection != null) {
                 try {
                     connection.close();

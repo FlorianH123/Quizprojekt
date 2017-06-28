@@ -2,6 +2,7 @@ package constants;
 
 /**
  * Created by Florian on 22.06.2017.
+ * Rest Konstanten
  */
 
 public class Rest_Constants {
@@ -9,7 +10,7 @@ public class Rest_Constants {
     public static final String PROFILE_PATH = "/profile";
     public static final String MSG_BENUTZER_ANGELEGT = "Benutzer wurde angelegt";
     public static final String MESSAGE_ID_PATH = "/{messageID}";
-    public static final String MESSAGE_ID = "{messageID}";
+    public static final String MESSAGE_ID = "messageID";
 //----------------------------------------------------------------------------------------------------------------------
 
 //fuer FragenResource---------------------------------------------------------------------------------------------------

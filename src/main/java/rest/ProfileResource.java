@@ -54,7 +54,7 @@ public class ProfileResource {
     /**
      * Methode um zu einer gegebenen ID den dazugehörigen Benutzer zu liefern
      * @param messageID
-     * @return
+     * @return Response Nachricht
      */
     @GET
     @Path(MESSAGE_ID_PATH)
