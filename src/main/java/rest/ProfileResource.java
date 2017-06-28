@@ -1,6 +1,7 @@
 package rest;
 
 import dao.SchnittstelleBenutzer;
+import model.ConfirmMessage;
 import model.User;
 import org.glassfish.jersey.server.Uri;
 import service.ProfileService;
@@ -14,12 +15,12 @@ import javax.ws.rs.core.UriInfo;
 
 import java.net.URI;
 
-import static constants.Rest_Constants.PROFILE_PATH;
+import static constants.Rest_Constants.*;
 
 
 /**
  * Created by Florian on 22.06.2017.
- * Resource um Benutzer anzulegen udn abzufragen
+ * Resource um Benutzer anzulegen und abzufragen
  */
 
 @Path(PROFILE_PATH)
@@ -41,16 +42,23 @@ public class ProfileResource {
     public Response addUser (User aUser, @Context UriInfo uriInfo) {
         String newID = String.valueOf(aUser.getId());
         URI uri = uriInfo.getAbsolutePathBuilder().path(newID).build();
+        ConfirmMessage msg = new ConfirmMessage(MSG_BENUTZER_ANGELEGT, Response.Status.CREATED.getStatusCode());
 
         profileService.addUser(aUser);
         return Response.created(uri)
-                .entity(aUser)
+                .entity(msg)
                 .build();
     }
 
+    /**
+     * Methode um zu einer gegebenen ID den dazugehörigen Benutzer zu liefern
+     * @param messageID
+     * @return
+     */
     @GET
-    @Path("/{messageID}")
-    public Response getUser (@PathParam("messageID") int messageID) {
+    @Path(MESSAGE_ID_PATH)
+    public Response getUser (@PathParam(MESSAGE_ID) int messageID) {
+        //TODO fehlerüberprüfung einbauen
         return Response.ok()
                 .entity(profileService.getUser(messageID))
                 .build();

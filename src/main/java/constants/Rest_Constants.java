@@ -8,6 +8,8 @@ public class Rest_Constants {
 // fuer ProfileResource-------------------------------------------------------------------------------------------------
     public static final String PROFILE_PATH = "/profile";
     public static final String MSG_BENUTZER_ANGELEGT = "Benutzer wurde angelegt";
+    public static final String MESSAGE_ID_PATH = "/{messageID}";
+    public static final String MESSAGE_ID = "{messageID}";
 //----------------------------------------------------------------------------------------------------------------------
 
 //fuer FragenResource---------------------------------------------------------------------------------------------------

@@ -7,6 +7,7 @@ import java.util.Properties;
 
 import exception.DataNotFoundException;
 import model.User;
+import validation.Validator;
 
 import static constants.DB_Constants.*;
 
@@ -27,8 +28,10 @@ public class SchnittstelleBenutzer {
             properties.load(is);
             Class.forName( properties.getProperty(CLASS_NAME) );
         } catch ( ClassNotFoundException e ) {
+            //TODO LOG Datei erstellen
             System.err.println( ERR_MSG_DRIVER );
         } catch ( IOException e) {
+            //TODO LOG Datei erstellen
             System.err.println( e.getMessage());
         }
     }
@@ -40,6 +43,8 @@ public class SchnittstelleBenutzer {
      * @return Benutzer
      */
     public User getUserByID( int id ) {
+        Validator.check(id > 0, ERR_MSG_ID_GREATER_ZERO);
+
         PreparedStatement statement;
         Connection connection = getConnection();
         ResultSet rs;
@@ -70,6 +75,7 @@ public class SchnittstelleBenutzer {
 
             connection.close();
         } catch ( SQLException e ) {
+            //TODO LOG Datei erstellen
             System.err.println( ERR_MSG_GET_USER );
             e.printStackTrace();
         } finally {
@@ -92,6 +98,8 @@ public class SchnittstelleBenutzer {
      * @return passwort des Benutzers
      */
     public String getPasswordByID( int id ) {
+        Validator.check(id > 0, ERR_MSG_ID_GREATER_ZERO);
+
         Connection connection = getConnection();
         PreparedStatement statement;
         ResultSet rs;
@@ -111,6 +119,7 @@ public class SchnittstelleBenutzer {
             passwort = rs.getString( PASSWORT );
             connection.close();
         } catch ( SQLException e ) {
+            //TODO LOG Datei erstellen
             System.err.println( ERR_MSG_GET_PASSWORD );
             e.printStackTrace();
         } finally {
@@ -127,6 +136,8 @@ public class SchnittstelleBenutzer {
     }
 
     public boolean checkID ( int id ) {
+        Validator.check(id > 0, ERR_MSG_ID_GREATER_ZERO);
+
         PreparedStatement statement;
         Connection connection = getConnection();
         ResultSet rs;
@@ -148,6 +159,7 @@ public class SchnittstelleBenutzer {
 
             connection.close();
         } catch ( SQLException e ) {
+            //TODO LOG Datei erstellen
             System.err.println(e.getMessage());
         } finally {
             if (connection != null) {
@@ -168,6 +180,8 @@ public class SchnittstelleBenutzer {
      * @return true falls vorhanden false falls nicht vorhanden
      */
     public boolean checkEmail( String email ) {
+        Validator.check(!email.isEmpty(), ERR_MSG_EMAIL_EMPTY);
+
         Connection connection = getConnection();
         PreparedStatement statement;
         ResultSet rs;
@@ -190,6 +204,7 @@ public class SchnittstelleBenutzer {
 
             connection.close();
         } catch ( SQLException e ) {
+            //TODO LOG Datei erstellen
             System.err.println(e.getMessage());
         } finally {
             if (connection != null) {
@@ -226,6 +241,7 @@ public class SchnittstelleBenutzer {
 
             connection.close();
         } catch ( SQLException e ) {
+            //TODO LOG Datei erstellen
             e.printStackTrace();
         } finally {
             if (connection != null) {
@@ -259,6 +275,7 @@ public class SchnittstelleBenutzer {
 
             connection.close();
         } catch ( SQLException e ) {
+            //TODO LOG Datei erstellen
             System.err.println( ERR_MSG_CURRENT_ID );
             e.printStackTrace();
         } finally {
@@ -289,6 +306,7 @@ public class SchnittstelleBenutzer {
 
             con = DriverManager.getConnection( url, user, password );
         } catch ( SQLException e ) {
+            //TODO LOG Datei erstellen
             System.err.println( ERR_MSG_CONNECTION );
             e.printStackTrace();
         }

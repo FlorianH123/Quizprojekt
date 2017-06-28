@@ -26,7 +26,9 @@ public class DB_Constants {
     public static final String ERR_MSG_QUERY        = "Fehler: SQL Query Statement fehlgeschlagen!";
     public static final String ERR_MSG_CONNECTION   = "Fehler: Es konnte keine Verbindung aufgebaut werden!";
     public static final String ERR_MSG_GET_PASSWORD = "Fehler: Es konnte kein Passwort zu dieser ID gefunden werden!";
-    public static final String ERR_MSG_ID_NOT_FOUND = "Fehler: Die angebene ID ist nicht vorhanden";
+    public static final String ERR_MSG_ID_NOT_FOUND = "Fehler: Die angebene ID ist nicht vorhanden!";
+    public static final String ERR_MSG_ID_GREATER_ZERO = "Fehler: Die ID muss groesser 0 sein!";
+    public static final String ERR_MSG_EMAIL_EMPTY  = "Fehler: E-Mail darf nicht leer sein!";
 
     //Prepared Statements
     public static final String PS_CHECK_EMAIL        = "SELECT "+ E_MAIL + " FROM benutzer WHERE " + E_MAIL + " = ?";
