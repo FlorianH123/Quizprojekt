@@ -73,7 +73,6 @@ public class SchnittstelleBenutzer {
                 }
             }
 
-            connection.close();
         } catch ( SQLException e ) {
             //TODO LOG Datei erstellen
             System.err.println( ERR_MSG_GET_USER );
@@ -117,7 +116,7 @@ public class SchnittstelleBenutzer {
             }
 
             passwort = rs.getString( PASSWORT );
-            connection.close();
+
         } catch ( SQLException e ) {
             //TODO LOG Datei erstellen
             System.err.println( ERR_MSG_GET_PASSWORD );
@@ -157,7 +156,6 @@ public class SchnittstelleBenutzer {
                 return true;
             }
 
-            connection.close();
         } catch ( SQLException e ) {
             //TODO LOG Datei erstellen
             System.err.println(e.getMessage());
@@ -202,7 +200,6 @@ public class SchnittstelleBenutzer {
                 return false;
             }
 
-            connection.close();
         } catch ( SQLException e ) {
             //TODO LOG Datei erstellen
             System.err.println(e.getMessage());
@@ -225,7 +222,7 @@ public class SchnittstelleBenutzer {
      * @param aUser ein Benutzer
      */
     public void addUser( User aUser ) {
-        PreparedStatement statement;
+        PreparedStatement statement = null;
         Connection connection = getConnection();
 
         try {
@@ -238,12 +235,18 @@ public class SchnittstelleBenutzer {
             statement.setString( INDEX_4, aUser.getAvatar_link() );
             statement.setString( INDEX_5, aUser.getName() );
             statement.executeUpdate();
-
-            connection.close();
+            connection.commit();
         } catch ( SQLException e ) {
             //TODO LOG Datei erstellen
             e.printStackTrace();
         } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    //TODO LOG DAtei erstellen
+                }
+            }
             if (connection != null) {
                 try {
                     connection.close();
@@ -273,7 +276,6 @@ public class SchnittstelleBenutzer {
             nummer = rs.getInt( ANZAHL );
             nummer++;
 
-            connection.close();
         } catch ( SQLException e ) {
             //TODO LOG Datei erstellen
             System.err.println( ERR_MSG_CURRENT_ID );
@@ -305,6 +307,7 @@ public class SchnittstelleBenutzer {
             password = properties.getProperty(DB_PASSWORD);
 
             con = DriverManager.getConnection( url, user, password );
+
         } catch ( SQLException e ) {
             //TODO LOG Datei erstellen
             System.err.println( ERR_MSG_CONNECTION );
@@ -312,5 +315,13 @@ public class SchnittstelleBenutzer {
         }
 
         return con;
+    }
+    public static void main (String args[]) {
+        User aUser = new User("testmail3@mail.de", "yfggg", "link.link","fgyggg");
+        SchnittstelleBenutzer sc = new SchnittstelleBenutzer();
+        sc.addUser(aUser);
+        sc.getUserByID(1);
+
+
     }
 }
