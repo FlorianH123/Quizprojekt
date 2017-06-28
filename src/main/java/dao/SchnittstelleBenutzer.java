@@ -230,7 +230,7 @@ public class SchnittstelleBenutzer {
             statement.setString( INDEX_4, aUser.getAvatar_link() );
             statement.setString( INDEX_5, aUser.getName() );
             statement.executeUpdate();
-            connection.commit();
+
         } catch ( SQLException e ) {
             //TODO LOG Datei erstellen
             e.printStackTrace();
