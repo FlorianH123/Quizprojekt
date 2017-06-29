@@ -141,7 +141,7 @@ public class SchnittstelleBenutzer {
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    //TODO LOG DAtei erstellen
+                    //TODO LOG Datei erstellen
                 }
             }
 
@@ -149,7 +149,7 @@ public class SchnittstelleBenutzer {
                 try {
                     statement.close();
                 } catch (SQLException e) {
-                    //TODO LOG DAtei erstellen
+                    //TODO LOG Datei erstellen
                 }
             }
 
@@ -195,7 +195,7 @@ public class SchnittstelleBenutzer {
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    //TODO LOG DAtei erstellen
+                    //TODO LOG Datei erstellen
                 }
             }
 
@@ -203,7 +203,7 @@ public class SchnittstelleBenutzer {
                 try {
                     statement.close();
                 } catch (SQLException e) {
-                    //TODO LOG DAtei erstellen
+                    //TODO LOG Datei erstellen
                 }
             }
 
@@ -255,7 +255,7 @@ public class SchnittstelleBenutzer {
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    //TODO LOG DAtei erstellen
+                    //TODO LOG Datei erstellen
                 }
             }
 
@@ -263,7 +263,7 @@ public class SchnittstelleBenutzer {
                 try {
                     statement.close();
                 } catch (SQLException e) {
-                    //TODO LOG DAtei erstellen
+                    //TODO LOG Datei erstellen
                 }
             }
 
@@ -306,7 +306,7 @@ public class SchnittstelleBenutzer {
                 try {
                     statement.close();
                 } catch (SQLException e) {
-                    //TODO LOG DAtei erstellen
+                    //TODO LOG Datei erstellen
                 }
             }
             if (connection != null) {
@@ -347,7 +347,7 @@ public class SchnittstelleBenutzer {
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    //TODO LOG DAtei erstellen
+                    //TODO LOG Datei erstellen
                 }
             }
 
@@ -355,7 +355,7 @@ public class SchnittstelleBenutzer {
                 try {
                     statement.close();
                 } catch (SQLException e) {
-                    //TODO LOG DAtei erstellen
+                    //TODO LOG Datei erstellen
                 }
             }
 
