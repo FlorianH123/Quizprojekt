@@ -30,7 +30,6 @@ public class ProfileService {
 
     public User getUser(int id) {
         if (schnittBenutzer.checkID( id ) == false) {
-            System.out.println("Test");
             throw new DataNotFoundException( MSG_ID_NOT_FOUND );
         }
 

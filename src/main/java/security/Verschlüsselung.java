@@ -1,7 +1,11 @@
 package security;
 
+import validation.Validator;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import static constants.Security_Constants.ERR_MSG_PASSWORT;
 
 /**
  * Created by Florian on 13.06.2017.
@@ -10,7 +14,7 @@ import java.security.NoSuchAlgorithmException;
 public class Verschlüsselung {
     private static final String ERR_KEIN_ALGORITHMUS = "Es wurde kein SHA Verschlüsselungsalgorithmus gefunden!";
 
-    private static byte[] verschlüsselePasswort(String passwort) {
+    private static byte [] verschlüsselePasswort(String passwort) {
         MessageDigest md;
 
         try {
@@ -23,18 +27,21 @@ public class Verschlüsselung {
         return null;
     }
 
-    public static byte[] generatePasswort(String passwort) {
-        return verschlüsselePasswort(passwort);
+    public static String generatePasswort(String passwort) {
+        StringBuilder sb = new StringBuilder();
+
+        byte[] mdbytes = verschlüsselePasswort(passwort);
+        Validator.check(mdbytes != null, ERR_MSG_PASSWORT);
+
+        for (byte mdbyte : mdbytes) {
+            sb.append(Integer.toString((mdbyte & 0xff) + 0x100, 16).substring(1));
+        }
+
+        return sb.toString();
     }
 
-
-    // TODO Lösche main nach Test
-    public static void main(String args[]) {
-        byte[] test = generatePasswort("passwort123");
-        String s = new String(test);
-        System.out.println(s);
-
-        for (byte b : test)
-            System.out.printf("%02x", b);
+    //TODO Löschen
+    public static void main (String args[]) {
+        System.out.println(generatePasswort("passwort123"));
     }
 }

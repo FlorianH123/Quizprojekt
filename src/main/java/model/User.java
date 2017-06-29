@@ -81,12 +81,8 @@ public class User {
     }
 
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("ID: ").append(id).append("\n").append("E-Mail: ").append(e_mail).append("\n").append("Passwort: ")
-                .append(passwort).append("\n").append("Avatar Link: ")
-                .append(avatar_link).append("\n").append("Name: ").append(name);
-
-        return sb.toString();
+        return "ID: " + id + "\n" + "E-Mail: " + e_mail + "\n" + "Passwort: " +
+                passwort + "\n" + "Avatar Link: " +
+                avatar_link + "\n" + "Name: " + name;
     }
 }

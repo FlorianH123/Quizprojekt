@@ -44,7 +44,6 @@ public class ProfileResource {
         URI uri = uriInfo.getAbsolutePathBuilder().path(newID).build();
         ConfirmMessage msg = new ConfirmMessage(MSG_BENUTZER_ANGELEGT, Response.Status.CREATED.getStatusCode());
 
-        System.out.println("Ich werde aufgerufen");
         profileService.addUser(aUser);
         return Response.created(uri)
                 .entity(msg)
