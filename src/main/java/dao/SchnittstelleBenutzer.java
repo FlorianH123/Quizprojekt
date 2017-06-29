@@ -26,23 +26,24 @@ public class SchnittstelleBenutzer {
         try {
             is = SchnittstelleBenutzer.class.getClassLoader().getResourceAsStream(FILENAME);
             properties.load(is);
-            Class.forName( properties.getProperty(CLASS_NAME) );
-        } catch ( ClassNotFoundException e ) {
+            Class.forName(properties.getProperty(CLASS_NAME));
+        } catch (ClassNotFoundException e) {
             //TODO LOG Datei erstellen
-            System.err.println( ERR_MSG_DRIVER );
-        } catch ( IOException e) {
+            System.err.println(ERR_MSG_DRIVER);
+        } catch (IOException e) {
             //TODO LOG Datei erstellen
-            System.err.println( e.getMessage());
+            System.err.println(e.getMessage());
         }
     }
 
     /**
      * Methode die einen Benutzer zu einer übergebenen ID zurück gibt
      * Falls die ID nicht existiert wird eine DataNotFoundException geworfen
+     *
      * @param id ID des Benutzers
      * @return Benutzer
      */
-    public User getUserByID( int id ) {
+    public User getUserByID(int id) {
         Validator.check(id > 0, ERR_MSG_ID_GREATER_ZERO);
 
         Connection connection = null;
@@ -53,28 +54,26 @@ public class SchnittstelleBenutzer {
         try {
             connection = getConnection();
             statement = connection.prepareStatement(PS_GET_USER_BY_ID, ResultSet.TYPE_SCROLL_INSENSITIVE,
-                                                                       ResultSet.CONCUR_READ_ONLY);
-            statement.setInt( INDEX_1, id );
+                    ResultSet.CONCUR_READ_ONLY);
+            statement.setInt(INDEX_1, id);
             rs = statement.executeQuery();
 
-            if ( !rs.next() ) {
-                throw new DataNotFoundException( ERR_MSG_ID_NOT_FOUND );
-            }
-
-            else {
+            if (!rs.next()) {
+                throw new DataNotFoundException(ERR_MSG_ID_NOT_FOUND);
+            } else {
                 rs.previous();
-                while ( rs.next() ) {
-                    aUser.setId(rs.getInt( ID ));
-                    aUser.setE_mail(rs.getString( E_MAIL ));
-                    aUser.setPasswort(rs.getString( PASSWORT ));
-                    aUser.setAvatar_link(rs.getString( AVATAR_LINK ));
-                    aUser.setName(rs.getString( NAME ));
+                while (rs.next()) {
+                    aUser.setId(rs.getInt(ID));
+                    aUser.setE_mail(rs.getString(E_MAIL));
+                    aUser.setPasswort(rs.getString(PASSWORT));
+                    aUser.setAvatar_link(rs.getString(AVATAR_LINK));
+                    aUser.setName(rs.getString(NAME));
                 }
             }
 
-        } catch ( SQLException e ) {
+        } catch (SQLException e) {
             //TODO LOG Datei erstellen
-            System.err.println( ERR_MSG_GET_USER );
+            System.err.println(ERR_MSG_GET_USER);
             e.printStackTrace();
         } finally {
             if (rs != null) {
@@ -108,10 +107,11 @@ public class SchnittstelleBenutzer {
     /**
      * Methode die das Passwort eines Benutzers zurueckgibt
      * Falls die ID nicht existiert wird eine DataNotFoundException geworfen
+     *
      * @param id ID des Benutzers
      * @return passwort des Benutzers
      */
-    public String getPasswordByID( int id ) {
+    public String getPasswordByID(int id) {
         Validator.check(id > 0, ERR_MSG_ID_GREATER_ZERO);
 
         Connection connection = null;
@@ -121,20 +121,20 @@ public class SchnittstelleBenutzer {
 
         try {
             connection = getConnection();
-            statement = connection.prepareStatement( PS_GET_PASSWORD_BY_ID, ResultSet.TYPE_SCROLL_INSENSITIVE,
-                                                                            ResultSet.CONCUR_READ_ONLY);
-            statement.setInt( INDEX_1, id );
+            statement = connection.prepareStatement(PS_GET_PASSWORD_BY_ID, ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY);
+            statement.setInt(INDEX_1, id);
             rs = statement.executeQuery();
 
             if (!rs.next()) {
                 throw new DataNotFoundException(ERR_MSG_ID_NOT_FOUND);
             }
 
-            passwort = rs.getString( PASSWORT );
+            passwort = rs.getString(PASSWORT);
 
-        } catch ( SQLException e ) {
+        } catch (SQLException e) {
             //TODO LOG Datei erstellen
-            System.err.println( ERR_MSG_GET_PASSWORD );
+            System.err.println(ERR_MSG_GET_PASSWORD);
             e.printStackTrace();
         } finally {
             if (rs != null) {
@@ -165,7 +165,7 @@ public class SchnittstelleBenutzer {
         return passwort;
     }
 
-    public boolean checkID ( int id ) {
+    public boolean checkID(int id) {
         Validator.check(id > 0, ERR_MSG_ID_GREATER_ZERO);
 
         Connection connection = null;
@@ -175,19 +175,19 @@ public class SchnittstelleBenutzer {
 
         try {
             connection = getConnection();
-            statement = connection.prepareStatement( PS_CHECK_ID );
-            statement.setInt( INDEX_1, id );
+            statement = connection.prepareStatement(PS_CHECK_ID);
+            statement.setInt(INDEX_1, id);
             rs = statement.executeQuery();
 
-            if( rs.next() ) {
-                re_id = rs.getInt( ID );
+            if (rs.next()) {
+                re_id = rs.getInt(ID);
             }
 
-            if ( re_id != 0 ) {
+            if (re_id != 0) {
                 return true;
             }
 
-        } catch ( SQLException e ) {
+        } catch (SQLException e) {
             //TODO LOG Datei erstellen
             System.err.println(e.getMessage());
         } finally {
@@ -221,10 +221,11 @@ public class SchnittstelleBenutzer {
 
     /**
      * Methode um zu ueberpruefen, ob eine E-Mail Adresse bereits vorhanden ist
+     *
      * @param email E-Mail des gesuchten Users
      * @return true falls vorhanden false falls nicht vorhanden
      */
-    public boolean checkEmail( String email ) {
+    public boolean checkEmail(String email) {
         Validator.check(!email.isEmpty(), ERR_MSG_EMAIL_EMPTY);
 
         Connection connection = null;
@@ -234,20 +235,20 @@ public class SchnittstelleBenutzer {
 
         try {
             connection = getConnection();
-            statement = connection.prepareStatement( PS_CHECK_EMAIL );
-            statement.setString( INDEX_1, email );
+            statement = connection.prepareStatement(PS_CHECK_EMAIL);
+            statement.setString(INDEX_1, email);
             rs = statement.executeQuery();
 
-            if( rs.next() ) {
+            if (rs.next()) {
                 re_mail = rs.getString(E_MAIL);
             }
 
             //Existiert nicht weil keine email gefunden wurde
-            if ( re_mail.isEmpty() ) {
+            if (re_mail.isEmpty()) {
                 return false;
             }
 
-        } catch ( SQLException e ) {
+        } catch (SQLException e) {
             //TODO LOG Datei erstellen
             System.err.println(e.getMessage());
         } finally {
@@ -281,24 +282,25 @@ public class SchnittstelleBenutzer {
 
     /**
      * Methode die ein Benutzer zu der DB benutzer hinzufügt
+     *
      * @param aUser ein Benutzer
      */
-    public void addUser( User aUser ) {
+    public void addUser(User aUser) {
         Connection connection = null;
         PreparedStatement statement = null;
 
         try {
             connection = getConnection();
-            statement = connection.prepareStatement( PS_ADD_USER );
+            statement = connection.prepareStatement(PS_ADD_USER);
 
-            statement.setInt( INDEX_1, aUser.getId() );
-            statement.setString( INDEX_2, aUser.getE_mail() );
-            statement.setString( INDEX_3, aUser.getPasswort() );
-            statement.setString( INDEX_4, aUser.getAvatar_link() );
-            statement.setString( INDEX_5, aUser.getName() );
+            statement.setInt(INDEX_1, aUser.getId());
+            statement.setString(INDEX_2, aUser.getE_mail());
+            statement.setString(INDEX_3, aUser.getPasswort());
+            statement.setString(INDEX_4, aUser.getAvatar_link());
+            statement.setString(INDEX_5, aUser.getName());
             statement.executeUpdate();
 
-        } catch ( SQLException e ) {
+        } catch (SQLException e) {
             //TODO LOG Datei erstellen
             e.printStackTrace();
         } finally {
@@ -321,6 +323,7 @@ public class SchnittstelleBenutzer {
 
     /**
      * Methode die die naechste ID zurueckgibt
+     *
      * @return ID + 1
      */
     public int getNextID() {
@@ -335,12 +338,12 @@ public class SchnittstelleBenutzer {
             rs = statement.executeQuery();
 
             rs.next();
-            nummer = rs.getInt( ANZAHL );
+            nummer = rs.getInt(ANZAHL);
             nummer++;
 
-        } catch ( SQLException e ) {
+        } catch (SQLException e) {
             //TODO LOG Datei erstellen
-            System.err.println( ERR_MSG_CURRENT_ID );
+            System.err.println(ERR_MSG_CURRENT_ID);
             e.printStackTrace();
         } finally {
             if (rs != null) {
@@ -373,6 +376,7 @@ public class SchnittstelleBenutzer {
 
     /**
      * Methode um eine Verbindung aufzubauen
+     *
      * @return Connection
      */
     private Connection getConnection() {
@@ -384,11 +388,11 @@ public class SchnittstelleBenutzer {
             user = properties.getProperty(USER);
             password = properties.getProperty(DB_PASSWORD);
 
-            con = DriverManager.getConnection( url, user, password );
+            con = DriverManager.getConnection(url, user, password);
 
-        } catch ( SQLException e ) {
+        } catch (SQLException e) {
             //TODO LOG Datei erstellen
-            System.err.println( ERR_MSG_CONNECTION );
+            System.err.println(ERR_MSG_CONNECTION);
             e.printStackTrace();
         }
 
