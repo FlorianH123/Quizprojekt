@@ -5,6 +5,7 @@ import validation.Validator;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import static constants.Security_Constants.ERR_KEIN_ALGORITHMUS;
 import static constants.Security_Constants.ERR_MSG_PASSWORT;
 
 /**
@@ -12,8 +13,6 @@ import static constants.Security_Constants.ERR_MSG_PASSWORT;
  * Algorithmus um die Passwörter zu verschlüsseln
  */
 public class Verschlüsselung {
-    private static final String ERR_KEIN_ALGORITHMUS = "Es wurde kein SHA Verschlüsselungsalgorithmus gefunden!";
-
     private static byte [] verschlüsselePasswort(String passwort) {
         MessageDigest md;
 
@@ -22,8 +21,10 @@ public class Verschlüsselung {
             md.update(passwort.getBytes());
             return md.digest();
         } catch (NoSuchAlgorithmException e) {
+            //TODO LOG Datei erstellen
             System.err.println(ERR_KEIN_ALGORITHMUS);
         }
+
         return null;
     }
 
