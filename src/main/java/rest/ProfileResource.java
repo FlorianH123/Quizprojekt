@@ -1,9 +1,7 @@
 package rest;
 
-import dao.SchnittstelleBenutzer;
 import model.ConfirmMessage;
 import model.User;
-import org.glassfish.jersey.server.Uri;
 import service.ProfileService;
 
 
@@ -52,7 +50,7 @@ public class ProfileResource {
 
     /**
      * Methode um zu einer gegebenen ID den dazugehörigen Benutzer zu liefern
-     * @param messageID
+     * @param messageID ID des Users
      * @return Response Nachricht
      */
     @GET
