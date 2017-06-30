@@ -3,7 +3,8 @@ package singlePlayer;
 import java.sql.SQLException;
 import java.util.*;
 
-import dao.ConnectionConfiguration;
+import dao.ConnectionKlasse;
+
 import java.sql.Connection;
 
 
@@ -52,8 +53,8 @@ public class Dialog {
         Connection connection = null;
         int anzahlFragen = auswahl;
         int auswahlEingabe = MenuChoose();
-
-                    connection = ConnectionConfiguration.getConnection();
+        ConnectionKlasse con = new ConnectionKlasse();
+                    connection = con.getConnection();
                     SinglePlayer10.SinglePlayerStart(connection ,auswahlEingabe, anzahlFragen);
     }
 

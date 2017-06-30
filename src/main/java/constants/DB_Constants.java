@@ -5,6 +5,14 @@ package constants;
  * Datenbank Konstanten
  */
 public class DB_Constants {
+// Klassenuebergreifende Konstanten ------------------------------------------------------------------------------------
+    public static final String ERR_MSG_ID_GREATER_ZERO = "Fehler: Die ID muss groesser 0 sein!";
+
+    public static final String ERR_MSG_RS_CLOSE = "Fehler beim Schliessen des Resultset!";
+    public static final String ERR_MSG_STMT_CLOSE = "Fehler beim Schliessen des Statements!";
+    public static final String ERR_MSG_CON_CLOSE = "Fehler beim Schliessen der Connection!";
+//----------------------------------------------------------------------------------------------------------------------
+
 // fuer SchnittstelleBenutzer ------------------------------------------------------------------------------------------
     public static final String ID           = "id";
     public static final String E_MAIL       = "e_mail";
@@ -26,16 +34,11 @@ public class DB_Constants {
     public static final String ERR_MSG_CONNECTION   = "Fehler: Es konnte keine Verbindung aufgebaut werden!";
     public static final String ERR_MSG_GET_PASSWORD = "Fehler: Es konnte kein Passwort zu dieser ID gefunden werden!";
     public static final String ERR_MSG_ID_NOT_FOUND = "Fehler: Die angebene ID ist nicht vorhanden!";
-    public static final String ERR_MSG_ID_GREATER_ZERO = "Fehler: Die ID muss groesser 0 sein!";
     public static final String ERR_MSG_EMAIL_EMPTY  = "Fehler: E-Mail darf nicht leer sein!";
     public static final String ERR_MSG_PROPERTIES   = "Fehler beim Oeffnen der Properties Datei!";
     public static final String ERR_MSG_ADD_USER     = "Fehler beim Anlegen des Benutzers! ";
     public static final String ERR_MSG_CHECK_MAIL   = "Fehler beim Ueberpruefen der E-Mail!";
     public static final String ERR_MSG_CHECK_ID     = "Fehler beim Ueberpruefen der ID!";
-
-    public static final String ERR_MSG_RS_CLOSE = "Fehler beim Schliessen des Resultset!";
-    public static final String ERR_MSG_STMT_CLOSE = "Fehler beim Schliessen des Statements!";
-    public static final String ERR_MSG_CON_CLOSE = "Fehler beim Schliessen der Connection!";
 
     //Prepared Statements
     public static final String PS_CHECK_EMAIL        = "SELECT "+ E_MAIL + " FROM benutzer WHERE " + E_MAIL + " = ?";
@@ -50,5 +53,17 @@ public class DB_Constants {
     public static final int INDEX_3 = 3;
     public static final int INDEX_4 = 4;
     public static final int INDEX_5 = 5;
+//----------------------------------------------------------------------------------------------------------------------
+
+//fuer SchnittstelleFragen
+//----------------------------------------------------------------------------------------------------------------------
+    public static final String fragenID = "fragenid";
+
+    public static final String ERR_MSG_HAS_QUESTION = "Fehler bei der Ueberpruefung ob eine Frage bereits gestellt wurde!";
+
+    public static final String PS_HAS_ID = "SELECT " + fragenID + " FROM fragenuser WHERE " + fragenID + " = ?";
+
+
+
 //----------------------------------------------------------------------------------------------------------------------
 }

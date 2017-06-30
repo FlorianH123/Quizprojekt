@@ -16,7 +16,7 @@ public class SinglePlayer10 {
 
 
 //        try{
-  //          connection = ConnectionConfiguration.getConnection();
+  //          connection = ConnectionKlasse.getConnection();
     //        if(connection != null){
       //          System.out.println("Connection established!");
        //     }

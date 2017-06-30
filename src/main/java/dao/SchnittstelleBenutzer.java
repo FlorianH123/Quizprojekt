@@ -21,28 +21,14 @@ import static constants.DB_Constants.*;
  */
 
 public class SchnittstelleBenutzer {
-    private Properties properties;
     private Logger logger = Logger.getLogger(getClass().getName());
 
     public SchnittstelleBenutzer() {
-        properties = new Properties();
-        InputStream is;
         Handler handler;
 
-        try {
-            is = SchnittstelleBenutzer.class.getClassLoader().getResourceAsStream(FILENAME);
-            properties.load(is);
-
-            //TODO Logger überarbeiten
-            //handler = new FileHandler("log/logger.xml", true);
-            //logger.addHandler(handler);
-
-            Class.forName(properties.getProperty(CLASS_NAME));
-        } catch (ClassNotFoundException e) {
-            logger.log(Level.SEVERE, ERR_MSG_DRIVER + " " + e);
-        } catch (IOException e) {
-            logger.log(Level.SEVERE, ERR_MSG_PROPERTIES + " " + e);
-        }
+        //TODO Logger überarbeiten
+        //handler = new FileHandler("log/logger.xml", true);
+        //logger.addHandler(handler);
     }
 
     /**
@@ -379,20 +365,8 @@ public class SchnittstelleBenutzer {
      * @return Connection
      */
     private Connection getConnection() {
-        Connection con = null;
-        String url, user, password;
+        ConnectionKlasse con = new ConnectionKlasse();
 
-        try {
-            url = properties.getProperty(URL);
-            user = properties.getProperty(USER);
-            password = properties.getProperty(DB_PASSWORD);
-
-            con = DriverManager.getConnection(url, user, password);
-
-        } catch (SQLException e) {
-            logger.log(Level.SEVERE, ERR_MSG_CONNECTION + " " + e);
-        }
-
-        return con;
+        return con.getConnection();
     }
 }

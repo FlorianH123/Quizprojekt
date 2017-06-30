@@ -26,7 +26,6 @@ public class SchnittstelleBenutzerTest {
     @Test
     public void getUserByIDTest() throws Exception {
         equals = schnittBenutzer.getUserByID(1).getE_mail().equals(aUser1.getE_mail()) &&
-                 schnittBenutzer.getUserByID(1).getPasswort().equals(aUser1.getPasswort()) &&
                  schnittBenutzer.getUserByID(1).getAvatar_link().equals(aUser1.getAvatar_link()) &&
                  schnittBenutzer.getUserByID(1).getName().equals(aUser1.getName());
         assertTrue(equals);
@@ -35,7 +34,6 @@ public class SchnittstelleBenutzerTest {
     @Test
     public void getUserByIDTest2() throws Exception {
         equals = schnittBenutzer.getUserByID(2).getE_mail().equals(aUser2.getE_mail()) &&
-                 schnittBenutzer.getUserByID(2).getPasswort().equals(aUser2.getPasswort()) &&
                  schnittBenutzer.getUserByID(2).getAvatar_link().equals(aUser2.getAvatar_link()) &&
                  schnittBenutzer.getUserByID(2).getName().equals(aUser2.getName());
         assertTrue(equals);
@@ -44,7 +42,6 @@ public class SchnittstelleBenutzerTest {
     @Test
     public void getUserByIDTest3() throws Exception {
         equals = schnittBenutzer.getUserByID(3).getE_mail().equals(aUser3.getE_mail()) &&
-                 schnittBenutzer.getUserByID(3).getPasswort().equals(aUser3.getPasswort()) &&
                  schnittBenutzer.getUserByID(3).getAvatar_link().equals(aUser3.getAvatar_link()) &&
                  schnittBenutzer.getUserByID(3).getName().equals(aUser3.getName());
         assertTrue(equals);
@@ -54,9 +51,8 @@ public class SchnittstelleBenutzerTest {
     @Test
     public void getUserByIDTest4() throws Exception {
         equals = schnittBenutzer.getUserByID(3).getE_mail().equals(aUser2.getE_mail()) &&
-                schnittBenutzer.getUserByID(3).getPasswort().equals(aUser2.getPasswort()) &&
-                schnittBenutzer.getUserByID(3).getAvatar_link().equals(aUser2.getAvatar_link()) &&
-                schnittBenutzer.getUserByID(3).getName().equals(aUser2.getName());
+                 schnittBenutzer.getUserByID(3).getAvatar_link().equals(aUser2.getAvatar_link()) &&
+                 schnittBenutzer.getUserByID(3).getName().equals(aUser2.getName());
         assertFalse(equals);
     }
 
