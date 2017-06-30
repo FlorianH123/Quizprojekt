@@ -1,5 +1,9 @@
 package dao;
 
+import exception.DataNotFoundException;
+import model.User;
+import validation.Validator;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
@@ -8,10 +12,6 @@ import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import exception.DataNotFoundException;
-import model.User;
-import validation.Validator;
 
 import static constants.DB_Constants.*;
 
@@ -22,25 +22,27 @@ import static constants.DB_Constants.*;
 
 public class SchnittstelleBenutzer {
     private Properties properties;
-    private Logger logger = Logger.getLogger(getClass().getName());
-    private Handler handler = null;
+    private Logger logger;
 
     public SchnittstelleBenutzer() {
         properties = new Properties();
         InputStream is;
+        Handler handler;
+
+        logger = Logger.getLogger(getClass().getName());
 
         try {
             is = SchnittstelleBenutzer.class.getClassLoader().getResourceAsStream(FILENAME);
             properties.load(is);
 
-            handler = new FileHandler("logger.txt");
+            handler = new FileHandler(properties.getProperty(LOG_PATH), true);
             logger.addHandler(handler);
 
             Class.forName(properties.getProperty(CLASS_NAME));
         } catch (ClassNotFoundException e) {
-            logger.log(Level.SEVERE,ERR_MSG_DRIVER );
+            logger.log(Level.SEVERE, ERR_MSG_DRIVER + " " + e);
         } catch (IOException e) {
-            logger.log(Level.SEVERE, ERR_MSG_PROPERTIES);
+            logger.log(Level.SEVERE, ERR_MSG_PROPERTIES + " " + e);
         }
     }
 
@@ -80,13 +82,13 @@ public class SchnittstelleBenutzer {
             }
 
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, ERR_MSG_GET_USER);
+            logger.log(Level.SEVERE, ERR_MSG_GET_USER + " " + e);
         } finally {
             if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    logger.log(Level.SEVERE, e.toString());
+                    logger.log(Level.SEVERE, ERR_MSG_RS_CLOSE + " " + e);
                 }
             }
 
@@ -94,7 +96,7 @@ public class SchnittstelleBenutzer {
                 try {
                     statement.close();
                 } catch (SQLException e) {
-                    logger.log(Level.SEVERE, e.toString());
+                    logger.log(Level.SEVERE, ERR_MSG_STMT_CLOSE + " " + e);
                 }
             }
 
@@ -102,7 +104,7 @@ public class SchnittstelleBenutzer {
                 try {
                     connection.close();
                 } catch (SQLException e) {
-                    logger.log(Level.SEVERE, e.toString());
+                    logger.log(Level.SEVERE, ERR_MSG_CON_CLOSE + " " + e);
                 }
             }
         }
@@ -139,15 +141,13 @@ public class SchnittstelleBenutzer {
             passwort = rs.getString(PASSWORT);
 
         } catch (SQLException e) {
-            //TODO LOG Datei erstellen
-            System.err.println(ERR_MSG_GET_PASSWORD);
-            e.printStackTrace();
+            logger.log(Level.SEVERE, ERR_MSG_GET_PASSWORD + " " + e);
         } finally {
             if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    logger.log(Level.SEVERE, e.toString());
+                    logger.log(Level.SEVERE, ERR_MSG_RS_CLOSE + " " + e);
                 }
             }
 
@@ -155,7 +155,7 @@ public class SchnittstelleBenutzer {
                 try {
                     statement.close();
                 } catch (SQLException e) {
-                    logger.log(Level.SEVERE, e.toString());
+                    logger.log(Level.SEVERE, ERR_MSG_STMT_CLOSE + " " + e);
                 }
             }
 
@@ -163,7 +163,7 @@ public class SchnittstelleBenutzer {
                 try {
                     connection.close();
                 } catch (SQLException e) {
-                    logger.log(Level.SEVERE, e.toString());
+                    logger.log(Level.SEVERE, ERR_MSG_CON_CLOSE + " " + e);
                 }
             }
         }
@@ -194,14 +194,13 @@ public class SchnittstelleBenutzer {
             }
 
         } catch (SQLException e) {
-            //TODO LOG Datei erstellen
-            System.err.println(e.getMessage());
+            logger.log(Level.SEVERE, ERR_MSG_CHECK_ID + " " + e);
         } finally {
             if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    logger.log(Level.SEVERE, e.toString());
+                    logger.log(Level.SEVERE, ERR_MSG_RS_CLOSE + " " + e);
                 }
             }
 
@@ -209,7 +208,7 @@ public class SchnittstelleBenutzer {
                 try {
                     statement.close();
                 } catch (SQLException e) {
-                    logger.log(Level.SEVERE, e.toString());
+                    logger.log(Level.SEVERE, ERR_MSG_STMT_CLOSE + " " + e);
                 }
             }
 
@@ -217,7 +216,7 @@ public class SchnittstelleBenutzer {
                 try {
                     connection.close();
                 } catch (SQLException e) {
-                    logger.log(Level.SEVERE, e.toString());
+                    logger.log(Level.SEVERE, ERR_MSG_CON_CLOSE + " " + e);
                 }
             }
         }
@@ -255,13 +254,13 @@ public class SchnittstelleBenutzer {
             }
 
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, ERR_MSG_CHECK_MAIL + e);
+            logger.log(Level.SEVERE, ERR_MSG_CHECK_MAIL + " " + e);
         } finally {
             if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    logger.log(Level.SEVERE, e.toString());
+                    logger.log(Level.SEVERE, ERR_MSG_RS_CLOSE + " " + e);
                 }
             }
 
@@ -269,7 +268,7 @@ public class SchnittstelleBenutzer {
                 try {
                     statement.close();
                 } catch (SQLException e) {
-                    logger.log(Level.SEVERE, e.toString());
+                    logger.log(Level.SEVERE, ERR_MSG_STMT_CLOSE + " " + e);
                 }
             }
 
@@ -277,7 +276,7 @@ public class SchnittstelleBenutzer {
                 try {
                     connection.close();
                 } catch (SQLException e) {
-                    logger.log(Level.SEVERE, e.toString());
+                    logger.log(Level.SEVERE, ERR_MSG_CON_CLOSE + " " + e);
                 }
             }
         }
@@ -306,20 +305,20 @@ public class SchnittstelleBenutzer {
             statement.executeUpdate();
 
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, ERR_MSG_ADD_USER + e);
+            logger.log(Level.SEVERE, ERR_MSG_ADD_USER + " " + e);
         } finally {
             if (statement != null) {
                 try {
                     statement.close();
                 } catch (SQLException e) {
-                    logger.log(Level.SEVERE, e.toString());
+                    logger.log(Level.SEVERE, ERR_MSG_STMT_CLOSE + " " + e);
                 }
             }
             if (connection != null) {
                 try {
                     connection.close();
                 } catch (SQLException e) {
-                    logger.log(Level.SEVERE, e.toString());
+                    logger.log(Level.SEVERE, ERR_MSG_CON_CLOSE + " " + e);
                 }
             }
         }
@@ -346,13 +345,13 @@ public class SchnittstelleBenutzer {
             nummer++;
 
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, ERR_MSG_CURRENT_ID + e);
+            logger.log(Level.SEVERE, ERR_MSG_CURRENT_ID + " " + e);
         } finally {
             if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    logger.log(Level.SEVERE, e.toString());
+                    logger.log(Level.SEVERE, ERR_MSG_RS_CLOSE + " " + e);
                 }
             }
 
@@ -360,7 +359,7 @@ public class SchnittstelleBenutzer {
                 try {
                     statement.close();
                 } catch (SQLException e) {
-                    logger.log(Level.SEVERE, e.toString());
+                    logger.log(Level.SEVERE, ERR_MSG_STMT_CLOSE + " " + e);
                 }
             }
 
@@ -368,7 +367,7 @@ public class SchnittstelleBenutzer {
                 try {
                     connection.close();
                 } catch (SQLException e) {
-                    logger.log(Level.SEVERE, e.toString());
+                    logger.log(Level.SEVERE, ERR_MSG_CON_CLOSE + " " + e);
                 }
             }
         }
@@ -393,14 +392,9 @@ public class SchnittstelleBenutzer {
             con = DriverManager.getConnection(url, user, password);
 
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, ERR_MSG_CONNECTION + e);
+            logger.log(Level.SEVERE, ERR_MSG_CONNECTION + " " + e);
         }
 
         return con;
-    }
-
-    public static void main (String args[]) {
-       SchnittstelleBenutzer sch = new SchnittstelleBenutzer();
-       sch.getNextID();
     }
 }

@@ -13,13 +13,14 @@ public class DB_Constants {
     public static final String NAME         = "name";
     public static final String ANZAHL       = "anzahl";
 
+    public static final String LOG_PATH     = "log-path";
     public static final String CLASS_NAME   = "class-name";
     public static final String URL          = "url";
     public static final String USER         = "user";
     public static final String DB_PASSWORD  = "password";
     public static final String FILENAME     = "DBconfig.properties";
 
-    public static final String ERR_MSG_CURRENT_ID   = "Fehler: Es konnte keine ID berechnet werden1";
+    public static final String ERR_MSG_CURRENT_ID   = "Fehler: Es konnte keine ID berechnet werden!";
     public static final String ERR_MSG_DRIVER       = "Kein Treiber gefunden!";
     public static final String ERR_MSG_GET_USER     = "Fehler: Es konnte kein User zu dieser ID gefunden werden!";
     public static final String ERR_MSG_UPDATE       = "Fehler: SQL Update Statement fehlgeschlagen!";
@@ -30,7 +31,13 @@ public class DB_Constants {
     public static final String ERR_MSG_ID_GREATER_ZERO = "Fehler: Die ID muss groesser 0 sein!";
     public static final String ERR_MSG_EMAIL_EMPTY  = "Fehler: E-Mail darf nicht leer sein!";
     public static final String ERR_MSG_PROPERTIES   = "Fehler beim Oeffnen der Properties Datei!";
-    public static final String ERR_MSG_ADD_USER     = "Fehler beim Anlegen des Benutzers!";
+    public static final String ERR_MSG_ADD_USER     = "Fehler beim Anlegen des Benutzers! ";
+    public static final String ERR_MSG_CHECK_MAIL   = "Fehler beim Ueberpruefen der E-Mail!";
+    public static final String ERR_MSG_CHECK_ID     = "Fehler beim Ueberpruefen der ID!";
+
+    public static final String ERR_MSG_RS_CLOSE = "Fehler beim Schliessen des Resultset!";
+    public static final String ERR_MSG_STMT_CLOSE = "Fehler beim Schliessen des Statements!";
+    public static final String ERR_MSG_CON_CLOSE = "Fehler beim Schliessen der Connection!";
 
     //Prepared Statements
     public static final String PS_CHECK_EMAIL        = "SELECT "+ E_MAIL + " FROM benutzer WHERE " + E_MAIL + " = ?";
