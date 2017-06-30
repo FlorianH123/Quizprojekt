@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import exception.DataNotFoundException;
 import model.User;
@@ -18,6 +22,8 @@ import static constants.DB_Constants.*;
 
 public class SchnittstelleBenutzer {
     private Properties properties;
+    private Logger logger = Logger.getLogger(getClass().getName());
+    private Handler handler = null;
 
     public SchnittstelleBenutzer() {
         properties = new Properties();
@@ -26,13 +32,15 @@ public class SchnittstelleBenutzer {
         try {
             is = SchnittstelleBenutzer.class.getClassLoader().getResourceAsStream(FILENAME);
             properties.load(is);
+
+            handler = new FileHandler("logger.txt");
+            logger.addHandler(handler);
+
             Class.forName(properties.getProperty(CLASS_NAME));
         } catch (ClassNotFoundException e) {
-            //TODO LOG Datei erstellen
-            System.err.println(ERR_MSG_DRIVER);
+            logger.log(Level.SEVERE,ERR_MSG_DRIVER );
         } catch (IOException e) {
-            //TODO LOG Datei erstellen
-            System.err.println(e.getMessage());
+            logger.log(Level.SEVERE, ERR_MSG_PROPERTIES);
         }
     }
 
@@ -72,15 +80,13 @@ public class SchnittstelleBenutzer {
             }
 
         } catch (SQLException e) {
-            //TODO LOG Datei erstellen
-            System.err.println(ERR_MSG_GET_USER);
-            e.printStackTrace();
+            logger.log(Level.SEVERE, ERR_MSG_GET_USER);
         } finally {
             if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    //TODO LOG DAtei erstellen
+                    logger.log(Level.SEVERE, e.toString());
                 }
             }
 
@@ -88,7 +94,7 @@ public class SchnittstelleBenutzer {
                 try {
                     statement.close();
                 } catch (SQLException e) {
-                    //TODO LOG DAtei erstellen
+                    logger.log(Level.SEVERE, e.toString());
                 }
             }
 
@@ -96,7 +102,7 @@ public class SchnittstelleBenutzer {
                 try {
                     connection.close();
                 } catch (SQLException e) {
-                    //TODO Log Datei erstellen
+                    logger.log(Level.SEVERE, e.toString());
                 }
             }
         }
@@ -141,7 +147,7 @@ public class SchnittstelleBenutzer {
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    //TODO LOG Datei erstellen
+                    logger.log(Level.SEVERE, e.toString());
                 }
             }
 
@@ -149,7 +155,7 @@ public class SchnittstelleBenutzer {
                 try {
                     statement.close();
                 } catch (SQLException e) {
-                    //TODO LOG Datei erstellen
+                    logger.log(Level.SEVERE, e.toString());
                 }
             }
 
@@ -157,7 +163,7 @@ public class SchnittstelleBenutzer {
                 try {
                     connection.close();
                 } catch (SQLException e) {
-                    //TODO Log Datei erstellen
+                    logger.log(Level.SEVERE, e.toString());
                 }
             }
         }
@@ -195,7 +201,7 @@ public class SchnittstelleBenutzer {
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    //TODO LOG Datei erstellen
+                    logger.log(Level.SEVERE, e.toString());
                 }
             }
 
@@ -203,7 +209,7 @@ public class SchnittstelleBenutzer {
                 try {
                     statement.close();
                 } catch (SQLException e) {
-                    //TODO LOG Datei erstellen
+                    logger.log(Level.SEVERE, e.toString());
                 }
             }
 
@@ -211,7 +217,7 @@ public class SchnittstelleBenutzer {
                 try {
                     connection.close();
                 } catch (SQLException e) {
-                    //TODO Log Datei erstellen
+                    logger.log(Level.SEVERE, e.toString());
                 }
             }
         }
@@ -249,14 +255,13 @@ public class SchnittstelleBenutzer {
             }
 
         } catch (SQLException e) {
-            //TODO LOG Datei erstellen
-            System.err.println(e.getMessage());
+            logger.log(Level.SEVERE, ERR_MSG_CHECK_MAIL + e);
         } finally {
             if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    //TODO LOG Datei erstellen
+                    logger.log(Level.SEVERE, e.toString());
                 }
             }
 
@@ -264,7 +269,7 @@ public class SchnittstelleBenutzer {
                 try {
                     statement.close();
                 } catch (SQLException e) {
-                    //TODO LOG Datei erstellen
+                    logger.log(Level.SEVERE, e.toString());
                 }
             }
 
@@ -272,7 +277,7 @@ public class SchnittstelleBenutzer {
                 try {
                     connection.close();
                 } catch (SQLException e) {
-                    //TODO Log Datei erstellen
+                    logger.log(Level.SEVERE, e.toString());
                 }
             }
         }
@@ -301,21 +306,20 @@ public class SchnittstelleBenutzer {
             statement.executeUpdate();
 
         } catch (SQLException e) {
-            //TODO LOG Datei erstellen
-            e.printStackTrace();
+            logger.log(Level.SEVERE, ERR_MSG_ADD_USER + e);
         } finally {
             if (statement != null) {
                 try {
                     statement.close();
                 } catch (SQLException e) {
-                    //TODO LOG Datei erstellen
+                    logger.log(Level.SEVERE, e.toString());
                 }
             }
             if (connection != null) {
                 try {
                     connection.close();
                 } catch (SQLException e) {
-                    //TODO Log Datei erstellen
+                    logger.log(Level.SEVERE, e.toString());
                 }
             }
         }
@@ -342,15 +346,13 @@ public class SchnittstelleBenutzer {
             nummer++;
 
         } catch (SQLException e) {
-            //TODO LOG Datei erstellen
-            System.err.println(ERR_MSG_CURRENT_ID);
-            e.printStackTrace();
+            logger.log(Level.SEVERE, ERR_MSG_CURRENT_ID + e);
         } finally {
             if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    //TODO LOG Datei erstellen
+                    logger.log(Level.SEVERE, e.toString());
                 }
             }
 
@@ -358,7 +360,7 @@ public class SchnittstelleBenutzer {
                 try {
                     statement.close();
                 } catch (SQLException e) {
-                    //TODO LOG Datei erstellen
+                    logger.log(Level.SEVERE, e.toString());
                 }
             }
 
@@ -366,7 +368,7 @@ public class SchnittstelleBenutzer {
                 try {
                     connection.close();
                 } catch (SQLException e) {
-                    //TODO Log Datei erstellen
+                    logger.log(Level.SEVERE, e.toString());
                 }
             }
         }
@@ -391,11 +393,14 @@ public class SchnittstelleBenutzer {
             con = DriverManager.getConnection(url, user, password);
 
         } catch (SQLException e) {
-            //TODO LOG Datei erstellen
-            System.err.println(ERR_MSG_CONNECTION);
-            e.printStackTrace();
+            logger.log(Level.SEVERE, ERR_MSG_CONNECTION + e);
         }
 
         return con;
+    }
+
+    public static void main (String args[]) {
+       SchnittstelleBenutzer sch = new SchnittstelleBenutzer();
+       sch.getNextID();
     }
 }

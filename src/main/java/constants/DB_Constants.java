@@ -29,6 +29,8 @@ public class DB_Constants {
     public static final String ERR_MSG_ID_NOT_FOUND = "Fehler: Die angebene ID ist nicht vorhanden!";
     public static final String ERR_MSG_ID_GREATER_ZERO = "Fehler: Die ID muss groesser 0 sein!";
     public static final String ERR_MSG_EMAIL_EMPTY  = "Fehler: E-Mail darf nicht leer sein!";
+    public static final String ERR_MSG_PROPERTIES   = "Fehler beim Oeffnen der Properties Datei!";
+    public static final String ERR_MSG_ADD_USER     = "Fehler beim Anlegen des Benutzers!";
 
     //Prepared Statements
     public static final String PS_CHECK_EMAIL        = "SELECT "+ E_MAIL + " FROM benutzer WHERE " + E_MAIL + " = ?";
