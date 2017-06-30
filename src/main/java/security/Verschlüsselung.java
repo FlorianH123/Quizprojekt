@@ -23,7 +23,7 @@ public class Verschlüsselung {
         MessageDigest md;
 
         try {
-            md = MessageDigest.getInstance("SHA");
+            md = MessageDigest.getInstance(ALGORITHMUS);
             md.update(passwort.getBytes());
             return md.digest();
         } catch (NoSuchAlgorithmException e) {

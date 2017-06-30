@@ -56,7 +56,6 @@ public class ProfileResource {
     @GET
     @Path(MESSAGE_ID_PATH)
     public Response getUser (@PathParam(MESSAGE_ID) int messageID) {
-        //TODO fehlerüberprüfung einbauen
         return Response.ok()
                 .entity(profileService.getUser(messageID))
                 .build();

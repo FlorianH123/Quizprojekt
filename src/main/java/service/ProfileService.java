@@ -6,8 +6,7 @@ import exception.DataNotFoundException;
 import model.User;
 import security.Verschlüsselung;
 
-import static constants.Service_Constants.MSG_ID_NOT_FOUND;
-import static constants.Service_Constants.MSG_USER_ALREADY_EXISTS;
+import static constants.Service_Constants.*;
 
 /**
  * Created by Florian on 22.06.2017.
@@ -18,6 +17,7 @@ public class ProfileService {
 
     /**
      * Methode um einen Benutzer in die Datenbank einzufuegen
+     *
      * @param aUser Benutzer
      */
     public void addUser(User aUser) {
@@ -26,17 +26,23 @@ public class ProfileService {
         }
 
         aUser.setPasswort(Verschlüsselung.generatePasswort(aUser.getPasswort()));
-        aUser.setAvatar_link("link1.link");
+        aUser.setAvatar_link(STANDARD_LINK);
         aUser.setId(schnittBenutzer.getNextID());
         schnittBenutzer.addUser(aUser);
     }
 
+    /**
+     * Methode um einen User aus der DB zu holen und un ihn an den Webserver weiterzugeben
+     *
+     * @param id id des users
+     * @return User mit id, e_mail, name, avatar_link
+     */
     public User getUser(int id) {
         if (!schnittBenutzer.checkID(id)) {
-            throw new DataNotFoundException( MSG_ID_NOT_FOUND );
+            throw new DataNotFoundException(MSG_ID_NOT_FOUND);
         }
 
-        return schnittBenutzer.getUserByID( id );
+        return schnittBenutzer.getUserByID(id);
     }
 }
 
