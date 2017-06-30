@@ -22,21 +22,20 @@ import static constants.DB_Constants.*;
 
 public class SchnittstelleBenutzer {
     private Properties properties;
-    private Logger logger;
+    private Logger logger = Logger.getLogger(getClass().getName());
 
     public SchnittstelleBenutzer() {
         properties = new Properties();
         InputStream is;
         Handler handler;
 
-        logger = Logger.getLogger(getClass().getName());
-
         try {
             is = SchnittstelleBenutzer.class.getClassLoader().getResourceAsStream(FILENAME);
             properties.load(is);
 
-            handler = new FileHandler(properties.getProperty(LOG_PATH), true);
-            logger.addHandler(handler);
+            //TODO Logger überarbeiten
+            //handler = new FileHandler("log/logger.xml", true);
+            //logger.addHandler(handler);
 
             Class.forName(properties.getProperty(CLASS_NAME));
         } catch (ClassNotFoundException e) {
@@ -75,7 +74,6 @@ public class SchnittstelleBenutzer {
                 while (rs.next()) {
                     aUser.setId(rs.getInt(ID));
                     aUser.setE_mail(rs.getString(E_MAIL));
-                    aUser.setPasswort(rs.getString(PASSWORT));
                     aUser.setAvatar_link(rs.getString(AVATAR_LINK));
                     aUser.setName(rs.getString(NAME));
                 }

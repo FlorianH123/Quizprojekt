@@ -16,11 +16,7 @@ public class User {
     private SchnittstelleBenutzer schnittBen = new SchnittstelleBenutzer();
 
     public User() {
-        this.id = schnittBen.getNextID();
-        this.e_mail = "";
-        this.passwort = "";
-        this.avatar_link = "";
-        this.name = "";
+
     }
 
     public User(String e_mail, String passwort, String avatar_link, String name ) {
@@ -37,7 +33,6 @@ public class User {
         this.passwort = passwort;
         this.avatar_link = avatar_link;
         this.name = name;
-
     }
 
     public void setId(int id) {

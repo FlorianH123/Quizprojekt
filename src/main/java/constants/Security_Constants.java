@@ -9,5 +9,6 @@ public class Security_Constants {
 //----------------------------------------------------------------------------------------------------------------------
     public static final String ERR_KEIN_ALGORITHMUS = "Es wurde kein SHA Verschlüsselungsalgorithmus gefunden!";
     public static final String ERR_MSG_PASSWORT = "Fehler beim Verschlüsseln des Passwort!";
+    public static final String ERR_MSG_PASSWORD_EMPTY = "Fehler: Passwort wurde nicht uebergeben!";
 //---------------------------------------------------------------------------------------------------------------------
 }

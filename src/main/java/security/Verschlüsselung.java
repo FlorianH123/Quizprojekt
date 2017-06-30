@@ -5,15 +5,21 @@ import validation.Validator;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import static constants.Security_Constants.ERR_KEIN_ALGORITHMUS;
-import static constants.Security_Constants.ERR_MSG_PASSWORT;
+import static constants.Security_Constants.*;
 
 /**
  * Created by Florian on 13.06.2017.
  * Algorithmus um die Passwörter zu verschlüsseln
  */
 public class Verschlüsselung {
-    private static byte [] verschlüsselePasswort(String passwort) {
+
+    /**
+     * Methode um ein Passwort mit Hash Algorithmen zu verschluesseln
+     *
+     * @param passwort das Passwort, das zu verschluesseln ist
+     * @return verschluesseltes Passwort als byte Array
+     */
+    private static byte[] verschlüsselePasswort(String passwort) {
         MessageDigest md;
 
         try {
@@ -21,14 +27,21 @@ public class Verschlüsselung {
             md.update(passwort.getBytes());
             return md.digest();
         } catch (NoSuchAlgorithmException e) {
-            //TODO LOG Datei erstellen
             System.err.println(ERR_KEIN_ALGORITHMUS);
         }
 
         return null;
     }
 
+    /**
+     * Methode um ein Passwort als byte Array zu generieren und dann in ein String zu konvertieren
+     *
+     * @param passwort das Passwort, das zu verschluesseln ist
+     * @return verschluesseltes Passwort als String
+     */
     public static String generatePasswort(String passwort) {
+        Validator.check(!passwort.isEmpty(), ERR_MSG_PASSWORD_EMPTY);
+
         StringBuilder sb = new StringBuilder();
 
         byte[] mdbytes = verschlüsselePasswort(passwort);
@@ -41,8 +54,18 @@ public class Verschlüsselung {
         return sb.toString();
     }
 
-    //TODO Löschen
-    public static void main (String args[]) {
-        System.out.println(generatePasswort("passwort123"));
+    /**
+     * Methode um zu Ueberpruefen ob zwei Passwoerter gleich sind
+     *
+     * @param rawPassword Passwort des Benutzers der sich einloggt
+     * @param dbPassword  Passwort das zum Abgleich aus der Datenbank genommen wird
+     * @return true wenn gleich, false wenn nicht gleich
+     */
+    public static boolean checkPasswordEquals(String rawPassword, String dbPassword) {
+        Validator.check(!rawPassword.isEmpty() && !dbPassword.isEmpty(), ERR_MSG_PASSWORD_EMPTY);
+
+        String convertedPassword = generatePasswort(rawPassword);
+
+        return convertedPassword.equals(dbPassword);
     }
 }

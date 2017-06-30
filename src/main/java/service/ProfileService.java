@@ -4,6 +4,7 @@ import dao.SchnittstelleBenutzer;
 import exception.DataAlreadyExistsException;
 import exception.DataNotFoundException;
 import model.User;
+import security.Verschlüsselung;
 
 import static constants.Service_Constants.MSG_ID_NOT_FOUND;
 import static constants.Service_Constants.MSG_USER_ALREADY_EXISTS;
@@ -24,7 +25,9 @@ public class ProfileService {
             throw new DataAlreadyExistsException(MSG_USER_ALREADY_EXISTS);
         }
 
-        //TODO Passwort verschlüsseln
+        aUser.setPasswort(Verschlüsselung.generatePasswort(aUser.getPasswort()));
+        aUser.setAvatar_link("link1.link");
+        aUser.setId(schnittBenutzer.getNextID());
         schnittBenutzer.addUser(aUser);
     }
 
