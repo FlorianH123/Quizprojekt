@@ -47,6 +47,7 @@ public class DB_Constants {
     public static final String PS_GET_PASSWORD_BY_ID = "SELECT " + PASSWORT + " FROM benutzer WHERE " + ID + " = ?";
     public static final String PS_ADD_USER           = "INSERT INTO benutzer VALUES (?,?,?,?,?)";
     public static final String PS_GET_NEXT_ID        = "SELECT count(*) AS anzahl FROM benutzer";
+    public static final String PS_AUTHORIZATION      = "SELECT * FROM benutzer WHERE " + E_MAIL + " = ?";
 
     public static final int INDEX_1 = 1;
     public static final int INDEX_2 = 2;

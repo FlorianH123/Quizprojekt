@@ -53,16 +53,13 @@ public class SchnittstelleBenutzer {
             statement.setInt(INDEX_1, id);
             rs = statement.executeQuery();
 
-            if (!rs.next()) {
-                throw new DataNotFoundException(ERR_MSG_ID_NOT_FOUND);
+            if (rs.next()) {
+                aUser.setId(rs.getInt(ID));
+                aUser.setE_mail(rs.getString(E_MAIL));
+                aUser.setAvatar_link(rs.getString(AVATAR_LINK));
+                aUser.setName(rs.getString(NAME));
             } else {
-                rs.previous();
-                while (rs.next()) {
-                    aUser.setId(rs.getInt(ID));
-                    aUser.setE_mail(rs.getString(E_MAIL));
-                    aUser.setAvatar_link(rs.getString(AVATAR_LINK));
-                    aUser.setName(rs.getString(NAME));
-                }
+                throw new DataNotFoundException(ERR_MSG_ID_NOT_FOUND);
             }
 
         } catch (SQLException e) {
@@ -94,6 +91,58 @@ public class SchnittstelleBenutzer {
         }
 
         return aUser;
+    }
+
+    public User getUserByEmail(String eMail){
+        Validator.check(!eMail.isEmpty(), ERR_MSG_CHECK_MAIL);
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+        User re_user = null;
+
+        try{
+            connection = getConnection();
+            statement = connection.prepareStatement(PS_AUTHORIZATION);
+            statement.setString(INDEX_1, eMail);
+            rs = statement.executeQuery();
+
+            if (rs.next()) {
+                re_user = new User(rs.getString(E_MAIL),
+                        rs.getString(PASSWORT),
+                        rs.getString(AVATAR_LINK),
+                        rs.getString(NAME));
+            } else {
+                throw new DataNotFoundException(ERR_MSG_ID_NOT_FOUND);
+            }
+        }catch(SQLException e){
+            logger.log(Level.SEVERE, ERR_MSG_GET_USER + " " + e);
+        }finally{
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    logger.log(Level.SEVERE, ERR_MSG_RS_CLOSE + " " + e);
+                }
+            }
+
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    logger.log(Level.SEVERE, ERR_MSG_STMT_CLOSE + " " + e);
+                }
+            }
+
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    logger.log(Level.SEVERE, ERR_MSG_CON_CLOSE + " " + e);
+                }
+            }
+        }
+        return re_user;
     }
 
     /**

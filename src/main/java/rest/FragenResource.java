@@ -8,7 +8,7 @@ import javax.ws.rs.core.MediaType;
 import model.Frage;
 import service.FragenService;
 
-import static constants.Rest_Constants.FRAGEN_PATH;
+import static constants.Rest_Constants.*;
 
 /**
  * Created by Florian on 13.06.2017.
