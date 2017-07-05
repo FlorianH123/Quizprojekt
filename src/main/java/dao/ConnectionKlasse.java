@@ -6,8 +6,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import static constants.DB_Constants.*;
 
@@ -17,25 +15,20 @@ import static constants.DB_Constants.*;
  */
 public class ConnectionKlasse {
     private Properties properties;
-    private Logger logger = Logger.getLogger(getClass().getName());
 
     public ConnectionKlasse() {
         properties = new Properties();
         InputStream is;
 
         try {
-            is = SchnittstelleBenutzer.class.getClassLoader().getResourceAsStream(FILENAME);
+            is = ConnectionKlasse.class.getClassLoader().getResourceAsStream(FILENAME);
             properties.load(is);
-
-            //TODO Logger überarbeiten
-            //handler = new FileHandler("log/logger.xml", true);
-            //logger.addHandler(handler);
 
             Class.forName(properties.getProperty(CLASS_NAME));
         } catch (ClassNotFoundException e) {
-            logger.log(Level.SEVERE, ERR_MSG_DRIVER + " " + e);
+            System.err.println(ERR_MSG_DRIVER);
         } catch (IOException e) {
-            logger.log(Level.SEVERE, ERR_MSG_PROPERTIES + " " + e);
+            System.err.println(ERR_MSG_PROPERTIES);
         }
     }
 
@@ -56,7 +49,7 @@ public class ConnectionKlasse {
             con = DriverManager.getConnection(url, user, password);
 
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, ERR_MSG_CONNECTION + " " + e);
+            System.err.println(ERR_MSG_CONNECTION);
         }
 
         return con;

@@ -16,9 +16,11 @@ public class DataAlreadyExistsExceptionMapper implements ExceptionMapper<DataAlr
 
     @Override
     public Response toResponse(DataAlreadyExistsException ex) {
-        ErrorMessage errorMsg = new ErrorMessage(ex.getMessage(), Response.Status.FOUND.getStatusCode());
+        //ErrorMessage errorMsg = new ErrorMessage(ex.getMessage(), Response.Status.FOUND.getStatusCode());
+
         return Response.status(Response.Status.FOUND)
-                .entity(errorMsg)
+                //.entity(errorMsg)
+                .entity(ex.getMessage())
                 .build();
     }
 }

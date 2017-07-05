@@ -1,6 +1,9 @@
 package rest;
 
 import dao.SchnittstelleBenutzer;
+import exception.DataNotFoundException;
+import exception.EmailNotFoundException;
+import exception.PasswordIncorrectException;
 import model.User;
 import security.Verschlüsselung;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -11,6 +14,8 @@ import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
 import java.util.List;
 import java.util.StringTokenizer;
+
+import static constants.Rest_Constants.*;
 
 /**
  * Created by Cedric on 02.07.2017.
@@ -42,6 +47,8 @@ public class Filter implements ContainerRequestFilter{
                 user = sch.getUserByEmail(email);
                 if(Verschlüsselung.checkPasswordEquals(password,user.getPasswort())){
                     return;
+                }else{
+                    throw new PasswordIncorrectException(ERR_MSG_PW_INCORRECT);
                 }
 
             }
