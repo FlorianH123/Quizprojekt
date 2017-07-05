@@ -5,9 +5,10 @@ import model.User;
 import validation.Validator;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.sql.*;
-import java.util.Properties;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -27,8 +28,13 @@ public class SchnittstelleBenutzer {
         Handler handler;
 
         //TODO Logger überarbeiten
-        //handler = new FileHandler("log/logger.xml", true);
-        //logger.addHandler(handler);
+        try {
+            handler = new FileHandler("log/logger.xml", true);
+            logger.addHandler(handler);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**
@@ -417,5 +423,10 @@ public class SchnittstelleBenutzer {
         ConnectionKlasse con = new ConnectionKlasse();
 
         return con.getConnection();
+    }
+
+    public static void main (String[] args) {
+        SchnittstelleBenutzer sch = new SchnittstelleBenutzer();
+        sch.getNextID();
     }
 }
