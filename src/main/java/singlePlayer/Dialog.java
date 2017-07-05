@@ -53,9 +53,7 @@ public class Dialog {
         Connection connection = null;
         int anzahlFragen = auswahl;
         int auswahlEingabe = MenuChoose();
-        ConnectionKlasse con = new ConnectionKlasse();
-                    connection = con.getConnection();
-                    SinglePlayer10.SinglePlayerStart(connection ,auswahlEingabe, anzahlFragen);
+        new singlePlayer.SinglePlayer10().SinglePlayerStart(auswahl, anzahlFragen);
     }
 
     public static int MenuChoose(){

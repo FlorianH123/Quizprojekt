@@ -49,6 +49,21 @@ public class DB_Constants {
     public static final String PS_GET_NEXT_ID        = "SELECT count(*) AS anzahl FROM benutzer";
     public static final String PS_AUTHORIZATION      = "SELECT * FROM benutzer WHERE " + E_MAIL + " = ?";
 
+    //Prepared Statements Single Player
+
+    public static final String PS_GET_QUESTIONS      = "SELECT \"Categories\".\"name\", \"Categories\".\"matchID_cat\", \"Level\".\"levelID\", \"Level\".\"verbalization\", \"Level\".\"solution\" " +
+                                                       "FROM \"quizDB\".\"Categories\", \"quizDB\".\"Matches\", \"quizDB\".\"Level\""+
+                                                       "WHERE \"Matches\".\"matchID\" = \"Categories\".\"matchID_cat\""+
+                                                       "AND \"Categories\".\"catID\" = \"Level\".\"catID\""+
+                                                       "AND \"Categories\".\"matchID_cat\" = ? "+
+                                                       "ORDER BY Random()"+
+                                                       "LIMIT ?;"+";";
+    public static final String PS_GET_DISTRACTORS    = "";
+    public static final String d ="";
+    public static final String f ="";
+    public static final String k ="";
+
+
     public static final int INDEX_1 = 1;
     public static final int INDEX_2 = 2;
     public static final int INDEX_3 = 3;
