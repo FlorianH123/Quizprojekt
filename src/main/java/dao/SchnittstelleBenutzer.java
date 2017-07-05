@@ -1,6 +1,7 @@
 package dao;
 
 import exception.DataNotFoundException;
+import exception.EmailNotFoundException;
 import model.User;
 import validation.Validator;
 
@@ -113,7 +114,7 @@ public class SchnittstelleBenutzer {
                         rs.getString(AVATAR_LINK),
                         rs.getString(NAME));
             } else {
-                throw new DataNotFoundException(ERR_MSG_ID_NOT_FOUND);
+                throw new EmailNotFoundException(ERR_MSG_EMAIL_NOT_FOUND);
             }
         }catch(SQLException e){
             logger.log(Level.SEVERE, ERR_MSG_GET_USER + " " + e);
@@ -417,5 +418,10 @@ public class SchnittstelleBenutzer {
         ConnectionKlasse con = new ConnectionKlasse();
 
         return con.getConnection();
+    }
+
+    public static void main(String[] args){
+        SchnittstelleBenutzer sch = new SchnittstelleBenutzer();
+        User user = sch.getUserByEmail("test");
     }
 }
