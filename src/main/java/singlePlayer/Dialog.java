@@ -53,7 +53,7 @@ public class Dialog {
         Connection connection = null;
         int anzahlFragen = auswahl;
         int auswahlEingabe = MenuChoose();
-        new singlePlayer.SinglePlayer10().SinglePlayerStart(auswahl, anzahlFragen);
+        new singlePlayer.SinglePlayer10().SinglePlayerStart(auswahlEingabe, anzahlFragen);
     }
 
     public static int MenuChoose(){

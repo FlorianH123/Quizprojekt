@@ -28,7 +28,6 @@ public class SinglePlayer10 {
                 pstatement.setInt(INDEX_2,anzahlFragen);
                 System.out.println(pstatement);
                 rs = pstatement.executeQuery();
-                System.out.print(rs.next());
                 List<Frage> list = new ArrayList<>();
                 while(rs.next()){
 
@@ -44,11 +43,11 @@ public class SinglePlayer10 {
                     frage.setDistractor3("Dis3");
                     list.add(frage);
                     System.out.println(list.size());
-
                     //TODO: 05.07.2017
                     //Aufrufen der RestApi um die Liste als .json Datei auf Server Hochzuladen.
 
                 }
+                printList(list);
             }catch (SQLException e){
                 System.out.println("Error while execute the Query!");
             }finally {
@@ -77,14 +76,15 @@ public class SinglePlayer10 {
                 }
             }
         }
-        // TODO: 05.07.2017
-        //Liste ausprinten um zu testen
+
         public void printList(List list){
 
-            for(int i = 0 ; i >= list.size(); i++){
-
+            for(int i = 0 ; i < list.size(); i++){
                 System.out.println(list.get(i).toString());
             }
+        }
+        public void rest(List list){
+
         }
     }
 
