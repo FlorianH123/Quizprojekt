@@ -66,4 +66,14 @@ public class Frage {
     public void setDistractor3(String distractor3) {
         this.distractor3 = distractor3;
     }
+
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Verbalization ->: " + question + "\n" +
+                    "Solution ->: " + answer + "\n" +
+                    "Distractor1 ->: " + distractor1 + "\n" +
+                    "Distractor2 ->: " + distractor2 + "\n" +
+                    "Distractor3 ->: " + distractor3 + "\n");
+        return sb.toString();
+    }
 }

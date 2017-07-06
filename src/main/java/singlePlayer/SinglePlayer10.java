@@ -22,7 +22,7 @@ public class SinglePlayer10 {
             List<Frage> list = null;
             try{
                 connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","admin");
-                        //connection für echte DB
+                //connection für echte DB
                 //connection = new dao.ConnectionKlasse().getConnection();
                 pstatement = connection.prepareStatement(PS_GET_QUESTIONS);
                 pstatement.setInt(INDEX_1,taken );
@@ -30,6 +30,7 @@ public class SinglePlayer10 {
                 System.out.println(pstatement);
                 rs = pstatement.executeQuery();
                 System.out.print(rs.next());
+                list = new ArrayList<>();
                 list = new ArrayList<>();
                 while(rs.next()){
 
@@ -48,6 +49,7 @@ public class SinglePlayer10 {
 
                     //TODO: 05.07.2017
                     //Aufrufen der RestApi um die Liste als .json Datei auf Server Hochzuladen.
+
                 }
             }catch (SQLException e){
                 System.out.println("Error while execute the Query!");
@@ -78,12 +80,10 @@ public class SinglePlayer10 {
             }
             return list;
         }
-        // TODO: 05.07.2017
-        //Liste ausprinten um zu testen
+
         public void printList(List list){
 
-            for(int i = 0 ; i >= list.size(); i++){
-
+            for(int i = 0 ; i < list.size(); i++){
                 System.out.println(list.get(i).toString());
             }
         }
