@@ -1,20 +1,25 @@
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+package singlePlayer;
+
+import dao.ConnectionKlasse;
+
+import java.sql.*;
 
 public class Distractor {
 
-//    public String DistractorCretor(Connection connection, int sub_Categorie , int anz_Distractors) throws SQLException {
- //       Statement st = null;
-//        try {
-//            st = connection.createStatement();
-//        }catch(SQLException e){
-//            throw new SQLException("Fail to Connect");
-//        }
-//        ResultSet rs;
-//        rs = st.executeQuery();
-//        return "H";
-//    }
+    public String DistractorCretor(int sub_Categorie){
+        Connection connection = null;
+        PreparedStatement pstatement = null;
+        ResultSet rs = null;
 
+        try{
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","admin");
+
+            // TODO: 05.07.2017
+            //Datenbank abfrage um Distractors zu generieren anhand der gewählten Sub_cat ( übergebenen Sub_cat
+        }catch(SQLException e){
+            System.out.println("Error while executing the Query!");
+
+        }
+        return "hallo";
+    }
 }

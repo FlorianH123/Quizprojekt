@@ -1,71 +1,90 @@
 package singlePlayer;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import model.Frage;
 
-/**
- * Created by Darth Vader on 07.06.2017.
- */
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+
+import static constants.DB_Constants.*;
+
+
 public class SinglePlayer10 {
 
-
-   // public static void main(String [] args){
-     //   Connection connection =null;
-
-
-//        try{
-  //          connection = ConnectionKlasse.getConnection();
-    //        if(connection != null){
-      //          System.out.println("Connection established!");
-       //     }
-       // }catch(Exception e){
-       //     e.printStackTrace();
-       // }finally {
-         //   if(connection != null){
-           //     try{
-             //       connection.close();
-              //  }catch(SQLException e){
-               //     e.printStackTrace();
-                //}
-           // }
-
-       // }
-
-    //}
-
-
-        public static void SinglePlayerStart(Connection connection ,int taken, int anzahlFragen) throws SQLException {
+        public void SinglePlayerStart(int taken, int anzahlFragen) throws SQLException {
             // Abfrage auf verschiedene Column starten
+            Connection connection = null;
+            PreparedStatement pstatement = null;
+            ResultSet rs;
+            rs = null;
+            Frage frage;
+            try{
+                connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","admin");
+                        //connection für echte DB
+                //connection = new dao.ConnectionKlasse().getConnection();
+                pstatement = connection.prepareStatement(PS_GET_QUESTIONS);
+                pstatement.setInt(INDEX_1,taken );
+                pstatement.setInt(INDEX_2,anzahlFragen);
+                System.out.println(pstatement);
+                rs = pstatement.executeQuery();
+                List<Frage> list = new ArrayList<>();
+                while(rs.next()){
 
-            Statement st = null;
-            try {
-                st = connection.createStatement();
-            } catch (SQLException e) {
-                e.printStackTrace();
+                    frage = new Frage();
+                    frage.setQuestion(rs.getString("verbalization"));
+                    frage.setAnswer(rs.getString("solution"));
+
+                    // TODO: 05.07.2017
+                    //Aufruf der Distractor class um anhand abgefragter Sub_Cat die zugehörigen Distractors zu setzen
+
+                    frage.setDistractor1("Dis1");
+                    frage.setDistractor2("Dis2");
+                    frage.setDistractor3("Dis3");
+                    list.add(frage);
+                    System.out.println(list.size());
+                    //TODO: 05.07.2017
+                    //Aufrufen der RestApi um die Liste als .json Datei auf Server Hochzuladen.
+
+                }
+                printList(list);
+            }catch (SQLException e){
+                System.out.println("Error while execute the Query!");
+            }finally {
+                if (rs != null) {
+                    try {
+                        rs.close();
+                    } catch (SQLException e) {
+                        System.out.println(ERR_MSG_RS_CLOSE + " " + e);
+                    }
+                }
+
+                if (pstatement != null) {
+                    try {
+                        pstatement.close();
+                    } catch (SQLException e) {
+                        System.out.println(ERR_MSG_STMT_CLOSE + " " + e);
+                    }
+                }
+
+                if (connection != null) {
+                    try {
+                        connection.close();
+                    } catch (SQLException e) {
+                        System.out.println(ERR_MSG_CON_CLOSE +" " + e);
+                    }
+                }
             }
-            ResultSet rs = st.executeQuery("Select \"Categories\".\"name\", \"Categories\".\"matchID_cat\", \"Level\".\"levelID\", \"Level\".\"verbalization\" , \"Level\".\"solution\"\n" +
-                    "From \"quizDB\".\"Categories\",\"quizDB\".\"Matches\",\"quizDB\".\"Level\"\n" +
-                    "where \"Matches\".\"matchID\" = \"Categories\".\"matchID_cat\" AND \"Categories\".\"catID\" = \"Level\".\"catID\" AND \"Categories\".\"matchID_cat\"="+ taken +
-                    "ORDER BY Random()"+
-                    "Limit "+anzahlFragen+";");
-            while (rs.next())
-            {
-                System.out.println("-----------------------------------");
-                System.out.println("Abfrage x");
-                System.out.println(rs.getString(1));
-                System.out.println(rs.getString(2));
-                System.out.println(rs.getString(3));
-                System.out.println(rs.getString(4));
-                System.out.println(rs.getString(5));
-                System.out.println("-----------------------------------");
-            } rs.close();
-            st.close();
-
-            //
-
         }
 
+        public void printList(List list){
+
+            for(int i = 0 ; i < list.size(); i++){
+                System.out.println(list.get(i).toString());
+            }
+        }
+        public void rest(List list){
+
+        }
     }
 

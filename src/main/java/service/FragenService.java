@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Frage;
 
+import javax.ws.rs.Path;
+
 /**
  * Created by Florian on 13.06.2017.
  * Test Klasse zum Fragen erstellen
