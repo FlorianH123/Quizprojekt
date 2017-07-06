@@ -12,13 +12,14 @@ import static constants.DB_Constants.*;
 
 public class SinglePlayer10 {
 
-        public void SinglePlayerStart(int taken, int anzahlFragen) throws SQLException {
+        public List SinglePlayerStart(int taken, int anzahlFragen) throws SQLException {
             // Abfrage auf verschiedene Column starten
             Connection connection = null;
             PreparedStatement pstatement = null;
             ResultSet rs;
             rs = null;
             Frage frage;
+            List<Frage> list = null;
             try{
                 connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","admin");
                         //connection für echte DB
@@ -29,7 +30,7 @@ public class SinglePlayer10 {
                 System.out.println(pstatement);
                 rs = pstatement.executeQuery();
                 System.out.print(rs.next());
-                List<Frage> list = new ArrayList<>();
+                list = new ArrayList<>();
                 while(rs.next()){
 
                     frage = new Frage();
@@ -47,7 +48,6 @@ public class SinglePlayer10 {
 
                     //TODO: 05.07.2017
                     //Aufrufen der RestApi um die Liste als .json Datei auf Server Hochzuladen.
-
                 }
             }catch (SQLException e){
                 System.out.println("Error while execute the Query!");
@@ -76,6 +76,7 @@ public class SinglePlayer10 {
                     }
                 }
             }
+            return list;
         }
         // TODO: 05.07.2017
         //Liste ausprinten um zu testen
