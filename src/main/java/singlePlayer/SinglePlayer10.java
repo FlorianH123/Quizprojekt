@@ -31,7 +31,6 @@ public class SinglePlayer10 {
                 rs = pstatement.executeQuery();
                 System.out.print(rs.next());
                 list = new ArrayList<>();
-                list = new ArrayList<>();
                 while(rs.next()){
 
                     frage = new Frage();
