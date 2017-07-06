@@ -72,5 +72,4 @@ public class Dialog {
         auswahl = input.nextInt();
         return auswahl;
     }
-
 }

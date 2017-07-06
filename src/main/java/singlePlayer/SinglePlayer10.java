@@ -12,6 +12,8 @@ import static constants.DB_Constants.*;
 
 public class SinglePlayer10 {
 
+        private static List<Frage> list;
+
         public void SinglePlayerStart(int taken, int anzahlFragen) throws SQLException {
             // Abfrage auf verschiedene Column starten
             Connection connection = null;
@@ -21,14 +23,14 @@ public class SinglePlayer10 {
             Frage frage;
             try{
                 connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","admin");
-                        //connection für echte DB
+                //connection für echte DB
                 //connection = new dao.ConnectionKlasse().getConnection();
                 pstatement = connection.prepareStatement(PS_GET_QUESTIONS);
                 pstatement.setInt(INDEX_1,taken );
                 pstatement.setInt(INDEX_2,anzahlFragen);
                 System.out.println(pstatement);
                 rs = pstatement.executeQuery();
-                List<Frage> list = new ArrayList<>();
+                list = new ArrayList<>();
                 while(rs.next()){
 
                     frage = new Frage();
@@ -83,8 +85,9 @@ public class SinglePlayer10 {
                 System.out.println(list.get(i).toString());
             }
         }
-        public void rest(List list){
 
+        public  List getList(){
+            return this.list;
         }
     }
 
