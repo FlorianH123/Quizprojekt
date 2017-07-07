@@ -5,7 +5,6 @@ import model.Frage;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 import static constants.DB_Constants.*;
 
@@ -77,13 +76,6 @@ public class SinglePlayer10 {
                 }
             }
             return list;
-        }
-
-        public void printList(List list){
-
-            for(int i = 0 ; i < list.size(); i++){
-                System.out.println(list.get(i).toString());
-            }
         }
     }
 
