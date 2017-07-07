@@ -57,7 +57,7 @@ public class Dialog {
 
     private void EingabeVerarbeitung(int auswahl) throws SQLException {
         int auswahlEingabe = MenuChoose();
-        List<Frage> list = new SinglePlayer10().SinglePlayerStart(auswahl, auswahl);
+        List<Frage> list = new SinglePlayer10().SinglePlayerStart(auswahlEingabe, auswahl);
     }
 
     private int MenuChoose(){

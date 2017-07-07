@@ -17,10 +17,10 @@ import static constants.Rest_Constants.*;
 public class FragenResource {
     private FragenService service = new FragenService();
     @PathParam("questionCount") private int anzahlFragen;
-    @QueryParam("query") private String fragenArt;
+    @QueryParam("query") private int fragenArt;
 
     @GET
-    @Produces (MediaType.APPLICATION_XML)
+    @Produces (MediaType.APPLICATION_JSON)
     public List<Frage> getFragen () {
         return service.getFragen(anzahlFragen, fragenArt);
     }
