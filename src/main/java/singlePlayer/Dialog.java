@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 import dao.ConnectionKlasse;
+import model.Frage;
 
 import java.sql.Connection;
 
@@ -14,14 +15,15 @@ public class Dialog {
     private static final int a =1;
 
     private static Scanner input;
+    private List<Frage> list;
 
     public Dialog(){
         input = new Scanner(System.in);
+        start();
     }
 
-    public static void main(String [] args){
+    private void start(){
         int auswahl=-1;
-        new Dialog();
         while(auswahl != EXIT ){
             try{
                 auswahl = DialogAbfrage();
@@ -34,7 +36,11 @@ public class Dialog {
         }
     }
 
-    public static int DialogAbfrage(){
+    public static void main(String [] args){
+        new Dialog();
+    }
+
+    private int DialogAbfrage(){
         int choosen;
 
         System.out.println("\n" +"Was möchten sie tun ?" + "\n" +
@@ -49,14 +55,12 @@ public class Dialog {
         return choosen;
     }
 
-    private static void EingabeVerarbeitung(int auswahl) throws SQLException {
-        Connection connection = null;
-        int anzahlFragen = auswahl;
+    private void EingabeVerarbeitung(int auswahl) throws SQLException {
         int auswahlEingabe = MenuChoose();
-        new singlePlayer.SinglePlayer10().SinglePlayerStart(auswahlEingabe, anzahlFragen);
+        List<Frage> list = new SinglePlayer10().SinglePlayerStart(auswahl, auswahl);
     }
 
-    public static int MenuChoose(){
+    private int MenuChoose(){
         int auswahl;
 
         System.out.println("\n" +"Welches Match wollen sie wählen ?" + "\n" +
@@ -72,4 +76,9 @@ public class Dialog {
         auswahl = input.nextInt();
         return auswahl;
     }
+
+    public List getList() {
+        return this.list;
+    }
+
 }
