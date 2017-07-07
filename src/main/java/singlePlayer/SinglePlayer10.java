@@ -85,9 +85,5 @@ public class SinglePlayer10 {
                 System.out.println(list.get(i).toString());
             }
         }
-
-        public  List getList(){
-            return this.list;
-        }
     }
 
