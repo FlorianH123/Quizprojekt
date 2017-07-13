@@ -103,14 +103,15 @@ public class SchnittstelleBenutzer {
     public User getUserByEmail(String eMail){
         Validator.check(!eMail.isEmpty(), ERR_MSG_CHECK_MAIL);
 
-        Connection connection = null;
-        PreparedStatement statement = null;
+        //Connection connection = null;
+        //PreparedStatement statement = null;
         ResultSet rs = null;
         User re_user = null;
 
-        try{
-            connection = getConnection();
-            statement = connection.prepareStatement(PS_AUTHORIZATION);
+        try(Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement(PS_AUTHORIZATION)){
+            //connection = getConnection();
+            //statement = connection.prepareStatement(PS_AUTHORIZATION);
             statement.setString(INDEX_1, eMail);
             rs = statement.executeQuery();
 
@@ -132,7 +133,7 @@ public class SchnittstelleBenutzer {
                     logger.log(Level.SEVERE, ERR_MSG_RS_CLOSE + " " + e);
                 }
             }
-
+            /*
             if (statement != null) {
                 try {
                     statement.close();
@@ -148,6 +149,7 @@ public class SchnittstelleBenutzer {
                     logger.log(Level.SEVERE, ERR_MSG_CON_CLOSE + " " + e);
                 }
             }
+            */
         }
         return re_user;
     }
