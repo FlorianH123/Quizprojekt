@@ -25,4 +25,7 @@ public class Rest_Constants {
     public static final String ERR_MSG_PW_INCORRECT = "Email oder Passwort nicht korrekt";
 //----------------------------------------------------------------------------------------------------------------------
 
+//fuer Autorisierung
+    public static final String AUTORISIERUNGS_PATH = "/auth";
+
 }
