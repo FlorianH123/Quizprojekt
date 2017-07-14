@@ -15,6 +15,8 @@ public class Rest_Constants {
 
 //fuer FragenResource---------------------------------------------------------------------------------------------------
     public static final String FRAGEN_PATH = "/fragenresource/{questionCount}";
+    public static final String FRAGEN_PATH_COUNT = "questionCount";
+    public static final String QUERY = "query";
 //----------------------------------------------------------------------------------------------------------------------
 
 //fuer ApplicationHandler-----------------------------------------------------------------------------------------------
