@@ -15,6 +15,8 @@ public class Rest_Constants {
 
 //fuer FragenResource---------------------------------------------------------------------------------------------------
     public static final String FRAGEN_PATH = "/fragenresource/{questionCount}";
+    public static final String FRAGEN_PATH_COUNT = "questionCount";
+    public static final String QUERY = "query";
 //----------------------------------------------------------------------------------------------------------------------
 
 //fuer ApplicationHandler-----------------------------------------------------------------------------------------------
@@ -24,5 +26,8 @@ public class Rest_Constants {
 //fuer Fehlermeldungen--------------------------------------------------------------------------------------------------
     public static final String ERR_MSG_PW_INCORRECT = "Email oder Passwort nicht korrekt";
 //----------------------------------------------------------------------------------------------------------------------
+
+//fuer Autorisierung
+    public static final String AUTORISIERUNGS_PATH = "/auth";
 
 }
