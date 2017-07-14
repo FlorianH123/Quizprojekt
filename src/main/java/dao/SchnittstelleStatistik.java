@@ -46,7 +46,7 @@ public class SchnittstelleStatistik {
         Validator.check(userID > 0, ERR_MSG_CHECK_ID);
 
         List<Game> gameList = new ArrayList<>();
-        Game aGame = new Game();
+
         ResultSet rs;
 
         try (Connection connection = getConnection();
@@ -64,11 +64,13 @@ public class SchnittstelleStatistik {
             rs.previous();
 
             while(rs.next()) {
-               aGame.setGameMode(gamemode);
-               aGame.setUser_id(rs.getInt(USER_ID));
-               aGame.setFragenBeantwortet(rs.getInt(FRAGEN_BEANTWORTET));
-               aGame.setFragenRichtig(rs.getInt(FRAGEN_RICHTIG));
-               aGame.setPunkte(rs.getInt(PUNKTE));
+                Game aGame = new Game();
+                aGame.setGameMode(gamemode);
+                aGame.setUser_id(rs.getInt(USER_ID));
+                aGame.setFragenBeantwortet(rs.getInt(FRAGEN_BEANTWORTET));
+                aGame.setFragenRichtig(rs.getInt(FRAGEN_RICHTIG));
+                aGame.setPunkte(rs.getInt(PUNKTE));
+                aGame.setGame_id(rs.getInt(GAME_ID));
 
                gameList.add(aGame);
             }
@@ -94,7 +96,13 @@ public class SchnittstelleStatistik {
     public static void main (String[] args) {
         SchnittstelleStatistik sch = new SchnittstelleStatistik();
 
-        Game aGame = new Game("xquiz", 1, 34, 15, 1455, 1);
-        sch.trackNewGameSession(aGame);
+//        Game aGame = new Game("xquiz", 1, 35, 16, 1855, 3);
+//        sch.trackNewGameSession(aGame);
+        List<Game> list = new ArrayList<>();
+        list = sch.getGameListByID(1, "xquiz");
+
+        for (Game a : list) {
+            System.out.println(a.toString());
+        }
     }
 }

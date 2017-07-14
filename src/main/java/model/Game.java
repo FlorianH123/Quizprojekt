@@ -72,4 +72,12 @@ public class Game {
     public void setPunkte(int punkte) {
         this.punkte = punkte;
     }
+
+    public String toString() {
+        String sb = "Gamemode: " + gameMode + " User ID: " + user_id + " Fragen beantwortet: " +
+                fragenBeantwortet + " Fragen richtig: " + fragenRichtig + " Punkte: " + punkte +
+                " Game ID: " + game_id;
+
+        return sb;
+    }
 }
