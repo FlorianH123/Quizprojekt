@@ -49,6 +49,7 @@ public class DB_Constants {
     public static final String PS_ADD_USER           = "INSERT INTO benutzer VALUES (?,?,?,?,?)";
     public static final String PS_GET_NEXT_ID        = "SELECT count(*) AS anzahl FROM benutzer";
     public static final String PS_AUTHORIZATION      = "SELECT * FROM benutzer WHERE " + E_MAIL + " = ?";
+    public static final String PS_CHANGE_PW          = "UPDATE benutzer SET passwort = ? WHERE e_mail = ?";
 
     //Prepared Statements Single Player
 
