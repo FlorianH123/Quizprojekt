@@ -52,23 +52,24 @@ public class DB_Constants {
     public static final String PS_GET_USER_BY_ID = "SELECT * FROM benutzer WHERE " + ID + " = ?";
     public static final String PS_CHECK_ID = "SELECT " + ID + " FROM benutzer WHERE " + ID + " = ?";
     public static final String PS_GET_PASSWORD_BY_ID = "SELECT " + PASSWORT + " FROM benutzer WHERE " + ID + " = ?";
-    public static final String PS_ADD_USER = "INSERT INTO benutzer VALUES (?,?,?,?,?)";
-    public static final String PS_GET_NEXT_ID = "SELECT count(*) AS anzahl FROM benutzer";
-    public static final String PS_AUTHORIZATION = "SELECT * FROM benutzer WHERE " + E_MAIL + " = ?";
+    public static final String PS_ADD_USER           = "INSERT INTO benutzer VALUES (?,?,?,?,?)";
+    public static final String PS_GET_NEXT_ID        = "SELECT count(*) AS anzahl FROM benutzer";
+    public static final String PS_AUTHORIZATION      = "SELECT * FROM benutzer WHERE " + E_MAIL + " = ?";
+    public static final String PS_CHANGE_PW          = "UPDATE benutzer SET passwort = ? WHERE e_mail = ?";
 
     //Prepared Statements Single Player
 
-    public static final String PS_GET_QUESTIONS = "SELECT \"Categories\".\"name\", \"Categories\".\"matchID_cat\", \"Level\".\"levelID\", \"Level\".\"verbalization\", \"Level\".\"solution\" " +
-            "FROM \"quizDB\".\"Categories\", \"quizDB\".\"Matches\", \"quizDB\".\"Level\"" +
-            "WHERE \"Matches\".\"matchID\" = \"Categories\".\"matchID_cat\"" +
-            "AND \"Categories\".\"catID\" = \"Level\".\"catID\"" +
-            "AND \"Categories\".\"matchID_cat\" = ? " +
-            "ORDER BY Random()" +
-            "LIMIT ?;" + ";";
-    public static final String PS_GET_DISTRACTORS = "";
-    public static final String d = "";
-    public static final String f = "";
-    public static final String k = "";
+    public static final String PS_GET_QUESTIONS      = "SELECT \"Categories\".\"name\", \"Categories\".\"matchID_cat\", \"Level\".\"levelID\", \"Level\".\"verbalization\", \"Level\".\"solution\" " +
+                                                       "FROM \"quizDB\".\"Categories\", \"quizDB\".\"Matches\", \"quizDB\".\"Level\""+
+                                                       "WHERE \"Matches\".\"matchID\" = \"Categories\".\"matchID_cat\""+
+                                                       "AND \"Categories\".\"catID\" = \"Level\".\"catID\""+
+                                                       "AND \"Categories\".\"matchID_cat\" = ? "+
+                                                       "ORDER BY Random()"+
+                                                       "LIMIT ?;"+";";
+    public static final String PS_GET_DISTRACTORS    = "";
+    public static final String d ="";
+    public static final String f ="";
+    public static final String k ="";
 
 
 

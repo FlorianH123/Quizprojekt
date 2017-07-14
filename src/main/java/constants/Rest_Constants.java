@@ -11,6 +11,7 @@ public class Rest_Constants {
     public static final String MSG_BENUTZER_ANGELEGT = "Benutzer wurde angelegt";
     public static final String MESSAGE_ID_PATH = "/{messageID}";
     public static final String MESSAGE_ID = "messageID";
+    public static final String MSG_PASSWORT_GEAENDERT = "Passwort erfolgreich geaendert";
 //----------------------------------------------------------------------------------------------------------------------
 
 //fuer FragenResource---------------------------------------------------------------------------------------------------
@@ -29,5 +30,4 @@ public class Rest_Constants {
 
 //fuer Autorisierung
     public static final String AUTORISIERUNGS_PATH = "/auth";
-
 }
