@@ -228,6 +228,18 @@ public class SchnittstelleBenutzer {
         }
     }
 
+    public void changeAvatarLink(User user) {
+        try(Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement(PS_CHANGE_AVL)){
+            statement.setString(INDEX_1, user.getAvatar_link());
+            statement.setString(INDEX_2,user.getE_mail());
+            statement.executeUpdate();
+        }catch(SQLException e){
+            System.err.println();
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Methode um eine Verbindung aufzubauen
      *

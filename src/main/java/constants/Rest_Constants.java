@@ -12,6 +12,9 @@ public class Rest_Constants {
     public static final String MESSAGE_ID_PATH = "/{messageID}";
     public static final String MESSAGE_ID = "messageID";
     public static final String MSG_PASSWORT_GEAENDERT = "Passwort erfolgreich geaendert";
+    public static final String CHANGE_PW_PATH = "/chPas";
+    public static final String CHANGE_AVATAR_LINK_PATH = "chAvl";
+    public static final String MSG_AVATAR_LINK_GEANDERT = "Avatarlink wurde erfolgreich geaendert";
 //----------------------------------------------------------------------------------------------------------------------
 
 //fuer FragenResource---------------------------------------------------------------------------------------------------

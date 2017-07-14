@@ -67,11 +67,22 @@ public class ProfileResource {
      * @param user bei dem das Passwort geaendert werden soll
      */
     @PUT
-    @Path("/chPas")
+    @Path(CHANGE_PW_PATH)
     public Response changePassword (User user) {
         profileService.changePassword(user);
 
         ConfirmMessage msg = new ConfirmMessage(MSG_PASSWORT_GEAENDERT, Response.Status.CREATED.getStatusCode());
+        return Response.ok()
+                .entity(msg)
+                .build();
+    }
+
+    @PUT
+    @Path(CHANGE_AVATAR_LINK_PATH)
+    public Response changeAvatarLink (User user) {
+        profileService.changeAvatarLink(user);
+
+        ConfirmMessage msg = new ConfirmMessage(MSG_AVATAR_LINK_GEANDERT, Response.Status.CREATED.getStatusCode());
         return Response.ok()
                 .entity(msg)
                 .build();

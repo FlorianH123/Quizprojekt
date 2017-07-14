@@ -56,6 +56,7 @@ public class DB_Constants {
     public static final String PS_GET_NEXT_ID        = "SELECT count(*) AS anzahl FROM benutzer";
     public static final String PS_AUTHORIZATION      = "SELECT * FROM benutzer WHERE " + E_MAIL + " = ?";
     public static final String PS_CHANGE_PW          = "UPDATE benutzer SET passwort = ? WHERE e_mail = ?";
+    public static final String PS_CHANGE_AVL         = "UPDATE benutzer SET avatar_link = ? WHERE e_mail = ?";
 
     //Prepared Statements Single Player
 
