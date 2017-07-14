@@ -92,8 +92,8 @@ public class SchnittstelleBenutzer {
         String passwort = "";
 
         try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(PS_GET_PASSWORD_BY_ID, ResultSet.TYPE_SCROLL_INSENSITIVE,
-                     ResultSet.CONCUR_READ_ONLY)) {
+             PreparedStatement statement = connection.prepareStatement(PS_GET_PASSWORD_BY_ID)) {
+
             statement.setInt(INDEX_1, id);
             rs = statement.executeQuery();
 
