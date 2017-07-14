@@ -5,15 +5,10 @@ import exception.EmailNotFoundException;
 import model.User;
 import validation.Validator;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.FileHandler;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import static constants.DB_Constants.*;
 
@@ -23,21 +18,6 @@ import static constants.DB_Constants.*;
  */
 
 public class SchnittstelleBenutzer {
-    private Logger logger = Logger.getLogger(getClass().getName());
-
-    public SchnittstelleBenutzer() {
-        Handler handler;
-
-        //TODO Logger überarbeiten
-        try {
-            handler = new FileHandler("log/logger.xml", true);
-            logger.addHandler(handler);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
     /**
      * Methode die einen Benutzer zu einer übergebenen ID zurück gibt
      * Falls die ID nicht existiert wird eine DataNotFoundException geworfen
@@ -48,15 +28,11 @@ public class SchnittstelleBenutzer {
     public User getUserByID(int id) {
         Validator.check(id > 0, ERR_MSG_ID_GREATER_ZERO);
 
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet rs = null;
+        ResultSet rs;
         User aUser = new User();
-
-        try {
-            connection = getConnection();
-            statement = connection.prepareStatement(PS_GET_USER_BY_ID, ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY);
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(PS_GET_USER_BY_ID, ResultSet.TYPE_SCROLL_INSENSITIVE,
+                     ResultSet.CONCUR_READ_ONLY)) {
             statement.setInt(INDEX_1, id);
             rs = statement.executeQuery();
 
@@ -70,47 +46,20 @@ public class SchnittstelleBenutzer {
             }
 
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, ERR_MSG_GET_USER + " " + e);
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                    logger.log(Level.SEVERE, ERR_MSG_RS_CLOSE + " " + e);
-                }
-            }
-
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    logger.log(Level.SEVERE, ERR_MSG_STMT_CLOSE + " " + e);
-                }
-            }
-
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    logger.log(Level.SEVERE, ERR_MSG_CON_CLOSE + " " + e);
-                }
-            }
+            System.err.println(ERR_MSG_GET_USER);
+            e.printStackTrace();
         }
-
         return aUser;
     }
 
-    public User getUserByEmail(String eMail){
+    public User getUserByEmail(String eMail) {
         Validator.check(!eMail.isEmpty(), ERR_MSG_CHECK_MAIL);
 
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet rs = null;
+        ResultSet rs;
         User re_user = null;
 
-        try{
-            connection = getConnection();
-            statement = connection.prepareStatement(PS_AUTHORIZATION);
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(PS_AUTHORIZATION)) {
             statement.setString(INDEX_1, eMail);
             rs = statement.executeQuery();
 
@@ -122,32 +71,9 @@ public class SchnittstelleBenutzer {
             } else {
                 throw new EmailNotFoundException(ERR_MSG_ID_NOT_FOUND);
             }
-        }catch(SQLException e){
-            logger.log(Level.SEVERE, ERR_MSG_GET_USER + " " + e);
-        }finally{
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                    logger.log(Level.SEVERE, ERR_MSG_RS_CLOSE + " " + e);
-                }
-            }
-
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    logger.log(Level.SEVERE, ERR_MSG_STMT_CLOSE + " " + e);
-                }
-            }
-
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    logger.log(Level.SEVERE, ERR_MSG_CON_CLOSE + " " + e);
-                }
-            }
+        } catch (SQLException e) {
+            System.err.println(ERR_MSG_GET_USER);
+            e.printStackTrace();
         }
         return re_user;
     }
@@ -162,15 +88,12 @@ public class SchnittstelleBenutzer {
     public String getPasswordByID(int id) {
         Validator.check(id > 0, ERR_MSG_ID_GREATER_ZERO);
 
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet rs = null;
+        ResultSet rs;
         String passwort = "";
 
-        try {
-            connection = getConnection();
-            statement = connection.prepareStatement(PS_GET_PASSWORD_BY_ID, ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY);
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(PS_GET_PASSWORD_BY_ID)) {
+
             statement.setInt(INDEX_1, id);
             rs = statement.executeQuery();
 
@@ -181,47 +104,20 @@ public class SchnittstelleBenutzer {
             passwort = rs.getString(PASSWORT);
 
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, ERR_MSG_GET_PASSWORD + " " + e);
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                    logger.log(Level.SEVERE, ERR_MSG_RS_CLOSE + " " + e);
-                }
-            }
-
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    logger.log(Level.SEVERE, ERR_MSG_STMT_CLOSE + " " + e);
-                }
-            }
-
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    logger.log(Level.SEVERE, ERR_MSG_CON_CLOSE + " " + e);
-                }
-            }
+            System.err.println(ERR_MSG_GET_PASSWORD);
+            e.printStackTrace();
         }
-
         return passwort;
     }
 
     public boolean checkID(int id) {
         Validator.check(id > 0, ERR_MSG_ID_GREATER_ZERO);
 
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet rs = null;
+        ResultSet rs;
         int re_id = 0;
 
-        try {
-            connection = getConnection();
-            statement = connection.prepareStatement(PS_CHECK_ID);
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(PS_CHECK_ID)) {
             statement.setInt(INDEX_1, id);
             rs = statement.executeQuery();
 
@@ -234,33 +130,9 @@ public class SchnittstelleBenutzer {
             }
 
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, ERR_MSG_CHECK_ID + " " + e);
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                    logger.log(Level.SEVERE, ERR_MSG_RS_CLOSE + " " + e);
-                }
-            }
-
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    logger.log(Level.SEVERE, ERR_MSG_STMT_CLOSE + " " + e);
-                }
-            }
-
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    logger.log(Level.SEVERE, ERR_MSG_CON_CLOSE + " " + e);
-                }
-            }
+            System.err.println(ERR_MSG_CHECK_ID);
+            e.printStackTrace();
         }
-
         return false;
     }
 
@@ -273,14 +145,11 @@ public class SchnittstelleBenutzer {
     public boolean checkEmail(String email) {
         Validator.check(!email.isEmpty(), ERR_MSG_EMAIL_EMPTY);
 
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet rs = null;
+        ResultSet rs;
         String re_mail = "";
 
-        try {
-            connection = getConnection();
-            statement = connection.prepareStatement(PS_CHECK_EMAIL);
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(PS_CHECK_EMAIL)) {
             statement.setString(INDEX_1, email);
             rs = statement.executeQuery();
 
@@ -294,33 +163,9 @@ public class SchnittstelleBenutzer {
             }
 
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, ERR_MSG_CHECK_MAIL + " " + e);
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                    logger.log(Level.SEVERE, ERR_MSG_RS_CLOSE + " " + e);
-                }
-            }
-
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    logger.log(Level.SEVERE, ERR_MSG_STMT_CLOSE + " " + e);
-                }
-            }
-
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    logger.log(Level.SEVERE, ERR_MSG_CON_CLOSE + " " + e);
-                }
-            }
+            System.err.println(ERR_MSG_CHECK_MAIL);
+            e.printStackTrace();
         }
-
         return true;
     }
 
@@ -330,12 +175,9 @@ public class SchnittstelleBenutzer {
      * @param aUser ein Benutzer
      */
     public void addUser(User aUser) {
-        Connection connection = null;
-        PreparedStatement statement = null;
 
-        try {
-            connection = getConnection();
-            statement = connection.prepareStatement(PS_ADD_USER);
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(PS_ADD_USER)) {
 
             statement.setInt(INDEX_1, aUser.getId());
             statement.setString(INDEX_2, aUser.getE_mail());
@@ -345,22 +187,8 @@ public class SchnittstelleBenutzer {
             statement.executeUpdate();
 
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, ERR_MSG_ADD_USER + " " + e);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    logger.log(Level.SEVERE, ERR_MSG_STMT_CLOSE + " " + e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    logger.log(Level.SEVERE, ERR_MSG_CON_CLOSE + " " + e);
-                }
-            }
+            System.err.println(ERR_MSG_ADD_USER);
+            e.printStackTrace();
         }
     }
 
@@ -370,14 +198,11 @@ public class SchnittstelleBenutzer {
      * @return ID + 1
      */
     public int getNextID() {
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet rs = null;
+        ResultSet rs;
         int nummer = -1;
 
-        try {
-            connection = getConnection();
-            statement = connection.prepareStatement(PS_GET_NEXT_ID);
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(PS_GET_NEXT_ID)) {
             rs = statement.executeQuery();
 
             rs.next();
@@ -385,34 +210,22 @@ public class SchnittstelleBenutzer {
             nummer++;
 
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, ERR_MSG_CURRENT_ID + " " + e);
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                    logger.log(Level.SEVERE, ERR_MSG_RS_CLOSE + " " + e);
-                }
-            }
-
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    logger.log(Level.SEVERE, ERR_MSG_STMT_CLOSE + " " + e);
-                }
-            }
-
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    logger.log(Level.SEVERE, ERR_MSG_CON_CLOSE + " " + e);
-                }
-            }
+            System.err.println(ERR_MSG_CURRENT_ID);
+            e.printStackTrace();
         }
-
         return nummer;
+    }
+
+    public void changePassword (User user) {
+        try(Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement(PS_CHANGE_PW)){
+            statement.setString(INDEX_1, user.getPasswort());
+            statement.setString(INDEX_2,user.getE_mail());
+            statement.executeUpdate();
+        }catch(SQLException e){
+            System.err.println();
+            e.printStackTrace();
+        }
     }
 
     /**

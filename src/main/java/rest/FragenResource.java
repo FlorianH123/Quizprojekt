@@ -1,9 +1,7 @@
 package rest;
 
 import java.util.List;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import model.Frage;
 import service.FragenService;
@@ -20,8 +18,8 @@ public class FragenResource {
     private FragenService service = new FragenService();
 
     @GET
-    @Produces (MediaType.APPLICATION_XML)
-    public List<Frage> getFragen () {
-        return service.getFragen();
+    @Produces (MediaType.APPLICATION_JSON)
+    public List<Frage> getFragen (@PathParam(FRAGEN_PATH_COUNT) int anzahlFragen, @QueryParam(QUERY) int fragenArt) {
+        return service.getFragen(anzahlFragen, fragenArt);
     }
 }

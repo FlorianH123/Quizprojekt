@@ -61,4 +61,19 @@ public class ProfileResource {
                 .build();
 
     }
+
+    /**
+     * Methode um das Passwort zu andern
+     * @param user bei dem das Passwort geaendert werden soll
+     */
+    @PUT
+    @Path("/chPas")
+    public Response changePassword (User user) {
+        profileService.changePassword(user);
+
+        ConfirmMessage msg = new ConfirmMessage(MSG_PASSWORT_GEAENDERT, Response.Status.CREATED.getStatusCode());
+        return Response.ok()
+                .entity(msg)
+                .build();
+    }
 }
