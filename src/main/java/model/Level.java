@@ -60,4 +60,7 @@ public class Level {
         return sb.toString();
     }
 
+    public void mergeDistractors(){
+
+    }
 }

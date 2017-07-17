@@ -19,7 +19,7 @@ public class FragenResource {
 
     @GET
     @Produces (MediaType.APPLICATION_JSON)
-    public List<Level> getFragen (@PathParam(FRAGEN_PATH_COUNT) int anzahlFragen, @QueryParam(QUERY) int fragenArt) {
-        return service.getFragen(anzahlFragen, fragenArt);
+    public String getFragen (@PathParam(FRAGEN_PATH_COUNT) int anzahlFragen, @QueryParam(QUERY) int fragenArt) {
+        return service.getFragen(anzahlFragen, fragenArt).toString();
     }
 }
