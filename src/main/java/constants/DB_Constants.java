@@ -53,13 +53,32 @@ public class DB_Constants {
     //Prepared Statements Single Player
 
     public static final String PS_GET_QUESTIONS      = "SELECT \"Categories\".\"name\", \"Categories\".\"matchID_cat\", \"Level\".\"levelID\", \"Level\".\"verbalization\", \"Level\".\"solution\" " +
-                                                       "FROM \"quizDB\".\"Categories\", \"quizDB\".\"Matches\", \"quizDB\".\"Level\""+
+                                                       "FROM \"quizDB\".\"Categories\", \"quizDB\".\"Matches\", \"quizDB\".\"Level\"" +
                                                        "WHERE \"Matches\".\"matchID\" = \"Categories\".\"matchID_cat\""+
                                                        "AND \"Categories\".\"catID\" = \"Level\".\"catID\""+
                                                        "AND \"Categories\".\"matchID_cat\" = ? "+
-                                                       "ORDER BY Random()"+
+                                                       "ORDER BY Random() "+
                                                        "LIMIT ?;"+";";
-    public static final String PS_GET_DISTRACTORS    = "";
+
+    public static final String PS_GET_QUESTIONS_R    = "SELECT categories.name, categories.matchid, level.levelid, level.verbalization, level.solution"+
+                                                       "FROM categories, matches, level"+
+                                                       "WHERE matches.matchid = categories.matchid"+
+                                                       "AND categories.catid = level.catid"+
+                                                       "AND categories.matchid = ?"+
+                                                       "ORDER BY Random()"+
+                                                       "LIMIT ?;";
+
+    public static final String PS_GET_DISTRACTOORS   ="SELECT \"Level\".\"solution\""+
+                                                      "FROM \"quizDB\".\"Level\"" +
+                                                      "WHERE \"catID\" = ?"+
+                                                      "ORDER BY Random()"+
+                                                      "LIMIT ?;";
+
+    public static final String PS_GET_DISTRACTOORS2  ="SELECT solution"+
+                                                      "FROM level"+
+                                                      "WHERE catid = ?"+
+                                                      "ORDER BY Random()"+
+                                                      "LIMIT ?;";
     public static final String d ="";
     public static final String f ="";
     public static final String k ="";
