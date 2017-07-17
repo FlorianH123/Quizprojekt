@@ -40,7 +40,7 @@ public class SinglePlayer10 {
                     level.setOptions((stack.pop()),INDEX_1);
                     level.setOptions((stack.pop()),INDEX_2);
                     level.setOptions((stack.pop()),INDEX_3);
-                    
+                    level.mergeDistractors();
                     list.add(level);
                 }
             }catch (SQLException e){

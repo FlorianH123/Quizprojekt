@@ -1,17 +1,18 @@
 package model;
+import java.util.Random;
+import java.util.Random.*;
 
 public class Level {
 
-    //private static final int arrayGroesse = 4;
+    private static final int arrayGroesse = 4;
 
     private String solution;
     private String verbalization;
-
     private String[] option;
     private int solutionOptions;
 
     public Level(){
-        option = new String[4];
+        option = new String[arrayGroesse];
         this.option[0] = solution;
         this.solutionOptions = 0;
     }
@@ -52,15 +53,22 @@ public class Level {
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append("Verbalization ->: " + verbalization + "\n" +
-                "Option0 ->: " + option[0]+
+                "Option0 ->: " + option[0]+ "\n" +
                 "Option1 ->: " + option[1] + "\n" +
                 "Option2 ->: " + option[2] + "\n" +
                 "Option3 ->: " + option[3] + "\n" +
-                "Solution ->: " + solution + "\n");
+                "Solution ->: " + solution + "\n" +
+                "SolutionNumber ->: " + solutionOptions + "\n");
         return sb.toString();
     }
 
     public void mergeDistractors(){
+        int zufall = new Random().nextInt(4);
+        String save = option[zufall];
+        System.out.println(save);
+        option[zufall] =solution;
+        solutionOptions =zufall;
+        option[0] = save;
 
     }
 }
