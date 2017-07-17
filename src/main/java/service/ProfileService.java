@@ -31,6 +31,21 @@ public class ProfileService {
         schnittBenutzer.addUser(aUser);
     }
 
+    public void changePassword(User user) {
+        if (!schnittBenutzer.checkEmail(user.getE_mail())) {
+            throw new DataNotFoundException(ERR_MSG_CHECK_MAIL);
+        }
+        user.setPasswort(Verschlüsselung.generatePasswort(user.getPasswort()));
+        schnittBenutzer.changePassword(user);
+    }
+
+    public void changeAvatarLink(User user) {
+        if (!schnittBenutzer.checkEmail(user.getE_mail())) {
+            throw new DataNotFoundException(ERR_MSG_CHECK_MAIL);
+        }
+        schnittBenutzer.changeAvatarLink(user);
+    }
+
     /**
      * Methode um einen User aus der DB zu holen und un ihn an den Webserver weiterzugeben
      *

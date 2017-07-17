@@ -31,7 +31,7 @@ public class Filter implements ContainerRequestFilter{
         SchnittstelleBenutzer sch = new SchnittstelleBenutzer();
         User user;
 
-        if(requestContext.getUriInfo().getPath().contains("secured")){
+        if(requestContext.getUriInfo().getPath().contains("auth")){
             //Ueberprueft ob im Header Authorization steht
             List<String> authHeader = requestContext.getHeaders().get("Authorization");
             if(authHeader != null && authHeader.size() > 0){

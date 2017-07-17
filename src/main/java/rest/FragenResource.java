@@ -16,12 +16,10 @@ import static constants.Rest_Constants.*;
 @Path (FRAGEN_PATH)
 public class FragenResource {
     private FragenService service = new FragenService();
-    @PathParam("questionCount") private int anzahlFragen;
-    @QueryParam("query") private int fragenArt;
 
     @GET
     @Produces (MediaType.APPLICATION_JSON)
-    public List<Frage> getFragen () {
+    public List<Frage> getFragen (@PathParam(FRAGEN_PATH_COUNT) int anzahlFragen, @QueryParam(QUERY) int fragenArt) {
         return service.getFragen(anzahlFragen, fragenArt);
     }
 }

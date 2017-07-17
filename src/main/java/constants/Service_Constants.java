@@ -11,5 +11,6 @@ public class Service_Constants {
     public static final String MSG_ID_NOT_FOUND         = "Die angebene ID existiert nicht!";
 
     public static final String STANDARD_LINK = "link.link";
+    public static final String ERR_MSG_CHECK_MAIL       = "Fehler beim Ueberpruefen der E-Mail!";
 //----------------------------------------------------------------------------------------------------------------------
 }
