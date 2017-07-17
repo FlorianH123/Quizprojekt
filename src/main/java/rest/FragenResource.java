@@ -3,7 +3,7 @@ package rest;
 import java.util.List;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import model.Frage;
+import model.*;
 import service.FragenService;
 
 import static constants.Rest_Constants.*;
@@ -19,7 +19,7 @@ public class FragenResource {
 
     @GET
     @Produces (MediaType.APPLICATION_JSON)
-    public List<Frage> getFragen (@PathParam(FRAGEN_PATH_COUNT) int anzahlFragen, @QueryParam(QUERY) int fragenArt) {
+    public List<Level> getFragen (@PathParam(FRAGEN_PATH_COUNT) int anzahlFragen, @QueryParam(QUERY) int fragenArt) {
         return service.getFragen(anzahlFragen, fragenArt);
     }
 }

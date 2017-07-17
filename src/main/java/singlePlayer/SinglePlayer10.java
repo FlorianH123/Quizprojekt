@@ -37,26 +37,10 @@ public class SinglePlayer10 {
                     level = new Level();
                     level.setVerbalization(rs.getString("verbalization"));
                     level.setSolution(rs.getString("solution"));
-                    /*
-                    frage = new Frage();
-                    frage.setQuestion(rs.getString("verbalization"));
-                    frage.setAnswer(rs.getString("solution"));
-
-                    // TODO: 05.07.2017
-                    //Aufruf der Distractor class um anhand abgefragter Sub_Cat die zugehörigen Distractors zu setzen
-
-                    frage.setDistractor1(stack.pop());
-                    frage.setDistractor2(stack.pop());
-                    frage.setDistractor3(stack.pop());
-
-                    //frage.setDistractor1("Dis1");
-                    //frage.setDistractor2("Dis2");
-                    //frage.setDistractor3("Dis3");
-                    */
-
                     level.setOptions((stack.pop()),INDEX_1);
                     level.setOptions((stack.pop()),INDEX_2);
                     level.setOptions((stack.pop()),INDEX_3);
+                    
                     list.add(level);
                 }
             }catch (SQLException e){

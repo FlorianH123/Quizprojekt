@@ -11,13 +11,6 @@ public class Level {
     private int solutionOptions;
 
     public Level(){
-
-    }
-    public Level(String sol, String verbal){
-        this.solution = sol;
-        this.verbalization = verbal;
-
-
         option = new String[4];
         this.option[0] = solution;
         this.solutionOptions = 0;
@@ -55,7 +48,7 @@ public class Level {
     public void setSolution(String solution) {
         this.solution = solution;
     }
-/*
+
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append("Verbalization ->: " + verbalization + "\n" +
@@ -66,5 +59,5 @@ public class Level {
                 "Solution ->: " + solution + "\n");
         return sb.toString();
     }
-*/
+
 }
