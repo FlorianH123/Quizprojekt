@@ -101,6 +101,8 @@ public class DB_Constants {
     public static final String FRAGEN_RICHTIG = "fragen_richtig";
     public static final String PUNKTE = "punkte";
     public static final String GAME_ID = "game_id";
+    public static final String HOECHSTE_PUNKTE = "hoechste_punktezahl";
+    public static final String ANZAHL_SPIELE = "gespielte_spiele";
 
     public static final String ERR_MSG_ADD_GAME = "Fehler beim Einfuegen des Spielstatistik";
     public static final String ERR_MSG_GET_GAMES = "Fehler beim Lesen der gespielten Spiele";
@@ -109,4 +111,8 @@ public class DB_Constants {
     public static final String PS_ADD_GAME = "INSERT INTO singleplayer_stat VALUES (?,?,?,?,?,?)";
     public static final String PS_GET_GAMES_BY_ID = "SELECT * FROM singleplayer_stat WHERE id_user = ? AND gamemode = ?";
 
+    public static final String PS_GET_STATISTIK = "SELECT * FROM singleplayer_stat_result WHERE id_user = ?";
+    public static final String PS_ADD_STAT = "UPDATE singleplayer_stat_result SET fragen_beantwortet = ?, fragen_richtig = ?, " +
+                                             "hoechste_punktezahl = ?, spiele_gespielt = ? WHERE user_id = ?";
+    public static final String PS_INIT_STAT = "INSERT INTO singleplayer_stat_result (?,0,0,0,0)";
 }

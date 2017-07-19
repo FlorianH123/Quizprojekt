@@ -77,6 +77,11 @@ public class ProfileResource {
                 .build();
     }
 
+    /**
+     * Methode um den Avatar zu aendern
+     * @param user bei dem der Avatar geaendert werden soll
+     * @return ConfirmMessage
+     */
     @PUT
     @Path(CHANGE_AVATAR_LINK_PATH)
     public Response changeAvatarLink (User user) {

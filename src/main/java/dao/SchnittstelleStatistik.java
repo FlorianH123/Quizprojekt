@@ -2,6 +2,7 @@ package dao;
 
 import exception.DataNotFoundException;
 import model.Game;
+import model.Statistik;
 import validation.Validator;
 
 import java.sql.Connection;
@@ -80,6 +81,61 @@ public class SchnittstelleStatistik {
         }
 
         return gameList;
+    }
+
+    public Statistik getStatistik(int userID) {
+        Validator.check(userID > 0, ERR_MSG_CHECK_ID);
+
+        ResultSet rs;
+        Statistik stat = new Statistik();
+
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(PS_GET_STATISTIK)) {
+
+            statement.setInt(INDEX_1, userID);
+            rs = statement.executeQuery();
+
+            if (!rs.next()) {
+                throw new DataNotFoundException(ERR_MSG_ID_NOT_FOUND);
+            }
+                stat.setUserId(rs.getInt(USER_ID));
+                stat.setAnzahlFragen(rs.getInt(FRAGEN_BEANTWORTET));
+                stat.setFragenRichtig(rs.getInt(FRAGEN_RICHTIG));
+                stat.setPunktZahl(rs.getInt(HOECHSTE_PUNKTE));
+                stat.setAnzahlSPiele(rs.getInt(ANZAHL_SPIELE));
+        } catch (SQLException e) {
+            //TODO Exception
+            System.err.println();
+        }
+
+        return stat;
+    }
+
+    public void initStatOverall (int id) {
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(PS_INIT_STAT)) {
+
+            statement.setInt(INDEX_1, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+
+        }
+    }
+    public void changeOverallStat (Statistik stat) {
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(PS_ADD_STAT)) {
+
+            statement.setInt(INDEX_1, stat.getAnzahlFragen());
+            statement.setInt(INDEX_2, stat.getFragenRichtig());
+            statement.setInt(INDEX_3, stat.getPunktZahl());
+            statement.setInt(INDEX_4, stat.getAnzahlSPiele());
+            statement.setInt(INDEX_5, stat.getUserId());
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(ERR_MSG_ADD_GAME);
+            e.printStackTrace();
+        }
     }
 
     /**
