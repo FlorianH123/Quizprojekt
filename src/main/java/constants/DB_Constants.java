@@ -76,6 +76,8 @@ public class DB_Constants {
                                                        "ORDER BY Random()"+
                                                        "LIMIT ?;";
 
+    public static final String PS_GET_RANDOM_QUESTION="";
+
     public static final String PS_GET_DISTRACTOORS   ="SELECT \"Level\".\"solution\""+
                                                       "FROM \"quizDB\".\"Level\"" +
                                                       "WHERE \"catID\" = ?"+
