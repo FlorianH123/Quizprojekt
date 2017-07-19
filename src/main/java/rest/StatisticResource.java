@@ -4,6 +4,7 @@ import service.StatistikService;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -15,15 +16,16 @@ import static constants.Rest_Constants.*;
  * Resource fuer Statistiken.
  */
 
-@Path(STATISTIK_PATH)
+@Path(STATISTIC_PATH)
 public class StatisticResource {
     private StatistikService statistikService = new StatistikService();
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getStatistik(int id){
+    @Path(STATISTIC_ID_PATH)
+    public Response getStatistik(@PathParam(STATISTIC_ID) int statisticID){
         return Response.ok()
-                .entity(statistikService.getStatistik(id))
+                .entity(statistikService.getStatistik(statisticID))
                 .build();
     }
 }

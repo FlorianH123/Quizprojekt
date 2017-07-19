@@ -34,4 +34,9 @@ public class StatistikService {
         statistik.setAnzahlSpiele(statistik.getAnzahlSpiele() + 1);
         sch.changeOverallStat(statistik);
     }
+
+    public static void main(String[] args){
+        Game game = new Game("xquiz", 1, 16, 5, 9001, 4);
+        new StatistikService().updateStatistik(game);
+    }
 }

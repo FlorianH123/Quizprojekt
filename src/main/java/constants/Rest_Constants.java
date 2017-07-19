@@ -28,7 +28,10 @@ public static final String MSG_AVATAR_LINK_GEANDERT = "Avatarlink wurde erfolgre
 //----------------------------------------------------------------------------------------------------------------------
 
 //fuer StatistikResource------------------------------------------------------------------------------------------------
-    public static final String STATISTIK_PATH = "/stats";
+    public static final String STATISTIC_PATH = "/stats";
+    public static final String STATISTIC_ID_PATH = "/{statisticID}";
+    public static final String STATISTIC_ID = "statisticID";
+//----------------------------------------------------------------------------------------------------------------------
 
 //fuer ApplicationHandler-----------------------------------------------------------------------------------------------
     public static final String APLLICATION_PATH = "/webapi";

@@ -1,6 +1,7 @@
 package service;
 
 import dao.SchnittstelleBenutzer;
+import dao.SchnittstelleStatistik;
 import exception.DataAlreadyExistsException;
 import exception.DataNotFoundException;
 import model.User;
@@ -29,6 +30,7 @@ public class ProfileService {
         aUser.setAvatar_link(STANDARD_LINK);
         aUser.setId(schnittBenutzer.getNextID());
         schnittBenutzer.addUser(aUser);
+        new SchnittstelleStatistik().initStatOverall(aUser.getId());
     }
 
     public void changePassword(User user) {
