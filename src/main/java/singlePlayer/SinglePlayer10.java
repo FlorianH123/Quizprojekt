@@ -12,14 +12,15 @@ import static constants.DB_Constants.*;
 
 
 public class SinglePlayer10 {
-
+        /**
+         *@return Game-Liste mit Level Objekten
+         * erstellen der SinglePlayer Abfrage mit x-Fragen in einer bestimmten cat
+         **/
         public List SinglePlayerStart(int cat, int anzahlFragen){
-            // Abfrage auf verschiedene Column starten
             Connection connection = null;
             PreparedStatement pstatement = null;
             ResultSet rs;
             rs = null;
-            Frage frage;
             Level level;
             List<Level> list = null;
             try{
@@ -34,9 +35,9 @@ public class SinglePlayer10 {
                 list = new ArrayList<>();
                 Stack<String> stack = new Distractor().DistractorCretor(cat, anzahlFragen);
                 while(rs.next()){
-                    level = new Level();
-                    level.setVerbalization(rs.getString("verbalization"));
-                    level.setSolution(rs.getString("solution"));
+                    String verbalization = rs.getString("verbalization");
+                    String solution  = rs.getString("solution");
+                    level = new Level(verbalization , solution);
                     level.setOptions((stack.pop()),INDEX_1);
                     level.setOptions((stack.pop()),INDEX_2);
                     level.setOptions((stack.pop()),INDEX_3);

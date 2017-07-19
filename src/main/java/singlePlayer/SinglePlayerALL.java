@@ -11,14 +11,19 @@ import static constants.DB_Constants.*;
 
 
 public class SinglePlayerALL {
-
-    public List SinglePlayerStart(int taken, int anzahlFragen){
+    /**
+     * SinglePlayerKlasse die anhand der anzahl der Fragen Random Fragen aller Themengebiete als liste zurück gibt
+     * @param cat
+     * @param anzahlFragen
+     * @return
+     */
+    public List SinglePlayerStart(int cat, int anzahlFragen){
         // Abfrage auf verschiedene Column starten
         Connection connection = null;
         PreparedStatement pstatement = null;
         ResultSet rs;
         rs = null;
-        Frage frage;
+
         Level level;
         List<Frage> list = null;
         try{
@@ -26,14 +31,14 @@ public class SinglePlayerALL {
             //connection für echte DB
             //connection = new dao.ConnectionKlasse().getConnection();
             pstatement = connection.prepareStatement(PS_GET_QUESTIONS);
-            pstatement.setInt(INDEX_1,taken );
+            pstatement.setInt(INDEX_1,cat );
             pstatement.setInt(INDEX_2,anzahlFragen);
             System.out.println(pstatement);
             rs = pstatement.executeQuery();
             list = new ArrayList<>();
 
             while(rs.next()) {
-                level = new Level();
+
             }
         }catch (SQLException e){
             System.out.println("Error while execute the Query!");

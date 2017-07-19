@@ -6,7 +6,10 @@ import java.util.Stack;
 import static constants.DB_Constants.*;
 
 public class Distractor {
-
+     /**
+      *Klasse um anhand der cat und der anzahl der Fragen Distractors zu generieren
+      * @return stack mit distractors
+      **/
     public Stack<String> DistractorCretor(int sub_Categorie , int anzahl){
         anzahl*=3;
         Stack<String> stack = new Stack<String>();

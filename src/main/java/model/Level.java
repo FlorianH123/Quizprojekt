@@ -11,8 +11,15 @@ public class Level {
     private String[] option;
     private int solutionOptions;
 
-    public Level(){
+    /**
+     * Konstruktor
+     * @param verbalization
+     * @param solution
+     */
+    public Level(String verbalization, String solution){
         option = new String[arrayGroesse];
+        this.verbalization = verbalization;
+        this.solution = solution;
         this.option[0] = solution;
         this.solutionOptions = 0;
     }
@@ -50,25 +57,35 @@ public class Level {
         this.solution = solution;
     }
 
+    /**
+     * Jason output für rest API
+     * @return
+     */
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("Verbalization ->: " + verbalization + "\n" +
-                "Option0 ->: " + option[0]+ "\n" +
-                "Option1 ->: " + option[1] + "\n" +
-                "Option2 ->: " + option[2] + "\n" +
-                "Option3 ->: " + option[3] + "\n" +
-                "Solution ->: " + solution + "\n" +
-                "SolutionNumber ->: " + solutionOptions + "\n");
+        sb.append("{\"Verbalization\": "+"\"" + verbalization + "\", " +
+                "\"Option0\": "+"\""+ option[0]+ "\", " +
+                "\"Option1\": "+"\""+ option[1] + "\", " +
+                "\"Option2\": "+"\""+ option[2] + "\", " +
+                "\"Option3\": "+"\""+ option[3] + "\", " +
+                "\"Solution\": "+"\""+ solution + "\", " +
+                "\"SolutionNumber\": "+"\""+ solutionOptions + "\"}");
         return sb.toString();
     }
 
+    /**
+     * mischt das LevelObjekt und setzt die Lösung um
+     */
     public void mergeDistractors(){
         int zufall = new Random().nextInt(4);
-        String save = option[zufall];
-        System.out.println(save);
-        option[zufall] =solution;
-        solutionOptions =zufall;
-        option[0] = save;
+        System.out.println("randomzahl -> : "+zufall);
+        System.out.println("option[0]=" + option[0]);
+            String save = option[zufall];
+            option[zufall] = solution;
+            solutionOptions = zufall;
+            option[0] = save;
+            System.out.println("option[0]=" + option[0]);
+
 
     }
 }
