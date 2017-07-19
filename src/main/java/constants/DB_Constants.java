@@ -99,6 +99,7 @@ public class DB_Constants {
 
 //fuer SchnittstelleStatistik-------------------------------------------------------------------------------------------
     public static final String USER_ID = "id_user";
+    public static final String USER_ID_STAT = "user_id";
     public static final String FRAGEN_BEANTWORTET = "fragen_beantwortet";
     public static final String FRAGEN_RICHTIG = "fragen_richtig";
     public static final String PUNKTE = "punkte";
@@ -113,8 +114,8 @@ public class DB_Constants {
     public static final String PS_ADD_GAME = "INSERT INTO singleplayer_stat VALUES (?,?,?,?,?,?)";
     public static final String PS_GET_GAMES_BY_ID = "SELECT * FROM singleplayer_stat WHERE id_user = ? AND gamemode = ?";
 
-    public static final String PS_GET_STATISTIK = "SELECT * FROM singleplayer_stat_result WHERE id_user = ?";
+    public static final String PS_GET_STATISTIK = "SELECT * FROM singleplayer_stat_result WHERE user_id = ?";
     public static final String PS_ADD_STAT = "UPDATE singleplayer_stat_result SET fragen_beantwortet = ?, fragen_richtig = ?, " +
-                                             "hoechste_punktezahl = ?, spiele_gespielt = ? WHERE user_id = ?";
+                                             "hoechste_punktezahl = ?, gespielte_spiele = ? WHERE user_id = ?";
     public static final String PS_INIT_STAT = "INSERT INTO singleplayer_stat_result VALUES (?,0,0,0,0)";
 }

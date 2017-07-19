@@ -48,7 +48,7 @@ public class Statistik {
     }
 
     public String toString() {
-        return "User ID: " + userId + "Anzahl Fragen: " + anzahlFragen + "richtige Fragen: " + fragenRichtig +
-                "hoechste Punkte: " + punktZahl + "Anzahl Spiele" + anzahlSpiele;
+        return "User ID: " + userId + " Anzahl Fragen: " + anzahlFragen + " richtige Fragen: " + fragenRichtig +
+                " hoechste Punkte: " + punktZahl + " Anzahl Spiele " + anzahlSpiele;
     }
 }

@@ -98,14 +98,13 @@ public class SchnittstelleStatistik {
             if (!rs.next()) {
                 throw new DataNotFoundException(ERR_MSG_ID_NOT_FOUND);
             }
-                stat.setUserId(rs.getInt(USER_ID));
+                stat.setUserId(rs.getInt(USER_ID_STAT));
                 stat.setAnzahlFragen(rs.getInt(FRAGEN_BEANTWORTET));
                 stat.setFragenRichtig(rs.getInt(FRAGEN_RICHTIG));
                 stat.setPunktZahl(rs.getInt(HOECHSTE_PUNKTE));
                 stat.setAnzahlSpiele(rs.getInt(ANZAHL_SPIELE));
         } catch (SQLException e) {
-            //TODO Exception
-            System.err.println();
+            e.printStackTrace();
         }
 
         return stat;
@@ -152,7 +151,14 @@ public class SchnittstelleStatistik {
 
     public static void main (String[] args) {
         SchnittstelleStatistik sch = new SchnittstelleStatistik();
+        Statistik st = new Statistik();
+        st.setUserId(1);
+        st.setAnzahlFragen(10);
+        st.setFragenRichtig(5);
+        st.setPunktZahl(1240);
+        st.setAnzahlSpiele(100);
 
-        sch.getStatistik(1);
+        sch.changeOverallStat(st);
+        System.out.println(sch.getStatistik(1).toString());
     }
 }
