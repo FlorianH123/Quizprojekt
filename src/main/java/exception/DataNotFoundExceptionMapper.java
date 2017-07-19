@@ -15,10 +15,11 @@ import javax.ws.rs.ext.Provider;
 public class DataNotFoundExceptionMapper implements ExceptionMapper<DataNotFoundException> {
     @Override
     public Response toResponse(DataNotFoundException ex) {
-        ErrorMessage errorMsg = new ErrorMessage(ex.getMessage(), Response.Status.NOT_FOUND.getStatusCode());
+        //ErrorMessage errorMsg = new ErrorMessage(ex.getMessage(), Response.Status.NOT_FOUND.getStatusCode());
 
         return Response.status(Response.Status.NOT_FOUND)
-                .entity(errorMsg)
+                //.entity(errorMsg)
+                .entity(ex.getMessage())
                 .build();
     }
 }

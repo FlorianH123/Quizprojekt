@@ -73,6 +73,7 @@ public class Game {
         this.punkte = punkte;
     }
 
+    //TODO Testmethode, an am Schluss entfernt werden
     public String toString() {
         String sb = "Gamemode: " + gameMode + " User ID: " + user_id + " Fragen beantwortet: " +
                 fragenBeantwortet + " Fragen richtig: " + fragenRichtig + " Punkte: " + punkte +

@@ -1,9 +1,7 @@
 package rest;
 
-import java.util.List;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import model.*;
 import service.FragenService;
 
 import static constants.Rest_Constants.*;
