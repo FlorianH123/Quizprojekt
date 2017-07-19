@@ -50,7 +50,7 @@ public class DB_Constants {
     //Prepared Statements
     public static final String PS_CHECK_EMAIL = "SELECT " + E_MAIL + " FROM benutzer WHERE " + E_MAIL + " = ?";
     public static final String PS_GET_USER_BY_ID = "SELECT * FROM benutzer WHERE " + ID + " = ?";
-    public static final String PS_CHECK_ID = "SELECT " + ID + " FROM benutzer WHERE " + ID + " = ?";
+    public static final String PS_CHECK_ID_BENUTZER = "SELECT " + ID + " FROM benutzer WHERE " + ID + " = ?";
     public static final String PS_GET_PASSWORD_BY_ID = "SELECT " + PASSWORT + " FROM benutzer WHERE " + ID + " = ?";
     public static final String PS_ADD_USER           = "INSERT INTO benutzer VALUES (?,?,?,?,?)";
     public static final String PS_GET_NEXT_ID        = "SELECT count(*) AS anzahl FROM benutzer";

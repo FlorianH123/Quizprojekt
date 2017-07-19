@@ -5,7 +5,7 @@ public class Statistik {
     private int anzahlFragen;
     private int fragenRichtig;
     private int punktZahl;
-    private int anzahlSPiele;
+    private int anzahlSpiele;
 
     public int getUserId() {
         return userId;
@@ -39,11 +39,11 @@ public class Statistik {
         this.punktZahl = punktZahl;
     }
 
-    public int getAnzahlSPiele() {
-        return anzahlSPiele;
+    public int getAnzahlSpiele() {
+        return anzahlSpiele;
     }
 
-    public void setAnzahlSPiele(int anzahlSPiele) {
-        this.anzahlSPiele = anzahlSPiele;
+    public void setAnzahlSpiele(int anzahlSpiele) {
+        this.anzahlSpiele = anzahlSpiele;
     }
 }

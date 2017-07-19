@@ -102,7 +102,7 @@ public class SchnittstelleStatistik {
                 stat.setAnzahlFragen(rs.getInt(FRAGEN_BEANTWORTET));
                 stat.setFragenRichtig(rs.getInt(FRAGEN_RICHTIG));
                 stat.setPunktZahl(rs.getInt(HOECHSTE_PUNKTE));
-                stat.setAnzahlSPiele(rs.getInt(ANZAHL_SPIELE));
+                stat.setAnzahlSpiele(rs.getInt(ANZAHL_SPIELE));
         } catch (SQLException e) {
             //TODO Exception
             System.err.println();
@@ -128,7 +128,7 @@ public class SchnittstelleStatistik {
             statement.setInt(INDEX_1, stat.getAnzahlFragen());
             statement.setInt(INDEX_2, stat.getFragenRichtig());
             statement.setInt(INDEX_3, stat.getPunktZahl());
-            statement.setInt(INDEX_4, stat.getAnzahlSPiele());
+            statement.setInt(INDEX_4, stat.getAnzahlSpiele());
             statement.setInt(INDEX_5, stat.getUserId());
 
             statement.executeUpdate();

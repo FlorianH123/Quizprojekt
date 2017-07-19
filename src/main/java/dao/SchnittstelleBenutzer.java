@@ -117,7 +117,7 @@ public class SchnittstelleBenutzer {
         int re_id = 0;
 
         try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(PS_CHECK_ID)) {
+             PreparedStatement statement = connection.prepareStatement(PS_CHECK_ID_BENUTZER)) {
             statement.setInt(INDEX_1, id);
             rs = statement.executeQuery();
 
@@ -179,12 +179,16 @@ public class SchnittstelleBenutzer {
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(PS_ADD_USER)) {
 
+            connection.setAutoCommit(false);
             statement.setInt(INDEX_1, aUser.getId());
             statement.setString(INDEX_2, aUser.getE_mail());
             statement.setString(INDEX_3, aUser.getPasswort());
             statement.setString(INDEX_4, aUser.getAvatar_link());
             statement.setString(INDEX_5, aUser.getName());
             statement.executeUpdate();
+            new SchnittstelleStatistik().initStatOverall(aUser.getId());
+            connection.commit();
+            connection.setAutoCommit(true);
 
         } catch (SQLException e) {
             System.err.println(ERR_MSG_ADD_USER);
