@@ -118,9 +118,10 @@ public class SchnittstelleStatistik {
             statement.setInt(INDEX_1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-
+            e.printStackTrace();
         }
     }
+
     public void changeOverallStat (Statistik stat) {
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(PS_ADD_STAT)) {
@@ -152,13 +153,6 @@ public class SchnittstelleStatistik {
     public static void main (String[] args) {
         SchnittstelleStatistik sch = new SchnittstelleStatistik();
 
-//        Game aGame = new Game("xquiz", 1, 35, 16, 1855, 3);
-//        sch.trackNewGameSession(aGame);
-        List<Game> list = new ArrayList<>();
-        list = sch.getGameListByID(1, "xquiz");
-
-        for (Game a : list) {
-            System.out.println(a.toString());
-        }
+        sch.getStatistik(1);
     }
 }

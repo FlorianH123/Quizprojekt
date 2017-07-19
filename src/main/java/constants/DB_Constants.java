@@ -114,5 +114,5 @@ public class DB_Constants {
     public static final String PS_GET_STATISTIK = "SELECT * FROM singleplayer_stat_result WHERE id_user = ?";
     public static final String PS_ADD_STAT = "UPDATE singleplayer_stat_result SET fragen_beantwortet = ?, fragen_richtig = ?, " +
                                              "hoechste_punktezahl = ?, spiele_gespielt = ? WHERE user_id = ?";
-    public static final String PS_INIT_STAT = "INSERT INTO singleplayer_stat_result (?,0,0,0,0)";
+    public static final String PS_INIT_STAT = "INSERT INTO singleplayer_stat_result VALUES (?,0,0,0,0)";
 }

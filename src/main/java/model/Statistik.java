@@ -46,4 +46,9 @@ public class Statistik {
     public void setAnzahlSpiele(int anzahlSpiele) {
         this.anzahlSpiele = anzahlSpiele;
     }
+
+    public String toString() {
+        return "User ID: " + userId + "Anzahl Fragen: " + anzahlFragen + "richtige Fragen: " + fragenRichtig +
+                "hoechste Punkte: " + punktZahl + "Anzahl Spiele" + anzahlSpiele;
+    }
 }
