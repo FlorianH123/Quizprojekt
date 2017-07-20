@@ -21,7 +21,7 @@ import static constants.Rest_Constants.*;
  * Resource um Benutzer anzulegen und abzufragen
  */
 
-@Path("/")
+@Path(PATH_PROFILE)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ProfileResource {
@@ -37,7 +37,7 @@ public class ProfileResource {
      * Ansonsten wird Statuscode Internal Server Error zurueckgegeben
      */
     @POST
-    @Path("profile")
+    @Path(PATH_ADD_USER)
     public Response addUser (User aUser, @Context UriInfo uriInfo) {
         String newID = String.valueOf(aUser.getId());
         URI uri = uriInfo.getAbsolutePathBuilder().path(newID).build();
@@ -56,7 +56,7 @@ public class ProfileResource {
      * @return Response Nachricht
      */
     @GET
-    @Path("auth/profile/{messageID}")
+    @Path(PATH_GET_USER)
     public Response getUser (@PathParam(MESSAGE_ID) int messageID) {
         return Response.ok()
                 .entity(profileService.getUser(messageID))
@@ -69,7 +69,7 @@ public class ProfileResource {
      * @param user bei dem das Passwort geaendert werden soll
      */
     @PUT
-    @Path("auth/profile/" + CHANGE_PW_PATH)
+    @Path(PATH_CHANGE_PASSWORD)
     public Response changePassword (User user) {
         profileService.changePassword(user);
 
@@ -85,7 +85,7 @@ public class ProfileResource {
      * @return ConfirmMessage
      */
     @PUT
-    @Path("auth/profile/" + CHANGE_AVATAR_LINK_PATH)
+    @Path(PATH_CHANGE_AVATAR)
     public Response changeAvatarLink (User user) {
         profileService.changeAvatarLink(user);
 
