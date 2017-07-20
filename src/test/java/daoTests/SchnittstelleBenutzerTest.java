@@ -15,7 +15,7 @@ public class SchnittstelleBenutzerTest {
     private User aUser1 = new User(1,"testaccount1@mail.de", "332ad086941c4c3d7a125c295abe801f83e59370", "link.link", "testaccount1");
     private User aUser2 = new User(2,"testaccount2@mail.de", "245dc148cfe2f0a29dd200c96765399bfdfb37ae", "link.link", "testaccount2");
     private User aUser3 = new User(3,"testaccount3@mail.de", "0b132e2780e0144b79a06b416406cc38c21640b0", "link.link", "testaccount3");
-    private User aUser4 = new User(4,"testaccount4@mail.de", "passwort4", "link.link", "testaccount4");
+    private User aUser4 = new User(65550,"testaccount0@mail.de", "passwort0", "link.link", "testaccount0");
 
     private SchnittstelleBenutzer schnittBenutzer = new SchnittstelleBenutzer();
     private boolean equals;
