@@ -37,12 +37,14 @@ public class ProfileResource {
      * Ansonsten wird Statuscode Internal Server Error zurueckgegeben
      */
     @POST
+    //@Path("/profile")
     public Response addUser (User aUser, @Context UriInfo uriInfo) {
         String newID = String.valueOf(aUser.getId());
         URI uri = uriInfo.getAbsolutePathBuilder().path(newID).build();
         ConfirmMessage msg = new ConfirmMessage(MSG_BENUTZER_ANGELEGT, Response.Status.CREATED.getStatusCode());
+        System.out.println("hallo");
 
-        profileService.addUser(aUser);
+        //profileService.addUser(aUser);
         return Response.created(uri)
                 .entity(msg)
                 .build();
@@ -55,6 +57,7 @@ public class ProfileResource {
      */
     @GET
     @Path(MESSAGE_ID_PATH)
+    //@Path("auth/profile/{messageID}")
     public Response getUser (@PathParam(MESSAGE_ID) int messageID) {
         return Response.ok()
                 .entity(profileService.getUser(messageID))
@@ -68,6 +71,7 @@ public class ProfileResource {
      */
     @PUT
     @Path(CHANGE_PW_PATH)
+    //@Path("auth/profile/" + CHANGE_PW_PATH)
     public Response changePassword (User user) {
         profileService.changePassword(user);
 
@@ -84,6 +88,7 @@ public class ProfileResource {
      */
     @PUT
     @Path(CHANGE_AVATAR_LINK_PATH)
+    //@Path("auth/profile/" + CHANGE_AVATAR_LINK_PATH)
     public Response changeAvatarLink (User user) {
         profileService.changeAvatarLink(user);
 

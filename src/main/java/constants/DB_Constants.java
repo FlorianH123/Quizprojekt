@@ -101,22 +101,28 @@ public class DB_Constants {
 //fuer SchnittstelleStatistik-------------------------------------------------------------------------------------------
     public static final String USER_ID = "id_user";
     public static final String USER_ID_STAT = "user_id";
-    public static final String FRAGEN_BEANTWORTET = "fragen_beantwortet";
-    public static final String FRAGEN_RICHTIG = "fragen_richtig";
+    public static final String ANZAHL_BEANTWORTETER_FRAGEN = "fragen_beantwortet";
+    public static final String ANZAHL_FRAGEN_RICHTIG_BEANTWORTET = "fragen_richtig";
     public static final String PUNKTE = "punkte";
     public static final String GAME_ID = "game_id";
-    public static final String HOECHSTE_PUNKTE = "hoechste_punktezahl";
+    public static final String HOECHSTE_PUNKTZAHL = "hoechste_punktezahl";
     public static final String ANZAHL_SPIELE = "gespielte_spiele";
+    public static final String GAME_MODE = "gamemode";
 
-    public static final String ERR_MSG_ADD_GAME = "Fehler beim Einfuegen des Spielstatistik";
-    public static final String ERR_MSG_GET_GAMES = "Fehler beim Lesen der gespielten Spiele";
+    public static final String ERR_MSG_TRACK_NEW_GAME = "Fehler beim Einfuegen des Spielstatistik!";
+    public static final String ERR_MSG_GET_OVERALL_STATISTIK = "Fehler: Es konnte keine Overall Statistik aus der DB " +
+                                                                "gelesen werden!";
+    public static final String ERR_MSG_INIT_STATSTIK_OVERALL = "Fehler: Es konnte die Overall Statistik nicht " +
+                                                           "initialisiert werden!";
+    public static final String ERR_MSG_CHANGE_OVERALL_STATISTIK = "Fehler: Es konnte die Overall Statistik nicht geupdatet werden!";
 
     //Prepared Statements
-    public static final String PS_ADD_GAME = "INSERT INTO singleplayer_stat VALUES (?,?,?,?,?)";
-    public static final String PS_GET_GAMES_BY_ID = "SELECT * FROM singleplayer_stat WHERE id_user = ? AND gamemode = ?";
+    public static final String PS_TACK_NEW_GAME_TO_SINGLEPLAYER_STAT = "INSERT INTO singleplayer_stat VALUES (?,?,?,?,?)";
+    public static final String PS_GET_OVERALL_STATISTIK         = "SELECT * FROM singleplayer_stat_result " +
+                                                                  "WHERE user_id = ? AND gamemode = ?";
+    public static final String PS_INIT_STATISTIK_OVERALL = "INSERT INTO singleplayer_stat_result VALUES (?,0,0,0,0,?)";
+    public static final String PS_CHANGE_OVERALL_STATISTIK = "UPDATE singleplayer_stat_result SET fragen_beantwortet = ?, " +
+                                                             "fragen_richtig = ?, hoechste_punktezahl = ?, gespielte_spiele = ? " +
+                                                             "WHERE user_id = ? AND gamemode = ?";
 
-    public static final String PS_GET_STATISTIK = "SELECT * FROM singleplayer_stat_result WHERE user_id = ? AND gamemode = ?";
-    public static final String PS_ADD_STAT = "UPDATE singleplayer_stat_result SET fragen_beantwortet = ?, fragen_richtig = ?, " +
-                                             "hoechste_punktezahl = ?, gespielte_spiele = ? WHERE user_id = ? AND gamemode = ?";
-    public static final String PS_INIT_STAT = "INSERT INTO singleplayer_stat_result VALUES (?,0,0,0,0,?)";
 }

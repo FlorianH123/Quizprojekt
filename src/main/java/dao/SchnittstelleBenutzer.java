@@ -55,6 +55,7 @@ public class SchnittstelleBenutzer {
     public User getUserByEmail(String eMail) {
         Validator.check(!eMail.isEmpty(), ERR_MSG_CHECK_MAIL);
 
+        User aUser = new User();
         ResultSet rs;
         User re_user = null;
 
@@ -64,10 +65,10 @@ public class SchnittstelleBenutzer {
             rs = statement.executeQuery();
 
             if (rs.next()) {
-                re_user = new User(rs.getString(E_MAIL),
-                        rs.getString(PASSWORT),
-                        rs.getString(AVATAR_LINK),
-                        rs.getString(NAME));
+                aUser.setE_mail(rs.getString(E_MAIL));
+                aUser.setPasswort(rs.getString(PASSWORT));
+                aUser.setAvatar_link(rs.getString(AVATAR_LINK));
+                aUser.setName(rs.getString(NAME));
             } else {
                 throw new EmailNotFoundException(ERR_MSG_ID_NOT_FOUND);
             }

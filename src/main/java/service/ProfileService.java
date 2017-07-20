@@ -33,7 +33,7 @@ public class ProfileService {
         schnittBenutzer.addUser(aUser);
         int id = schnittBenutzer.getIDbyEMail(aUser);
         for (GameModeEnum gameMode : GameModeEnum.values()) {
-            schnittStat.initStatOverall(id, gameMode.name());
+            schnittStat.initOverallStatistik(id, gameMode.name());
         }
     }
 
@@ -64,15 +64,6 @@ public class ProfileService {
         }
 
         return schnittBenutzer.getUserByID(id);
-    }
-
-    public static void main (String args[]) {
-        ProfileService  sh = new ProfileService();
-        User aUSer = new User();
-        aUSer.setE_mail("testaccount1@mail.de");
-        aUSer.setPasswort("passwort1");
-        aUSer.setName("testaccount1");
-        sh.addUser(aUSer);
     }
 }
 

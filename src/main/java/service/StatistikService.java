@@ -21,17 +21,17 @@ public class StatistikService {
             throw new DataNotFoundException(MSG_ID_NOT_FOUND);
         }
 
-        return sch.getStatistik(id, gamemode);
+        return sch.getOverallStatistik(id, gamemode);
     }
 
     public void updateStatistik(Game game){
-        Statistik statistik = sch.getStatistik(game.getUser_id(), game.getGameMode());
+        Statistik statistik = sch.getOverallStatistik(game.getUser_id(), game.getGameMode());
         if(statistik.getPunktZahl() < game.getPunkte()){
             statistik.setPunktZahl(game.getPunkte());
         }
         statistik.setFragenRichtig(statistik.getFragenRichtig() + game.getFragenRichtig());
         statistik.setAnzahlFragen(statistik.getAnzahlFragen() + game.getFragenBeantwortet());
         statistik.setAnzahlSpiele(statistik.getAnzahlSpiele() + 1);
-        sch.changeOverallStat(statistik);
+        sch.changeOverallStatistik(statistik);
     }
 }

@@ -9,8 +9,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import static constants.DB_Constants.*;
 
@@ -22,109 +20,89 @@ import static constants.DB_Constants.*;
 public class SchnittstelleStatistik {
 
     /**
-     * Methode um ein gespieltes Spiel in die DB einzutragen
+     * Methode um ein beendeter Spielmodus in die DB einzutragen
      * @param aGame das Spiel
      */
-    public void trackNewGameSession(Game aGame) {
+    public void trackNewGame(Game aGame) {
         try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(PS_ADD_GAME)) {
+             PreparedStatement statement = connection.prepareStatement(PS_TACK_NEW_GAME_TO_SINGLEPLAYER_STAT)) {
 
-            statement.setString(INDEX_1, aGame.getGameMode());
-            statement.setInt(INDEX_2, aGame.getUser_id());
-            statement.setInt(INDEX_3, aGame.getFragenBeantwortet());
-            statement.setInt(INDEX_4, aGame.getFragenRichtig());
-            statement.setInt(INDEX_5, aGame.getPunkte());
+            statement.setString (INDEX_1, aGame.getGameMode());
+            statement.setInt    (INDEX_2, aGame.getUser_id());
+            statement.setInt    (INDEX_3, aGame.getFragenBeantwortet());
+            statement.setInt    (INDEX_4, aGame.getFragenRichtig());
+            statement.setInt    (INDEX_5, aGame.getPunkte());
 
             statement.executeUpdate();
         } catch (SQLException e) {
-            System.err.println(ERR_MSG_ADD_GAME);
+            System.err.println(ERR_MSG_TRACK_NEW_GAME);
             e.printStackTrace();
         }
     }
 
-    public List<Game> getGameListByID(int userID, String gamemode) {
-        Validator.check(userID > 0, ERR_MSG_CHECK_ID);
-
-        List<Game> gameList = new ArrayList<>();
-
-        ResultSet rs;
-
-        try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(PS_GET_GAMES_BY_ID,
-             ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
-
-            statement.setInt(INDEX_1, userID);
-            statement.setString(INDEX_2, gamemode);
-
-            rs = statement.executeQuery();
-
-            if (!rs.next()) {
-                throw new DataNotFoundException(ERR_MSG_ID_NOT_FOUND);
-            }
-            rs.previous();
-
-            while(rs.next()) {
-                Game aGame = new Game();
-                aGame.setGameMode(gamemode);
-                aGame.setUser_id(rs.getInt(USER_ID));
-                aGame.setFragenBeantwortet(rs.getInt(FRAGEN_BEANTWORTET));
-                aGame.setFragenRichtig(rs.getInt(FRAGEN_RICHTIG));
-                aGame.setPunkte(rs.getInt(PUNKTE));
-
-               gameList.add(aGame);
-            }
-        } catch (SQLException e) {
-            System.err.println(ERR_MSG_GET_GAMES);
-            e.printStackTrace();
-        }
-
-        return gameList;
-    }
-
-    public Statistik getStatistik(int userID, String gamemode) {
+    /**
+     * Methode um die Overall Statistik zu einer gegebenen User ID + Game Mode aus der DB zurueckzugeben
+     * @param userID user ID des Users
+     * @param gamemode Gamemode
+     * @return Overall Statistik des Users in einem bestimmten Gamemode
+     */
+    public Statistik getOverallStatistik(int userID, String gamemode) {
         Validator.check(userID > -1, ERR_MSG_CHECK_ID);
 
         ResultSet rs;
         Statistik stat = new Statistik();
 
         try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(PS_GET_STATISTIK)) {
+             PreparedStatement statement = connection.prepareStatement(PS_GET_OVERALL_STATISTIK)) {
 
-            statement.setInt(INDEX_1, userID);
-            statement.setString(INDEX_2, gamemode);
+            statement.setInt    (INDEX_1, userID);
+            statement.setString (INDEX_2, gamemode);
+
             rs = statement.executeQuery();
 
             if (!rs.next()) {
                 throw new DataNotFoundException(ERR_MSG_ID_NOT_FOUND);
             }
-                stat.setUserId(rs.getInt(USER_ID_STAT));
-                stat.setAnzahlFragen(rs.getInt(FRAGEN_BEANTWORTET));
-                stat.setFragenRichtig(rs.getInt(FRAGEN_RICHTIG));
-                stat.setPunktZahl(rs.getInt(HOECHSTE_PUNKTE));
-                stat.setAnzahlSpiele(rs.getInt(ANZAHL_SPIELE));
-                stat.setGameMode(rs.getString("gamemode"));
+                stat.setUserId          (rs.getInt   (USER_ID_STAT));
+                stat.setAnzahlFragen    (rs.getInt   (ANZAHL_BEANTWORTETER_FRAGEN));
+                stat.setFragenRichtig   (rs.getInt   (ANZAHL_FRAGEN_RICHTIG_BEANTWORTET));
+                stat.setPunktZahl       (rs.getInt   (HOECHSTE_PUNKTZAHL));
+                stat.setAnzahlSpiele    (rs.getInt   (ANZAHL_SPIELE));
+                stat.setGameMode        (rs.getString(GAME_MODE));
         } catch (SQLException e) {
+            System.err.println(ERR_MSG_GET_OVERALL_STATISTIK);
             e.printStackTrace();
         }
 
         return stat;
     }
 
-    public void initStatOverall (int id, String gamemode) {
+    /**
+     * Methode um die DB singleplayer_stat_result mit 0 zu initialiersieren, wenn ein neuer Benutzer angelegt wird
+     * @param id User ID
+     * @param gamemode Game Mode der zu initialisieren ist
+     */
+    public void initOverallStatistik(int id, String gamemode) {
         try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(PS_INIT_STAT)) {
+             PreparedStatement statement = connection.prepareStatement(PS_INIT_STATISTIK_OVERALL)) {
 
-            statement.setInt(INDEX_1, id);
-            statement.setString(INDEX_2, gamemode);
+            statement.setInt    (INDEX_1, id);
+            statement.setString (INDEX_2, gamemode);
+
             statement.executeUpdate();
         } catch (SQLException e) {
+            System.err.println(ERR_MSG_INIT_STATSTIK_OVERALL);
             e.printStackTrace();
         }
     }
 
-    public void changeOverallStat (Statistik stat) {
+    /**
+     * Methode um die Overall Statistik zu updaten
+     * @param stat neue Statistik
+     */
+    public void changeOverallStatistik(Statistik stat) {
         try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(PS_ADD_STAT)) {
+             PreparedStatement statement = connection.prepareStatement(PS_CHANGE_OVERALL_STATISTIK)) {
 
             statement.setInt(INDEX_1, stat.getAnzahlFragen());
             statement.setInt(INDEX_2, stat.getFragenRichtig());
@@ -135,7 +113,7 @@ public class SchnittstelleStatistik {
 
             statement.executeUpdate();
         } catch (SQLException e) {
-            System.err.println(ERR_MSG_ADD_GAME);
+            System.err.println(ERR_MSG_CHANGE_OVERALL_STATISTIK);
             e.printStackTrace();
         }
     }
@@ -149,14 +127,5 @@ public class SchnittstelleStatistik {
         ConnectionKlasse con = new ConnectionKlasse();
 
         return con.getConnection();
-    }
-
-    public static void main (String[] args) {
-        SchnittstelleStatistik sch = new SchnittstelleStatistik();
-        //Game aGame = new Game ("xquiz",1,14,3,1567);
-        //sch.trackNewGameSession(aGame);
-        //Statistik stat = new Statistik(1, 6789,5678,9999,3456,"xquiz");
-
-        System.out.println(sch.getStatistik(1, "xquiz").toString());
     }
 }

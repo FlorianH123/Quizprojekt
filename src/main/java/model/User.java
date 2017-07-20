@@ -18,7 +18,8 @@ public class User {
 
     }
 
-    public User(String e_mail, String passwort, String avatar_link, String name ) {
+    public User(int id,String e_mail, String passwort, String avatar_link, String name ) {
+        this.id = id;
         this.e_mail = e_mail;
         this.passwort = passwort;
         this.avatar_link = avatar_link;
