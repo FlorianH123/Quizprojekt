@@ -2,6 +2,7 @@ package service;
 
 import dao.SchnittstelleBenutzer;
 import dao.SchnittstelleStatistik;
+import enumContainer.GameModeEnum;
 import exception.DataAlreadyExistsException;
 import exception.DataNotFoundException;
 import model.User;
@@ -15,6 +16,7 @@ import static constants.Service_Constants.*;
  */
 public class ProfileService {
     private SchnittstelleBenutzer schnittBenutzer = new SchnittstelleBenutzer();
+    private SchnittstelleStatistik schnittStat = new SchnittstelleStatistik();
 
     /**
      * Methode um einen Benutzer in die Datenbank einzufuegen
@@ -30,7 +32,10 @@ public class ProfileService {
         aUser.setAvatar_link(STANDARD_LINK);
         aUser.setId(schnittBenutzer.getNextID());
         schnittBenutzer.addUser(aUser);
-        new SchnittstelleStatistik().initStatOverall(aUser.getId());
+
+        for (GameModeEnum gameMode : GameModeEnum.values()) {
+            schnittStat.initStatOverall(aUser.getId(), gameMode.name());
+        }
     }
 
     public void changePassword(User user) {

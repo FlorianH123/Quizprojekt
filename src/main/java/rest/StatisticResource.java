@@ -2,10 +2,7 @@ package rest;
 
 import service.StatistikService;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -23,9 +20,9 @@ public class StatisticResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path(STATISTIC_ID_PATH)
-    public Response getStatistik(@PathParam(STATISTIC_ID) int statisticID){
+    public Response getStatistik(@PathParam(STATISTIC_ID) int statisticID, @QueryParam("gamemode") String gameMode){
         return Response.ok()
-                .entity(statistikService.getStatistik(statisticID))
+                .entity(statistikService.getStatistik(statisticID, gameMode))
                 .build();
     }
 }

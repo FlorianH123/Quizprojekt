@@ -34,7 +34,6 @@ public class SchnittstelleStatistik {
             statement.setInt(INDEX_3, aGame.getFragenBeantwortet());
             statement.setInt(INDEX_4, aGame.getFragenRichtig());
             statement.setInt(INDEX_5, aGame.getPunkte());
-            statement.setInt(INDEX_6, aGame.getGame_id());
 
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -71,7 +70,6 @@ public class SchnittstelleStatistik {
                 aGame.setFragenBeantwortet(rs.getInt(FRAGEN_BEANTWORTET));
                 aGame.setFragenRichtig(rs.getInt(FRAGEN_RICHTIG));
                 aGame.setPunkte(rs.getInt(PUNKTE));
-                aGame.setGame_id(rs.getInt(GAME_ID));
 
                gameList.add(aGame);
             }
@@ -83,7 +81,7 @@ public class SchnittstelleStatistik {
         return gameList;
     }
 
-    public Statistik getStatistik(int userID) {
+    public Statistik getStatistik(int userID, String gamemode) {
         Validator.check(userID > 0, ERR_MSG_CHECK_ID);
 
         ResultSet rs;
@@ -93,6 +91,7 @@ public class SchnittstelleStatistik {
              PreparedStatement statement = connection.prepareStatement(PS_GET_STATISTIK)) {
 
             statement.setInt(INDEX_1, userID);
+            statement.setString(INDEX_2, gamemode);
             rs = statement.executeQuery();
 
             if (!rs.next()) {
@@ -103,6 +102,7 @@ public class SchnittstelleStatistik {
                 stat.setFragenRichtig(rs.getInt(FRAGEN_RICHTIG));
                 stat.setPunktZahl(rs.getInt(HOECHSTE_PUNKTE));
                 stat.setAnzahlSpiele(rs.getInt(ANZAHL_SPIELE));
+                stat.setGameMode(rs.getString("gamemode"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -110,11 +110,12 @@ public class SchnittstelleStatistik {
         return stat;
     }
 
-    public void initStatOverall (int id) {
+    public void initStatOverall (int id, String gamemode) {
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(PS_INIT_STAT)) {
 
             statement.setInt(INDEX_1, id);
+            statement.setString(INDEX_2, gamemode);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -130,6 +131,7 @@ public class SchnittstelleStatistik {
             statement.setInt(INDEX_3, stat.getPunktZahl());
             statement.setInt(INDEX_4, stat.getAnzahlSpiele());
             statement.setInt(INDEX_5, stat.getUserId());
+            statement.setString(INDEX_6, stat.getGameMode());
 
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -151,14 +153,10 @@ public class SchnittstelleStatistik {
 
     public static void main (String[] args) {
         SchnittstelleStatistik sch = new SchnittstelleStatistik();
-        Statistik st = new Statistik();
-        st.setUserId(1);
-        st.setAnzahlFragen(10);
-        st.setFragenRichtig(5);
-        st.setPunktZahl(1240);
-        st.setAnzahlSpiele(100);
+        //Game aGame = new Game ("xquiz",1,14,3,1567);
+        //sch.trackNewGameSession(aGame);
+        //Statistik stat = new Statistik(1, 6789,5678,9999,3456,"xquiz");
 
-        sch.changeOverallStat(st);
-        System.out.println(sch.getStatistik(1).toString());
+        System.out.println(sch.getStatistik(1, "xquiz").toString());
     }
 }

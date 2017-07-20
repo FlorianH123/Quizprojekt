@@ -111,11 +111,11 @@ public class DB_Constants {
     public static final String ERR_MSG_GET_GAMES = "Fehler beim Lesen der gespielten Spiele";
 
     //Prepared Statements
-    public static final String PS_ADD_GAME = "INSERT INTO singleplayer_stat VALUES (?,?,?,?,?,?)";
+    public static final String PS_ADD_GAME = "INSERT INTO singleplayer_stat VALUES (?,?,?,?,?)";
     public static final String PS_GET_GAMES_BY_ID = "SELECT * FROM singleplayer_stat WHERE id_user = ? AND gamemode = ?";
 
-    public static final String PS_GET_STATISTIK = "SELECT * FROM singleplayer_stat_result WHERE user_id = ?";
+    public static final String PS_GET_STATISTIK = "SELECT * FROM singleplayer_stat_result WHERE user_id = ? AND gamemode = ?";
     public static final String PS_ADD_STAT = "UPDATE singleplayer_stat_result SET fragen_beantwortet = ?, fragen_richtig = ?, " +
-                                             "hoechste_punktezahl = ?, gespielte_spiele = ? WHERE user_id = ?";
-    public static final String PS_INIT_STAT = "INSERT INTO singleplayer_stat_result VALUES (?,0,0,0,0)";
+                                             "hoechste_punktezahl = ?, gespielte_spiele = ? WHERE user_id = ? AND gamemode = ?";
+    public static final String PS_INIT_STAT = "INSERT INTO singleplayer_stat_result VALUES (?,0,0,0,?)";
 }

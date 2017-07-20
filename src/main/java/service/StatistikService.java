@@ -15,17 +15,17 @@ import static constants.Service_Constants.*;
 public class StatistikService {
     private SchnittstelleStatistik sch = new SchnittstelleStatistik();
 
-    public Statistik getStatistik(int id){
+    public Statistik getStatistik(int id, String gamemode){
         SchnittstelleBenutzer schB = new SchnittstelleBenutzer();
         if(!schB.checkID(id)){
             throw new DataNotFoundException(MSG_ID_NOT_FOUND);
         }
 
-        return sch.getStatistik(id);
+        return sch.getStatistik(id, gamemode);
     }
 
     public void updateStatistik(Game game){
-        Statistik statistik = sch.getStatistik(game.getUser_id());
+        Statistik statistik = sch.getStatistik(game.getUser_id(), game.getGameMode());
         if(statistik.getPunktZahl() < game.getPunkte()){
             statistik.setPunktZahl(game.getPunkte());
         }
@@ -33,10 +33,5 @@ public class StatistikService {
         statistik.setAnzahlFragen(statistik.getAnzahlFragen() + game.getFragenBeantwortet());
         statistik.setAnzahlSpiele(statistik.getAnzahlSpiele() + 1);
         sch.changeOverallStat(statistik);
-    }
-
-    public static void main(String[] args){
-        Game game = new Game("xquiz", 1, 16, 5, 9001, 4);
-        new StatistikService().updateStatistik(game);
     }
 }
