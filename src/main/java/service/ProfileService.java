@@ -31,9 +31,9 @@ public class ProfileService {
         aUser.setPasswort(Verschlüsselung.generatePasswort(aUser.getPasswort()));
         aUser.setAvatar_link(STANDARD_LINK);
         schnittBenutzer.addUser(aUser);
-
+        int id = schnittBenutzer.getIDbyEMail(aUser);
         for (GameModeEnum gameMode : GameModeEnum.values()) {
-            schnittStat.initStatOverall(aUser.getId(), gameMode.name());
+            schnittStat.initStatOverall(id, gameMode.name());
         }
     }
 
@@ -69,9 +69,9 @@ public class ProfileService {
     public static void main (String args[]) {
         ProfileService  sh = new ProfileService();
         User aUSer = new User();
-        aUSer.setE_mail("testaccount2@mail.de");
-        aUSer.setPasswort("passwort2");
-        aUSer.setName("testaccount2");
+        aUSer.setE_mail("testaccount1@mail.de");
+        aUSer.setPasswort("passwort1");
+        aUSer.setName("testaccount1");
         sh.addUser(aUSer);
     }
 }

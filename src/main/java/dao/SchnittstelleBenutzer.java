@@ -179,11 +179,10 @@ public class SchnittstelleBenutzer {
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(PS_ADD_USER)) {
 
-            statement.setInt(INDEX_1, aUser.getId());
-            statement.setString(INDEX_2, aUser.getE_mail());
-            statement.setString(INDEX_3, aUser.getPasswort());
-            statement.setString(INDEX_4, aUser.getAvatar_link());
-            statement.setString(INDEX_5, aUser.getName());
+            statement.setString(INDEX_1, aUser.getE_mail());
+            statement.setString(INDEX_2, aUser.getPasswort());
+            statement.setString(INDEX_3, aUser.getAvatar_link());
+            statement.setString(INDEX_4, aUser.getName());
             statement.executeUpdate();
 
         } catch (SQLException e) {
@@ -231,6 +230,29 @@ public class SchnittstelleBenutzer {
         }
     }
 
+    public int getIDbyEMail(User aUser) {
+        ResultSet rs;
+        int id = 0;
+
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(PS_GET_ID_BY_EMAIL)) {
+
+            statement.setString(INDEX_1, aUser.getE_mail());
+            rs = statement.executeQuery();
+
+            if (!rs.next()) {
+                throw new DataNotFoundException(ERR_MSG_ID_NOT_FOUND);
+            }
+
+            id = rs.getInt(ID);
+
+        } catch (SQLException e) {
+            System.err.println(ERR_MSG_GET_PASSWORD);
+            e.printStackTrace();
+        }
+        return id;
+    }
+
     public void changeAvatarLink(User user) {
         try(Connection connection = getConnection();
             PreparedStatement statement = connection.prepareStatement(PS_CHANGE_AVL)){
@@ -252,5 +274,14 @@ public class SchnittstelleBenutzer {
         ConnectionKlasse con = new ConnectionKlasse();
 
         return con.getConnection();
+    }
+
+    public static void main (String[] args) {
+        SchnittstelleBenutzer sch = new SchnittstelleBenutzer();
+        User aUSer = new User();
+        aUSer.setE_mail("testaccount1@mail.de");
+        aUSer.setPasswort("passwort1");
+        aUSer.setName("testaccount1");
+        sch.addUser(aUSer);
     }
 }

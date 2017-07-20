@@ -52,11 +52,12 @@ public class DB_Constants {
     public static final String PS_GET_USER_BY_ID = "SELECT * FROM benutzer WHERE " + ID + " = ?";
     public static final String PS_CHECK_ID_BENUTZER = "SELECT " + ID + " FROM benutzer WHERE " + ID + " = ?";
     public static final String PS_GET_PASSWORD_BY_ID = "SELECT " + PASSWORT + " FROM benutzer WHERE " + ID + " = ?";
-    public static final String PS_ADD_USER           = "INSERT INTO benutzer VALUES (?,?,?,?,?)";
+    public static final String PS_ADD_USER           = "INSERT INTO benutzer VALUES (?,?,?,?)";
     public static final String PS_GET_NEXT_ID        = "SELECT count(*) AS anzahl FROM benutzer";
     public static final String PS_AUTHORIZATION      = "SELECT * FROM benutzer WHERE " + E_MAIL + " = ?";
     public static final String PS_CHANGE_PW          = "UPDATE benutzer SET passwort = ? WHERE e_mail = ?";
     public static final String PS_CHANGE_AVL         = "UPDATE benutzer SET avatar_link = ? WHERE e_mail = ?";
+    public static final String PS_GET_ID_BY_EMAIL = "SELECT * FROM benutzer WHERE e_mail = ?";
 
     //Prepared Statements Single Player
 
