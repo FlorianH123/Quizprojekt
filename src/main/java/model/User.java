@@ -13,22 +13,12 @@ public class User {
     private String avatar_link;
     private String name;
 
-    private SchnittstelleBenutzer schnittBen = new SchnittstelleBenutzer();
 
     public User() {
 
     }
 
     public User(String e_mail, String passwort, String avatar_link, String name ) {
-        this.id = schnittBen.getNextID();
-        this.e_mail = e_mail;
-        this.passwort = passwort;
-        this.avatar_link = avatar_link;
-        this.name = name;
-    }
-
-    public User(int id, String e_mail, String passwort, String avatar_link, String name ) {
-        this.id = id;
         this.e_mail = e_mail;
         this.passwort = passwort;
         this.avatar_link = avatar_link;

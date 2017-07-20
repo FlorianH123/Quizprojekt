@@ -22,22 +22,23 @@ public static final String MSG_AVATAR_LINK_GEANDERT = "Avatarlink wurde erfolgre
 //----------------------------------------------------------------------------------------------------------------------
 
 //fuer FragenResource---------------------------------------------------------------------------------------------------
-    public static final String FRAGEN_PATH = "/fragenresource/{questionCount}";
-    public static final String FRAGEN_PATH_COUNT = "questionCount";
-    public static final String QUERY = "query";
+public static final String FRAGEN_PATH = "/fragenresource/{questionCount}";
+public static final String FRAGEN_PATH_COUNT = "questionCount";
+public static final String QUERY = "query";
 //----------------------------------------------------------------------------------------------------------------------
 
 //fuer StatistikResource------------------------------------------------------------------------------------------------
-    public static final String STATISTIC_PATH = "/stats";
-    public static final String STATISTIC_ID_PATH = "/{statisticID}";
-    public static final String STATISTIC_ID = "statisticID";
+public static final String STATISTIC_PATH = "/stats";
+public static final String STATISTIC_ID_PATH = "/{statisticID}";
+public static final String STATISTIC_ID = "statisticID";
+public static final String MSG_STATISTIC_ADDED = "Statistik wurder erfolgreich aktualisiert";
 //----------------------------------------------------------------------------------------------------------------------
 
 //fuer ApplicationHandler-----------------------------------------------------------------------------------------------
-    public static final String APLLICATION_PATH = "/webapi";
+public static final String APLLICATION_PATH = "/webapi";
 //----------------------------------------------------------------------------------------------------------------------
 
 //fuer Fehlermeldungen--------------------------------------------------------------------------------------------------
-    public static final String ERR_MSG_PW_INCORRECT = "Email oder Passwort nicht korrekt";
+public static final String ERR_MSG_PW_INCORRECT = "Email oder Passwort nicht korrekt";
 //----------------------------------------------------------------------------------------------------------------------
 }

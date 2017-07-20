@@ -1,11 +1,10 @@
 package rest;
 
+import model.ConfirmMessage;
+import model.Game;
 import service.StatistikService;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -26,6 +25,17 @@ public class StatisticResource {
     public Response getStatistik(@PathParam(STATISTIC_ID) int statisticID){
         return Response.ok()
                 .entity(statistikService.getStatistik(statisticID))
+                .build();
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addStatistik(Game game){
+        ConfirmMessage msg = new ConfirmMessage(MSG_STATISTIC_ADDED, Response.Status.CREATED.getStatusCode());
+        statistikService.updateStatistik(game);
+
+        return Response.ok()
+                .entity(msg)
                 .build();
     }
 }
