@@ -57,7 +57,6 @@ public class SchnittstelleBenutzer {
 
         User aUser = new User();
         ResultSet rs;
-        User re_user = null;
 
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(PS_AUTHORIZATION)) {
@@ -76,7 +75,7 @@ public class SchnittstelleBenutzer {
             System.err.println(ERR_MSG_GET_USER);
             e.printStackTrace();
         }
-        return re_user;
+        return aUser;
     }
 
     /**
@@ -192,33 +191,6 @@ public class SchnittstelleBenutzer {
         }
     }
 
-
-    /*
-     * Methode die die naechste ID zurueckgibt
-     *
-     * @return ID + 1
-     */
-    /*
-    public int getNextID() {
-        ResultSet rs;
-        int nummer = -1;
-
-        try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(PS_GET_NEXT_ID)) {
-            rs = statement.executeQuery();
-
-            rs.next();
-            nummer = rs.getInt(ANZAHL);
-            nummer++;
-
-        } catch (SQLException e) {
-            System.err.println(ERR_MSG_CURRENT_ID);
-            e.printStackTrace();
-        }
-        return nummer;
-    }
-    */
-
     public void changePassword (User user) {
         try(Connection connection = getConnection();
             PreparedStatement statement = connection.prepareStatement(PS_CHANGE_PW)){
@@ -275,14 +247,5 @@ public class SchnittstelleBenutzer {
         ConnectionKlasse con = new ConnectionKlasse();
 
         return con.getConnection();
-    }
-
-    public static void main (String[] args) {
-        SchnittstelleBenutzer sch = new SchnittstelleBenutzer();
-        User aUSer = new User();
-        aUSer.setE_mail("testaccount1@mail.de");
-        aUSer.setPasswort("passwort1");
-        aUSer.setName("testaccount1");
-        sch.addUser(aUSer);
     }
 }
