@@ -82,7 +82,7 @@ public class SchnittstelleStatistik {
     }
 
     public Statistik getStatistik(int userID, String gamemode) {
-        Validator.check(userID > 0, ERR_MSG_CHECK_ID);
+        Validator.check(userID > -1, ERR_MSG_CHECK_ID);
 
         ResultSet rs;
         Statistik stat = new Statistik();

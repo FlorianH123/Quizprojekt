@@ -111,7 +111,7 @@ public class SchnittstelleBenutzer {
     }
 
     public boolean checkID(int id) {
-        Validator.check(id > 0, ERR_MSG_ID_GREATER_ZERO);
+        Validator.check(id > -1, ERR_MSG_ID_GREATER_ZERO);
 
         ResultSet rs;
         int re_id = 0;
