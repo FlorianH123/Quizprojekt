@@ -30,7 +30,6 @@ public class ProfileService {
 
         aUser.setPasswort(Verschlüsselung.generatePasswort(aUser.getPasswort()));
         aUser.setAvatar_link(STANDARD_LINK);
-        aUser.setId(schnittBenutzer.getNextID());
         schnittBenutzer.addUser(aUser);
 
         for (GameModeEnum gameMode : GameModeEnum.values()) {

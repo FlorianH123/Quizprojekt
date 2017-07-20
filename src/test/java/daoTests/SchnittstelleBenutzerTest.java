@@ -12,10 +12,10 @@ import static org.junit.Assert.*;
  * Testklasse um die Klasse dao.Schnittstellebenutzer zu testen
  */
 public class SchnittstelleBenutzerTest {
-    private User aUser1 = new User(1        ,"testaccount1@mail.de", "332ad086941c4c3d7a125c295abe801f83e59370", "link.link", "testaccount1");
-    private User aUser2 = new User(2        ,"testaccount2@mail.de", "passwort2", "link.link", "testaccount2");
-    private User aUser3 = new User(3        ,"testaccount3@mail.de", "passwort3", "link.link", "testaccount3");
-    private User aUser4 = new User(99999999 ,"testaccount4@mail.de", "passwort4", "link.link", "testaccount4");
+    private User aUser1 = new User("testaccount1@mail.de", "332ad086941c4c3d7a125c295abe801f83e59370", "link.link", "testaccount1");
+    private User aUser2 = new User("testaccount2@mail.de", "passwort2", "link.link", "testaccount2");
+    private User aUser3 = new User("testaccount3@mail.de", "passwort3", "link.link", "testaccount3");
+    private User aUser4 = new User("testaccount4@mail.de", "passwort4", "link.link", "testaccount4");
 
     private SchnittstelleBenutzer schnittBenutzer = new SchnittstelleBenutzer();
     private boolean equals;

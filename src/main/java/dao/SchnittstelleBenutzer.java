@@ -192,11 +192,13 @@ public class SchnittstelleBenutzer {
         }
     }
 
-    /**
+
+    /*
      * Methode die die naechste ID zurueckgibt
      *
      * @return ID + 1
      */
+    /*
     public int getNextID() {
         ResultSet rs;
         int nummer = -1;
@@ -215,6 +217,7 @@ public class SchnittstelleBenutzer {
         }
         return nummer;
     }
+    */
 
     public void changePassword (User user) {
         try(Connection connection = getConnection();

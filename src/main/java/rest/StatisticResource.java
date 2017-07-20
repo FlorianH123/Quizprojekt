@@ -1,5 +1,7 @@
 package rest;
 
+import model.ConfirmMessage;
+import model.Game;
 import service.StatistikService;
 
 import javax.ws.rs.*;
@@ -23,6 +25,17 @@ public class StatisticResource {
     public Response getStatistik(@PathParam(STATISTIC_ID) int statisticID, @QueryParam("gamemode") String gameMode){
         return Response.ok()
                 .entity(statistikService.getStatistik(statisticID, gameMode))
+                .build();
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addStatistik(Game game){
+        ConfirmMessage msg = new ConfirmMessage(MSG_STATISTIC_ADDED, Response.Status.CREATED.getStatusCode());
+        statistikService.updateStatistik(game);
+
+        return Response.ok()
+                .entity(msg)
                 .build();
     }
 }
