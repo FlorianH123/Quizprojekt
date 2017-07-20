@@ -65,5 +65,14 @@ public class ProfileService {
 
         return schnittBenutzer.getUserByID(id);
     }
+
+    public static void main (String args[]) {
+        ProfileService  sh = new ProfileService();
+        User aUSer = new User();
+        aUSer.setE_mail("testaccount2@mail.de");
+        aUSer.setPasswort("passwort2");
+        aUSer.setName("testaccount2");
+        sh.addUser(aUSer);
+    }
 }
 
