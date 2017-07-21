@@ -14,7 +14,7 @@ public static final String AUTORISIERUNGS_PATH = "/auth";
 public static final String PATH_PROFILE = "/";
 public static final String PATH_ADD_USER = "profile";
 public static final String PATH_GET_USER = "auth/profile/{messageID}";
-public static final String PATH_CHANGE_PASSWORD = "auth/profile/chPas";
+public static final String CHANGE_PW_PATH = "/chPas";
 public static final String PATH_CHANGE_AVATAR = "auth/profile/chAvl";
 
 public static final String MSG_BENUTZER_ANGELEGT = "Benutzer wurde angelegt";
