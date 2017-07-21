@@ -52,7 +52,6 @@ public class DB_Constants {
     public static final String PS_CHECK_ID_BENUTZER = "SELECT " + ID + " FROM benutzer WHERE " + ID + " = ?";
     public static final String PS_GET_PASSWORD_BY_ID = "SELECT " + PASSWORT + " FROM benutzer WHERE " + ID + " = ?";
     public static final String PS_ADD_USER           = "INSERT INTO benutzer VALUES (?,?,?,?)";
-    public static final String PS_GET_NEXT_ID        = "SELECT count(*) AS anzahl FROM benutzer";
     public static final String PS_AUTHORIZATION      = "SELECT * FROM benutzer WHERE " + E_MAIL + " = ?";
     public static final String PS_CHANGE_PW          = "UPDATE benutzer SET passwort = ? WHERE e_mail = ?";
     public static final String PS_CHANGE_AVL         = "UPDATE benutzer SET avatar_link = ? WHERE e_mail = ?";
@@ -124,5 +123,10 @@ public class DB_Constants {
     public static final String PS_CHANGE_OVERALL_STATISTIK = "UPDATE singleplayer_stat_result SET fragen_beantwortet = ?, " +
                                                              "fragen_richtig = ?, hoechste_punktezahl = ?, gespielte_spiele = ? " +
                                                              "WHERE user_id = ? AND gamemode = ?";
+    public static final String PS_GET_TOP_10 = "SELECT * " +
+            "FROM singleplayer_stat_result " +
+            "ORDER BY hoechste_punktezahl DESC " +
+            "LIMIT 10";
+    public static final String PS_ADD_GAME_STATISTIC = "INSERT INTO singleplayer_stat VALUES (?,?,?,?,?)";
 
 }

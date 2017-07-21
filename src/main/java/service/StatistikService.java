@@ -34,4 +34,8 @@ public class StatistikService {
         statistik.setAnzahlSpiele(statistik.getAnzahlSpiele() + 1);
         sch.changeOverallStatistik(statistik);
     }
+
+    public void addGame(Game game){
+        sch.trackNewGame(game);
+    }
 }

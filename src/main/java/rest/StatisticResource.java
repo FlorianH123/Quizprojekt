@@ -33,6 +33,7 @@ public class StatisticResource {
     public Response addStatistik(Game game){
         ConfirmMessage msg = new ConfirmMessage(MSG_STATISTIC_ADDED, Response.Status.CREATED.getStatusCode());
         statistikService.updateStatistik(game);
+        statistikService.addGame(game);
 
         return Response.ok()
                 .entity(msg)
