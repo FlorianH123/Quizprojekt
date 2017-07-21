@@ -2,11 +2,14 @@ package rest;
 
 import model.ConfirmMessage;
 import model.Game;
+import model.Statistik;
 import service.StatistikService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import java.util.List;
 
 import static constants.Rest_Constants.*;
 
@@ -38,5 +41,12 @@ public class StatisticResource {
         return Response.ok()
                 .entity(msg)
                 .build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/topTenOverall")
+    public List<Statistik> getTopTenOverall(){
+        return statistikService.getTopTenOverall();
     }
 }

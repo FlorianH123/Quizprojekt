@@ -6,6 +6,8 @@ import exception.DataNotFoundException;
 import model.Game;
 import model.Statistik;
 
+import java.util.List;
+
 import static constants.Service_Constants.*;
 
 /**
@@ -37,5 +39,9 @@ public class StatistikService {
 
     public void addGame(Game game){
         sch.trackNewGame(game);
+    }
+
+    public List<Statistik> getTopTenOverall(){
+        return sch.getTopTenOverall();
     }
 }

@@ -9,6 +9,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import static constants.DB_Constants.*;
 
@@ -122,6 +125,33 @@ public class SchnittstelleStatistik {
             System.err.println(ERR_MSG_CHANGE_OVERALL_STATISTIK);
             e.printStackTrace();
         }
+    }
+
+    public List<Statistik> getTopTenOverall(){
+        ResultSet rs;
+        //LinkedList<Statistik> topTenList = null;
+        ArrayList<Statistik> topTenList = null;
+        Statistik statistik;
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(PS_GET_TOP_10)) {
+
+            topTenList = new ArrayList<>();
+            rs = statement.executeQuery();
+            while(rs.next()){
+                statistik = new Statistik();
+                statistik.setAnzahlFragen(rs.getInt("fragen_beantwortet"));
+                statistik.setAnzahlSpiele(rs.getInt("gespielte_spiele"));
+                statistik.setFragenRichtig(rs.getInt("fragen_richtig"));
+                statistik.setGameMode(rs.getString("gamemode"));
+                statistik.setPunktZahl(rs.getInt("hoechste_punktezahl"));
+                statistik.setUserId(rs.getInt("user_id"));
+                topTenList.add(statistik);
+            }
+        } catch (SQLException e) {
+            System.err.println(ERR_MSG_GET_TOP_OVERALL);
+            e.printStackTrace();
+        }
+        return topTenList;
     }
 
     /**
