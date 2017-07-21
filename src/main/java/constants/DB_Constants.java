@@ -80,6 +80,7 @@ public class DB_Constants {
     public static final String PS_GET_DISTRACTOORS   ="SELECT \"Level\".\"solution\""+
                                                       "FROM \"quizDB\".\"Level\"" +
                                                       "WHERE \"catID\" = ?"+
+                                                      "AND \"Level\".\"solution\" != ?"+
                                                       "ORDER BY Random()"+
                                                       "LIMIT ?;";
 
