@@ -21,7 +21,8 @@ import static constants.Rest_Constants.*;
  * Resource um Benutzer anzulegen und abzufragen
  */
 
-@Path(PROFILE_PATH)
+//@Path(PROFILE_PATH)
+@Path("/")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ProfileResource {
@@ -37,14 +38,13 @@ public class ProfileResource {
      * Ansonsten wird Statuscode Internal Server Error zurueckgegeben
      */
     @POST
-    //@Path("/profile")
+    @Path("profile")
     public Response addUser (User aUser, @Context UriInfo uriInfo) {
         String newID = String.valueOf(aUser.getId());
         URI uri = uriInfo.getAbsolutePathBuilder().path(newID).build();
         ConfirmMessage msg = new ConfirmMessage(MSG_BENUTZER_ANGELEGT, Response.Status.CREATED.getStatusCode());
-        System.out.println("hallo");
 
-        //profileService.addUser(aUser);
+        profileService.addUser(aUser);
         return Response.created(uri)
                 .entity(msg)
                 .build();
@@ -56,8 +56,8 @@ public class ProfileResource {
      * @return Response Nachricht
      */
     @GET
-    @Path(MESSAGE_ID_PATH)
-    //@Path("auth/profile/{messageID}")
+    //@Path(MESSAGE_ID_PATH)
+    @Path("auth/profile/{messageID}")
     public Response getUser (@PathParam(MESSAGE_ID) int messageID) {
         return Response.ok()
                 .entity(profileService.getUser(messageID))
