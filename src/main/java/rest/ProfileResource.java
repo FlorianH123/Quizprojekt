@@ -43,6 +43,7 @@ public class ProfileResource {
         String newID = String.valueOf(aUser.getId());
         URI uri = uriInfo.getAbsolutePathBuilder().path(newID).build();
         ConfirmMessage msg = new ConfirmMessage(MSG_BENUTZER_ANGELEGT, Response.Status.CREATED.getStatusCode());
+        System.out.println("hallo");
 
         profileService.addUser(aUser);
         return Response.created(uri)
