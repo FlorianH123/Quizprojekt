@@ -70,7 +70,6 @@ public class ProfileResource {
      */
     @PUT
     @Path(PATH_CHANGE_PASSWORD)
-    //@Path("auth/profile/" + CHANGE_PW_PATH)
     public Response changePassword (User user) {
         profileService.changePassword(user);
 
@@ -87,7 +86,6 @@ public class ProfileResource {
      */
     @PUT
     @Path(PATH_CHANGE_AVATAR)
-    //@Path("auth/profile/" + CHANGE_AVATAR_LINK_PATH)
     public Response changeAvatarLink (User user) {
         profileService.changeAvatarLink(user);
 
