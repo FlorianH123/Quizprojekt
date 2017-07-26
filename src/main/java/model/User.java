@@ -1,7 +1,5 @@
 package model;
 
-import dao.SchnittstelleBenutzer;
-
 /**
  * Created by Florian on 13.06.2017.
  * Containerklasse für einen Benutzer
@@ -67,8 +65,10 @@ public class User {
     }
 
     public String toString() {
-        return "ID: " + id + "\n" + "E-Mail: " + e_mail + "\n" + "Passwort: " +
-                passwort + "\n" + "Avatar Link: " +
-                avatar_link + "\n" + "Name: " + name;
+        return "ID: " + id + "\n" +
+                "E-Mail: " + e_mail + "\n" +
+                "Passwort: " + passwort + "\n" +
+                "Avatar Link: " + avatar_link + "\n" +
+                "Name: " + name;
     }
 }

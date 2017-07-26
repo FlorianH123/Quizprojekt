@@ -1,5 +1,6 @@
 package rest;
 
+import exception.DataNotFoundException;
 import model.ConfirmMessage;
 import model.Game;
 import model.Statistik;
@@ -19,16 +20,17 @@ import static constants.Rest_Constants.*;
  */
 
 @Path(STATISTIC_PATH)
+@Produces(MediaType.APPLICATION_JSON)
 public class StatisticResource {
     private StatistikService statistikService = new StatistikService();
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     @Path(STATISTIC_ID_PATH)
     public Response getStatistik(@PathParam(STATISTIC_ID) int statisticID, @QueryParam("gamemode") String gameMode){
         return Response.ok()
                 .entity(statistikService.getStatistik(statisticID, gameMode))
                 .build();
+
     }
 
     @POST
@@ -37,14 +39,12 @@ public class StatisticResource {
         ConfirmMessage msg = new ConfirmMessage(MSG_STATISTIC_ADDED, Response.Status.CREATED.getStatusCode());
         statistikService.updateStatistik(game);
         statistikService.addGame(game);
-
         return Response.ok()
                 .entity(msg)
                 .build();
     }
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     @Path("/topTenOverall")
     public List<Statistik> getTopTenOverall(){
         return statistikService.getTopTenOverall();
