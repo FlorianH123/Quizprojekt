@@ -1,6 +1,5 @@
 package rest;
 
-import exception.DataNotFoundException;
 import model.ConfirmMessage;
 import model.Game;
 import model.Statistik;

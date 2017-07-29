@@ -19,6 +19,7 @@ import static constants.Rest_Constants.*;
 /**
  * Created by Florian on 22.06.2017.
  * Resource um Benutzer anzulegen und abzufragen
+ * Path: / <- Wird genutzt damit Funktionen sowohl mit Autorisierung als auch ohne aufgerufen werden koennen
  */
 
 @Path(PATH_PROFILE)
@@ -35,6 +36,7 @@ public class ProfileResource {
      * Falls der Benutzer korrekt angelegt wurde wird der Statuscode 201 und der User selbst als JSON zurueckgegeben
      *
      * Ansonsten wird Statuscode Internal Server Error zurueckgegeben
+     * Path: profile
      */
     @POST
     @Path(PATH_ADD_USER)
@@ -54,6 +56,7 @@ public class ProfileResource {
      * Methode um zu einer gegebenen ID den dazugehörigen Benutzer zu liefern
      * @param messageID ID des Users
      * @return Response Nachricht
+     * Path: auth/profile/{messageID}
      */
     @GET
     @Path(PATH_GET_USER)
@@ -67,6 +70,7 @@ public class ProfileResource {
     /**
      * Methode um das Passwort zu andern
      * @param user bei dem das Passwort geaendert werden soll
+     * Path: auth/chPas
      */
     @PUT
     @Path(PATH_CHANGE_PASSWORD)
@@ -83,6 +87,7 @@ public class ProfileResource {
      * Methode um den Avatar zu aendern
      * @param user bei dem der Avatar geaendert werden soll
      * @return ConfirmMessage
+     * Path: auth/profile/chAvl
      */
     @PUT
     @Path(PATH_CHANGE_AVATAR)

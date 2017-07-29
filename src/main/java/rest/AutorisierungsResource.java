@@ -10,7 +10,9 @@ import static constants.Rest_Constants.AUTORISIERUNGS_PATH;
 /**
  * Created by Cedric on 02.07.2017.
  * Resource fuer Autorisierungsanfrage
+ * Path: /auth
  */
+
 @Path(AUTORISIERUNGS_PATH)
 public class AutorisierungsResource {
 
