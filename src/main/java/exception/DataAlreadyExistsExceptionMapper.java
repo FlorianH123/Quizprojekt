@@ -20,7 +20,7 @@ public class DataAlreadyExistsExceptionMapper implements ExceptionMapper<DataAlr
 
         return Response.status(Response.Status.FOUND)
                 //.entity(errorMsg)
-                .entity(ex.getMessage())
+                .entity(model.ExceptionToJson.exceptionMessageToJson(ex))
                 .build();
     }
 }

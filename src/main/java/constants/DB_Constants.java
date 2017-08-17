@@ -120,6 +120,7 @@ public class DB_Constants {
     public static final String ERR_MSG_INIT_STATSTIK_OVERALL = "Fehler: Es konnte die Overall Statistik nicht " +
                                                            "initialisiert werden!";
     public static final String ERR_MSG_CHANGE_OVERALL_STATISTIK = "Fehler: Es konnte die Overall Statistik nicht geupdatet werden!";
+    public static final String ERR_MSG_GET_TOP_OVERALL = "Fehler: Top 10 konnten nicht geladen werden";
 
     //Prepared Statements
     public static final String PS_TACK_NEW_GAME_TO_SINGLEPLAYER_STAT = "INSERT INTO singleplayer_stat VALUES (?,?,?,?,?)";
@@ -133,6 +134,5 @@ public class DB_Constants {
             "FROM singleplayer_stat_result " +
             "ORDER BY hoechste_punktezahl DESC " +
             "LIMIT 10";
-    public static final String PS_ADD_GAME_STATISTIC = "INSERT INTO singleplayer_stat VALUES (?,?,?,?,?)";
 
 }

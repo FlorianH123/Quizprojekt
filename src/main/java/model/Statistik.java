@@ -6,6 +6,7 @@ public class Statistik {
     private int fragenRichtig;
     private int punktZahl;
     private int anzahlSpiele;
+    private String gameMode;
 
     public Statistik() {
 
@@ -27,8 +28,6 @@ public class Statistik {
     public void setGameMode(String gameMode) {
         this.gameMode = gameMode;
     }
-
-    private String gameMode;
 
     public int getUserId() {
         return userId;
@@ -71,7 +70,11 @@ public class Statistik {
     }
 
     public String toString() {
-        return "User ID: " + userId + " Anzahl Fragen: " + anzahlFragen + " richtige Fragen: " + fragenRichtig +
-                " hoechste Punkte: " + punktZahl + " Anzahl Spiele " + anzahlSpiele + " Game Mode: " + gameMode;
+        return "User ID: " + userId + ",\n" +
+                "Anzahl Fragen: " + anzahlFragen + ",\n" +
+                "richtige Fragen: " + fragenRichtig + ",\n" +
+                "hoechste Punkte: " + punktZahl + ",\n" +
+                "Anzahl Spiele: " + anzahlSpiele + ",\n" +
+                "Game Mode: " + gameMode;
     }
 }

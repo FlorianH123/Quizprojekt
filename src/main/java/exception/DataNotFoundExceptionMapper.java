@@ -1,7 +1,8 @@
 package exception;
-
 import model.ErrorMessage;
 
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
@@ -19,7 +20,8 @@ public class DataNotFoundExceptionMapper implements ExceptionMapper<DataNotFound
 
         return Response.status(Response.Status.NOT_FOUND)
                 //.entity(errorMsg)
-                .entity(ex.getMessage())
+                //.entity(ex.getMessage())
+                .entity(model.ExceptionToJson.exceptionMessageToJson(ex))
                 .build();
     }
 }

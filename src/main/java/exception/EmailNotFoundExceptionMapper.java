@@ -14,12 +14,12 @@ import javax.ws.rs.ext.Provider;
 @Provider
 public class EmailNotFoundExceptionMapper implements ExceptionMapper<EmailNotFoundException>{
     @Override
-    public Response toResponse(EmailNotFoundException e) {
+    public Response toResponse(EmailNotFoundException ex) {
         //ErrorMessage errorMsg = new ErrorMessage(e.getMessage(), Response.Status.NOT_FOUND.getStatusCode());
 
         return Response.status(Response.Status.NOT_FOUND)
                 //.entity(errorMsg)
-                .entity(e.getMessage())
+                .entity(model.ExceptionToJson.exceptionMessageToJson(ex))
                 .build();
     }
 }
