@@ -8,6 +8,12 @@ import exception.DataNotFoundException;
 import model.User;
 import security.Verschlüsselung;
 
+import javax.ws.rs.container.ContainerRequestContext;
+import javax.xml.bind.DatatypeConverter;
+import java.io.IOException;
+import java.util.List;
+import java.util.StringTokenizer;
+
 import static constants.Service_Constants.*;
 
 /**
@@ -64,6 +70,31 @@ public class ProfileService {
         }
 
         return schnittBenutzer.getUserByID(id);
+    }
+
+    public User login(ContainerRequestContext requestContext) throws IOException{
+        String email, decodeString, authToken;
+        StringTokenizer tokenizer;
+        byte[] decoded;
+        SchnittstelleBenutzer sch = new SchnittstelleBenutzer();
+        User user = null;
+
+        if(requestContext.getUriInfo().getPath().contains("auth")) {
+            //Ueberprueft ob im Header Authorization steht
+            List<String> authHeader = requestContext.getHeaders().get("Authorization");
+            if (authHeader != null && authHeader.size() > 0) {
+                //authToken enthaehlt Email und Passwort in Base64
+                authToken = authHeader.get(0);
+                authToken = authToken.replaceFirst("Basic", "");
+                //Umwandlung von Email und Passwort
+                decoded = DatatypeConverter.parseBase64Binary(authToken);
+                decodeString = new String(decoded, "UTF-8");
+                tokenizer = new StringTokenizer(decodeString, ":");
+                email = tokenizer.nextToken();
+                user = sch.getUserByEmail(email);
+            }
+        }
+            return user;
     }
 }
 

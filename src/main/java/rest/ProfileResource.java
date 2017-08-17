@@ -6,11 +6,12 @@ import service.ProfileService;
 
 
 import javax.ws.rs.*;
+import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-
+import java.io.IOException;
 import java.net.URI;
 
 import static constants.Rest_Constants.*;
@@ -44,7 +45,6 @@ public class ProfileResource {
         String newID = String.valueOf(aUser.getId());
         URI uri = uriInfo.getAbsolutePathBuilder().path(newID).build();
         ConfirmMessage msg = new ConfirmMessage(MSG_BENUTZER_ANGELEGT, Response.Status.CREATED.getStatusCode());
-        System.out.println("hallo");
 
         profileService.addUser(aUser);
         return Response.created(uri)
@@ -63,6 +63,15 @@ public class ProfileResource {
     public Response getUser (@PathParam(MESSAGE_ID) int messageID) {
         return Response.ok()
                 .entity(profileService.getUser(messageID))
+                .build();
+
+    }
+
+    @GET
+    @Path("auth/login")
+    public Response login(ContainerRequestContext requestContext) throws IOException{
+        return Response.ok()
+                .entity(profileService.login(requestContext))
                 .build();
 
     }
