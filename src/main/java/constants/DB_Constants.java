@@ -72,10 +72,15 @@ public class DB_Constants {
                                                        "WHERE matches.matchid = categories.matchid"+
                                                        "AND categories.catid = level.catid"+
                                                        "AND categories.matchid = ?"+
+                                                       "AND level.ready = ready"+
                                                        "ORDER BY Random()"+
                                                        "LIMIT ?;";
 
-    public static final String PS_GET_RANDOM_QUESTION="";
+    public static final String PS_GET_RANDOM_QUESTION="SELECT level.levelid, level.catid, level.solution, level.verbalization " +
+                                                      "FROM level " +
+                                                      "WHERE level.ready = false " +
+                                                      "ORDER BY Random() " +
+                                                      "LIMIT ?; ";
 
     public static final String PS_GET_DISTRACTOORS   ="SELECT \"Level\".\"solution\""+
                                                       "FROM \"quizDB\".\"Level\"" +
@@ -84,11 +89,12 @@ public class DB_Constants {
                                                       "ORDER BY Random()"+
                                                       "LIMIT ?;";
 
-    public static final String PS_GET_DISTRACTOORS2  ="SELECT solution"+
-                                                      "FROM level"+
-                                                      "WHERE catid = ?"+
-                                                      "ORDER BY Random()"+
-                                                      "LIMIT ?;";
+    public static final String PS_GET_DISTRACTOORS2  ="SELECT solution "+
+                                                      "FROM level "+
+                                                      "WHERE catid = ? "+
+                                                      "AND level.solution != ? "+
+                                                      "ORDER BY Random() "+
+                                                      "LIMIT ?; ";
     public static final String d ="";
     public static final String f ="";
     public static final String k ="";

@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.*;
-import singlePlayer.SinglePlayer10;
+import singlePlayer.SinglePlayerALL;
 
 import javax.ws.rs.Path;
 
@@ -15,8 +15,8 @@ import javax.ws.rs.Path;
 public class FragenService {
    //TODO Lösche diese Klassse
     public List<Level> getFragen(int anzahl, int resource){
-        List<Level> list = new SinglePlayer10().SinglePlayerStart(resource,anzahl);
-        System.out.println("Anzahl: " + anzahl + "\nResource: " + resource);
+        List<Level> list = new SinglePlayerALL().SinglePlayerStart(anzahl, resource);
+        System.out.println("Anzahl: " + anzahl + "\nResource: "+ resource);
         return list;
     }
 

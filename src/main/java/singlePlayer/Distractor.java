@@ -18,10 +18,7 @@ public class Distractor {
         ResultSet rs = null;
 
         try{
-            Class.forName("org.postgresql.Driver");
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","admin");
-            //connection für echte DB
-            //connection = new dao.ConnectionKlasse().getConnection();
+            connection = new dao.ConnectionKlasse().getConnection();
             pstatement = setPstatement(sub_Categorie,anzahl,connection, sol);
             if (pstatement != null) {
                 rs = pstatement.executeQuery();
@@ -32,8 +29,6 @@ public class Distractor {
         }catch(SQLException e){
             System.out.println("Error while Generating the Distractors");
 
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
         return stack;
     }
@@ -42,7 +37,7 @@ public class Distractor {
         PreparedStatement pstatement;
         pstatement =null;
         try {
-            pstatement = connection.prepareStatement(PS_GET_DISTRACTOORS);
+            pstatement = connection.prepareStatement(PS_GET_DISTRACTOORS2);
             pstatement.setInt(INDEX_1,cat );
             pstatement.setString(INDEX_2,sol);
             pstatement.setInt(INDEX_3,anzahlFragen);
