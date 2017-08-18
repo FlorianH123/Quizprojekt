@@ -77,24 +77,19 @@ public class ProfileService {
         StringTokenizer tokenizer;
         byte[] decoded;
         SchnittstelleBenutzer sch = new SchnittstelleBenutzer();
-        User user = null;
+        User user;
 
-        if(requestContext.getUriInfo().getPath().contains("auth")) {
-            //Ueberprueft ob im Header Authorization steht
-            List<String> authHeader = requestContext.getHeaders().get("Authorization");
-            if (authHeader != null && authHeader.size() > 0) {
-                //authToken enthaehlt Email und Passwort in Base64
-                authToken = authHeader.get(0);
-                authToken = authToken.replaceFirst("Basic", "");
-                //Umwandlung von Email und Passwort
-                decoded = DatatypeConverter.parseBase64Binary(authToken);
-                decodeString = new String(decoded, "UTF-8");
-                tokenizer = new StringTokenizer(decodeString, ":");
-                email = tokenizer.nextToken();
-                user = sch.getUserByEmail(email);
-            }
-        }
-            return user;
+        List<String> authHeader = requestContext.getHeaders().get("Authorization");
+        //authToken enthaehlt Email und Passwort in Base64
+        authToken = authHeader.get(0);
+        authToken = authToken.replaceFirst("Basic", "");
+        //Umwandlung von Email und Passwort
+        decoded = DatatypeConverter.parseBase64Binary(authToken);
+        decodeString = new String(decoded, "UTF-8");
+        tokenizer = new StringTokenizer(decodeString, ":");
+        email = tokenizer.nextToken();
+        user = sch.getUserByEmail(email);
+        return user;
     }
 }
 

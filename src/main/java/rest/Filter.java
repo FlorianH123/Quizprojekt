@@ -12,6 +12,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
 import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -33,7 +34,19 @@ public class Filter implements ContainerRequestFilter{
 
         if(requestContext.getUriInfo().getPath().contains("auth")){
             //Ueberprueft ob im Header Authorization steht
-            List<String> authHeader = requestContext.getHeaders().get("Authorization");
+            List<String> authHeader = new ArrayList<>();
+            String test = "";
+            if(requestContext.getHeaders().get("Authorization") != null){
+                authHeader = requestContext.getHeaders().get("Authorization");
+            }else if(requestContext.getHeaders().get("access-control-request-headers") != null){
+                //authHeader = requestContext.getHeaders().get("access-control-request-headers");
+                test = requestContext.getHeaders().get("access-control-request-headers").toString();
+                System.out.println(System.getProperty("catalina.base"));
+                authHeader.add(test);
+            }else{
+                authHeader = null;
+            }
+            //List<String> authHeader = requestContext.getHeaders().get("Authorization");
             if(authHeader != null && authHeader.size() > 0){
                 //authToken enthaehlt Email und Passwort in Base64
                 authToken = authHeader.get(0);
