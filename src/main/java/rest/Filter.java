@@ -46,7 +46,7 @@ public class Filter implements ContainerRequestFilter{
             }else{
                 authHeader = null;
             }
-            //List<String> authHeader = requestContext.getHeaders().get("Authorization");
+            List<String> authHeader = requestContext.getHeaders().get("Authorization");
             if(authHeader != null && authHeader.size() > 0){
                 //authToken enthaehlt Email und Passwort in Base64
                 authToken = authHeader.get(0);
