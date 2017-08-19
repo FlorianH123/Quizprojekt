@@ -41,6 +41,7 @@ public class SchnittstelleBenutzer {
                 aUser.setE_mail(rs.getString(E_MAIL));
                 aUser.setAvatar_link(rs.getString(AVATAR_LINK));
                 aUser.setName(rs.getString(NAME));
+                aUser.setPasswort(rs.getString(PASSWORT));
             } else {
                 throw new DataNotFoundException(ERR_MSG_ID_NOT_FOUND);
             }
@@ -64,6 +65,7 @@ public class SchnittstelleBenutzer {
             rs = statement.executeQuery();
 
             if (rs.next()) {
+                aUser.setId(rs.getInt(ID));
                 aUser.setE_mail(rs.getString(E_MAIL));
                 aUser.setPasswort(rs.getString(PASSWORT));
                 aUser.setAvatar_link(rs.getString(AVATAR_LINK));

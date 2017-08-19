@@ -1,11 +1,10 @@
 package rest;
 
 import dao.SchnittstelleBenutzer;
-import exception.DataNotFoundException;
-import exception.EmailNotFoundException;
 import exception.PasswordIncorrectException;
 import model.User;
 import security.Verschlüsselung;
+
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.Response;
@@ -34,19 +33,9 @@ public class Filter implements ContainerRequestFilter{
 
         if(requestContext.getUriInfo().getPath().contains("auth")){
             //Ueberprueft ob im Header Authorization steht
-            List<String> authHeader = new ArrayList<>();
-            String test = "";
-            if(requestContext.getHeaders().get("Authorization") != null){
+            List<String> authHeader;
                 authHeader = requestContext.getHeaders().get("Authorization");
-            }else if(requestContext.getHeaders().get("access-control-request-headers") != null){
-                //authHeader = requestContext.getHeaders().get("access-control-request-headers");
-                test = requestContext.getHeaders().get("access-control-request-headers").toString();
-                System.out.println(System.getProperty("catalina.base"));
-                authHeader.add(test);
-            }else{
-                authHeader = null;
-            }
-            List<String> authHeader = requestContext.getHeaders().get("Authorization");
+            //List<String> authHeader = requestContext.getHeaders().get("Authorization");
             if(authHeader != null && authHeader.size() > 0){
                 //authToken enthaehlt Email und Passwort in Base64
                 authToken = authHeader.get(0);

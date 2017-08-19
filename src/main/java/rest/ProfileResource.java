@@ -5,6 +5,7 @@ import model.User;
 import service.ProfileService;
 
 
+import javax.annotation.security.PermitAll;
 import javax.ws.rs.*;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.Context;
@@ -26,6 +27,7 @@ import static constants.Rest_Constants.*;
 @Path(PATH_PROFILE)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
+@PermitAll
 public class ProfileResource {
     private ProfileService profileService = new ProfileService();
 
@@ -48,6 +50,8 @@ public class ProfileResource {
 
         profileService.addUser(aUser);
         return Response.created(uri)
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
                 .entity(msg)
                 .build();
     }
