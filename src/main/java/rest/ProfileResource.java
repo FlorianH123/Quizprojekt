@@ -50,8 +50,6 @@ public class ProfileResource {
 
         profileService.addUser(aUser);
         return Response.created(uri)
-                .header("Access-Control-Allow-Origin", "*")
-                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
                 .entity(msg)
                 .build();
     }
