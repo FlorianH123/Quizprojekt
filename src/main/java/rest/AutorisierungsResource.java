@@ -4,6 +4,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import static constants.Rest_Constants.AUTORISIERUNGS_PATH;
 
@@ -18,7 +19,8 @@ public class AutorisierungsResource {
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String securedMethod(){
-        return "Erfolgreich eingeloggt";
+    public Response securedMethod(){
+        return Response.accepted()
+                .build();
     }
 }
