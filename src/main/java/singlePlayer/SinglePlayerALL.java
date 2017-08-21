@@ -1,5 +1,6 @@
 package singlePlayer;
 
+import dao.ConnectionKlasse;
 import model.*;
 
 import java.sql.*;
@@ -18,65 +19,41 @@ public class SinglePlayerALL {
      */
     public List SinglePlayerStart(int anzahlFragen, int resource){
         // Abfrage auf verschiedene Column starten
-        Connection connection = null;
-        PreparedStatement pstatement = null;
+        //Connection connection = null;
+        //PreparedStatement pstatement = null;
         ResultSet rs;
         rs = null;
 
         Level level;
         List<Level> list = null;
-        try{
+        try(Connection connection = getConnection();
+            PreparedStatement pstatement = connection.prepareStatement(PS_GET_RANDOM_QUESTION)){
             //connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","admin");
             //connection für echte DB
-            connection = new dao.ConnectionKlasse().getConnection();
+            //connection = new dao.ConnectionKlasse().getConnection();
             //pstatement = connection.prepareStatement(PS_GET_QUESTIONS);
-            pstatement = setPstatement(anzahlFragen, connection);
-
-            System.out.println(pstatement);
+            //pstatement = setPstatement(anzahlFragen, connection);
+            pstatement.setInt(INDEX_1,anzahlFragen);
+            //System.out.println(pstatement);
             rs = pstatement.executeQuery();
             list = new ArrayList<>();
 
             while(rs.next()) {
                 level = null;
                 list.add(setLevel(rs, level));
-
             }
         }catch (SQLException e){
             System.out.println("Error while execute the Query!");
-        }finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                    System.out.println(ERR_MSG_RS_CLOSE + " " + e);
-                }
-            }
-
-            if (pstatement != null) {
-                try {
-                    pstatement.close();
-                } catch (SQLException e) {
-                    System.out.println(ERR_MSG_STMT_CLOSE + " " + e);
-                }
-            }
-
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    System.out.println(ERR_MSG_CON_CLOSE +" " + e);
-                }
-            }
         }
         return list;
     }
-
+/*
     /**
      * Setting the prepared Statement on the given values
      * @param anzahlFragen
      * @param connection
      * @return pstatement
-     */
+     *
     public PreparedStatement setPstatement(int anzahlFragen, Connection connection){
         PreparedStatement pstatement;
         pstatement =null;
@@ -88,11 +65,10 @@ public class SinglePlayerALL {
         }
         return pstatement;
     }
-
+*/
 
     public Level setLevel(ResultSet rs, Level level){
         try {
-
             String verbalization = rs.getString("verbalization");
             String solution = rs.getString("solution");
             int cat = rs.getInt("catid");
@@ -106,5 +82,11 @@ public class SinglePlayerALL {
             e.printStackTrace();
         }
         return level;
+    }
+
+    private Connection getConnection() {
+        ConnectionKlasse con = new ConnectionKlasse();
+
+        return con.getConnection();
     }
 }

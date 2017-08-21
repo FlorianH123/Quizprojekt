@@ -1,8 +1,6 @@
 package singlePlayer;
 
 import dao.ConnectionKlasse;
-import exception.LevelCantBeCreatedException;
-import model.Frage;
 import model.Level;
 
 import java.sql.*;
@@ -21,7 +19,7 @@ public class SinglePlayer10 {
          **/
         public List SinglePlayerStart(int cat, int anzahlFragen){
 
-            Connection connection = null;
+            //Connection connection; //= new ConnectionKlasse().getConnection();
             ResultSet rs;
             rs = null;
             Level level;
@@ -29,9 +27,9 @@ public class SinglePlayer10 {
             PreparedStatement pstatement;
             pstatement=null;
 
-            try{
-                Class.forName("org.postgresql.Driver");
-                connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","admin");
+            try (Connection connection = getConnection()){
+                //Class.forName("org.postgresql.Driver");
+                //connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","admin");
                 //connection für echte DB
                 //connection = new dao.ConnectionKlasse().getConnection();
                 pstatement = setPstatement(cat, anzahlFragen, connection);
@@ -45,8 +43,6 @@ public class SinglePlayer10 {
                 }
             }catch (SQLException e){
                 System.out.println("Error while execute the Query!");
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
             } finally {
                 if (rs != null) {
                     try {
@@ -61,14 +57,6 @@ public class SinglePlayer10 {
                         pstatement.close();
                     } catch (SQLException e) {
                         System.out.println(ERR_MSG_STMT_CLOSE + " " + e);
-                    }
-                }
-
-                if (connection != null) {
-                    try {
-                        connection.close();
-                    } catch (SQLException e) {
-                        System.out.println(ERR_MSG_CON_CLOSE +" " + e);
                     }
                 }
             }
@@ -118,5 +106,11 @@ public class SinglePlayer10 {
             }
             return level;
         }
+
+    private Connection getConnection() {
+        ConnectionKlasse con = new ConnectionKlasse();
+
+        return con.getConnection();
+    }
 
 }

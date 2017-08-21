@@ -1,5 +1,7 @@
 package singlePlayer;
 
+import dao.ConnectionKlasse;
+
 import java.sql.*;
 import java.util.Stack;
 
@@ -13,13 +15,17 @@ public class Distractor {
     public Stack<String> DistractorCretor(int sub_Categorie, String sol){
         int anzahl=3;
         Stack<String> stack = new Stack<String>();
-        Connection connection = null;
-        PreparedStatement pstatement = null;
+        //Connection connection = null;
+        //PreparedStatement pstatement = null;
         ResultSet rs = null;
 
-        try{
-            connection = new dao.ConnectionKlasse().getConnection();
-            pstatement = setPstatement(sub_Categorie,anzahl,connection, sol);
+        try(Connection connection = getConnection();
+            PreparedStatement pstatement = connection.prepareStatement(PS_GET_DISTRACTOORS2)){
+            //connection = new dao.ConnectionKlasse().getConnection();
+            //pstatement = setPstatement(sub_Categorie,anzahl,connection, sol);
+            pstatement.setInt(INDEX_1,sub_Categorie );
+            pstatement.setString(INDEX_2,sol);
+            pstatement.setInt(INDEX_3,anzahl);
             if (pstatement != null) {
                 rs = pstatement.executeQuery();
             }
@@ -28,7 +34,6 @@ public class Distractor {
             }
         }catch(SQLException e){
             System.out.println("Error while Generating the Distractors");
-
         }
         return stack;
     }
@@ -49,4 +54,9 @@ public class Distractor {
         return pstatement;
     }
 
+    private Connection getConnection() {
+        ConnectionKlasse con = new ConnectionKlasse();
+
+        return con.getConnection();
+    }
 }
