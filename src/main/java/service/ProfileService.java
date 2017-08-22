@@ -73,23 +73,26 @@ public class ProfileService {
     }
 
     public User login(ContainerRequestContext requestContext) throws IOException{
-        String email, decodeString, authToken;
-        StringTokenizer tokenizer;
-        byte[] decoded;
-        SchnittstelleBenutzer sch = new SchnittstelleBenutzer();
-        User user;
-
-        List<String> authHeader = requestContext.getHeaders().get("Authorization");
-        //authToken enthaehlt Email und Passwort in Base64
-        authToken = authHeader.get(0);
-        authToken = authToken.replaceFirst("Basic", "");
-        //Umwandlung von Email und Passwort
-        decoded = DatatypeConverter.parseBase64Binary(authToken);
-        decodeString = new String(decoded, "UTF-8");
-        tokenizer = new StringTokenizer(decodeString, ":");
-        email = tokenizer.nextToken();
-        user = sch.getUserByEmail(email);
-        return user;
+        return getAuthorizationData(requestContext);
     }
+     public static User getAuthorizationData(ContainerRequestContext requestContext) throws IOException{
+         String email, decodeString, authToken;
+         StringTokenizer tokenizer;
+         byte[] decoded;
+         SchnittstelleBenutzer sch = new SchnittstelleBenutzer();
+         User user;
+
+         List<String> authHeader = requestContext.getHeaders().get("Authorization");
+         //authToken enthaehlt Email und Passwort in Base64
+         authToken = authHeader.get(0);
+         authToken = authToken.replaceFirst("Basic", "");
+         //Umwandlung von Email und Passwort
+         decoded = DatatypeConverter.parseBase64Binary(authToken);
+         decodeString = new String(decoded, "UTF-8");
+         tokenizer = new StringTokenizer(decodeString, ":");
+         email = tokenizer.nextToken();
+         user = sch.getUserByEmail(email);
+         return user;
+     }
 }
 

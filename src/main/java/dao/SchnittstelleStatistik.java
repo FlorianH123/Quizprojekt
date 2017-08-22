@@ -129,7 +129,6 @@ public class SchnittstelleStatistik {
 
     public List<Statistik> getTopTenOverall(){
         ResultSet rs;
-        //LinkedList<Statistik> topTenList = null;
         ArrayList<Statistik> topTenList = null;
         Statistik statistik;
         try (Connection connection = getConnection();
@@ -145,6 +144,32 @@ public class SchnittstelleStatistik {
                 statistik.setGameMode(rs.getString("gamemode"));
                 statistik.setPunktZahl(rs.getInt("hoechste_punktezahl"));
                 statistik.setUserId(rs.getInt("user_id"));
+                topTenList.add(statistik);
+            }
+        } catch (SQLException e) {
+            System.err.println(ERR_MSG_GET_TOP_OVERALL);
+            e.printStackTrace();
+        }
+        return topTenList;
+    }
+
+    public List<Statistik> getTopTenPlayer(int id) {
+        ResultSet rs;
+        ArrayList<Statistik> topTenList = null;
+        Statistik statistik;
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(PS_GET_TOP_10_PLAYER)) {
+            statement.setInt(INDEX_1, id);
+            topTenList = new ArrayList<>();
+            rs = statement.executeQuery();
+            while(rs.next()){
+                statistik = new Statistik();
+                statistik.setAnzahlFragen(rs.getInt("fragen_beantwortet"));
+                //statistik.setAnzahlSpiele(rs.getInt("anzahlSpiele"));
+                statistik.setFragenRichtig(rs.getInt("fragen_richtig"));
+                statistik.setGameMode(rs.getString("gamemode"));
+                statistik.setPunktZahl(rs.getInt("punkte"));
+                statistik.setUserId(rs.getInt("id_user"));
                 topTenList.add(statistik);
             }
         } catch (SQLException e) {

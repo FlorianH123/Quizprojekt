@@ -3,12 +3,16 @@ package rest;
 import model.ConfirmMessage;
 import model.Game;
 import model.Statistik;
+import model.User;
+import service.ProfileService;
 import service.StatistikService;
 
 import javax.ws.rs.*;
+import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import java.io.IOException;
 import java.util.List;
 
 import static constants.Rest_Constants.*;
@@ -30,6 +34,12 @@ public class StatisticResource {
                 .entity(statistikService.getStatistik(statisticID, gameMode))
                 .build();
 
+    }
+
+    @GET
+    @Path("auth/TopTenPlayer")
+    public List<Statistik> getTopTenPlayer(ContainerRequestContext requestContext) throws IOException{
+        return statistikService.getTopTenPlayer(requestContext);
     }
 
     @POST

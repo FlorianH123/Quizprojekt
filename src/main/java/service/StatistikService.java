@@ -6,6 +6,8 @@ import exception.DataNotFoundException;
 import model.Game;
 import model.Statistik;
 
+import javax.ws.rs.container.ContainerRequestContext;
+import java.io.IOException;
 import java.util.List;
 
 import static constants.Service_Constants.*;
@@ -43,5 +45,9 @@ public class StatistikService {
 
     public List<Statistik> getTopTenOverall(){
         return sch.getTopTenOverall();
+    }
+
+    public List<Statistik> getTopTenPlayer(ContainerRequestContext requestContext) throws IOException{
+        return sch.getTopTenPlayer(ProfileService.getAuthorizationData(requestContext).getId());
     }
 }
