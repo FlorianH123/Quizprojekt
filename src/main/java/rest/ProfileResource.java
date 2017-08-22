@@ -27,7 +27,6 @@ import static constants.Rest_Constants.*;
 @Path(PATH_PROFILE)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@PermitAll
 public class ProfileResource {
     private ProfileService profileService = new ProfileService();
 
@@ -83,7 +82,7 @@ public class ProfileResource {
      * @param user bei dem das Passwort geaendert werden soll
      * Path: auth/chPas
      */
-    @PUT
+    @POST
     @Path(PATH_CHANGE_PASSWORD)
     public Response changePassword (User user) {
         profileService.changePassword(user);

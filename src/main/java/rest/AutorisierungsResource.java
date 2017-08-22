@@ -18,7 +18,7 @@ import static constants.Rest_Constants.AUTORISIERUNGS_PATH;
 public class AutorisierungsResource {
 
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response securedMethod(){
         return Response.accepted()
                 .build();
