@@ -4,8 +4,6 @@ import model.ConfirmMessage;
 import model.User;
 import service.ProfileService;
 
-
-import javax.annotation.security.PermitAll;
 import javax.ws.rs.*;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.Context;
