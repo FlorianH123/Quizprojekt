@@ -14,15 +14,14 @@ import static constants.DB_Constants.*;
 public class SinglePlayerALL {
     /**
      * SinglePlayerKlasse die anhand der anzahl der Fragen Random Fragen aller Themengebiete als liste zurück gibt
-     * @param anzahlFragen
-     * @return
+     * @param anzahlFragen gibt an wieviele Fragen vom Server generiert werden sollen
+     * @return Liste mit erstellten Fragen
      */
     public List SinglePlayerStart(int anzahlFragen, int resource){
         // Abfrage auf verschiedene Column starten
         //Connection connection = null;
         //PreparedStatement pstatement = null;
         ResultSet rs;
-        rs = null;
 
         Level level;
         List<Level> list = null;

@@ -15,14 +15,10 @@ public class Distractor {
     public Stack<String> DistractorCretor(int sub_Categorie, String sol){
         int anzahl=3;
         Stack<String> stack = new Stack<>();
-        //Connection connection = null;
-        //PreparedStatement pstatement = null;
         ResultSet rs;
 
         try(Connection connection = getConnection();
             PreparedStatement pstatement = connection.prepareStatement(PS_GET_DISTRACTOORS2)){
-            //connection = new dao.ConnectionKlasse().getConnection();
-            //pstatement = setPstatement(sub_Categorie,anzahl,connection, sol);
             pstatement.setInt(INDEX_1,sub_Categorie );
             pstatement.setString(INDEX_2,sol);
             pstatement.setInt(INDEX_3,anzahl);
