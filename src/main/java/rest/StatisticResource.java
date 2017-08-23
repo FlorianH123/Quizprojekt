@@ -33,16 +33,16 @@ public class StatisticResource {
         return Response.ok()
                 .entity(statistikService.getStatistik(statisticID, gameMode))
                 .build();
-
     }
 
     @GET
-    @Path("auth/TopTenPlayer")
+    @Path(STATISTIC_TOP_TEN_PLAYER)
     public List<Statistik> getTopTenPlayer(ContainerRequestContext requestContext) throws IOException{
         return statistikService.getTopTenPlayer(requestContext);
     }
 
     @POST
+    @Path(STATISTIC_ADD)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addStatistik(Game game){
         ConfirmMessage msg = new ConfirmMessage(MSG_STATISTIC_ADDED, Response.Status.CREATED.getStatusCode());
@@ -54,7 +54,7 @@ public class StatisticResource {
     }
 
     @GET
-    @Path("/topTenOverall")
+    @Path(STATISTIC_TOP_TEN_OA)
     public List<Statistik> getTopTenOverall(){
         return statistikService.getTopTenOverall();
     }

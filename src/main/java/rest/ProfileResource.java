@@ -67,7 +67,7 @@ public class ProfileResource {
     }
 
     @GET
-    @Path("auth/login")
+    @Path(PROFILE_LOGIN)
     public Response login(ContainerRequestContext requestContext) throws IOException{
         return Response.ok()
                 .entity(profileService.login(requestContext))
@@ -97,7 +97,7 @@ public class ProfileResource {
      * @return ConfirmMessage
      * Path: auth/profile/chAvl
      */
-    @PUT
+    @POST
     @Path(PATH_CHANGE_AVATAR)
     public Response changeAvatarLink (User user) {
         profileService.changeAvatarLink(user);
