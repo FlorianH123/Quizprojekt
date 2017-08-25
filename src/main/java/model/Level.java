@@ -1,6 +1,5 @@
 package model;
 import java.util.Random;
-import java.util.Random.*;
 
 public class Level {
 
@@ -13,8 +12,8 @@ public class Level {
 
     /**
      * Konstruktor
-     * @param verbalization
-     * @param solution
+     * @param verbalization enthaelt die Frage
+     * @param solution enthaelt die Antwort
      */
     public Level(String verbalization, String solution){
         option = new String[arrayGroesse];
@@ -24,53 +23,22 @@ public class Level {
         this.solutionOptions = 0;
     }
 
-    public String getVerbalization() {
-        return verbalization;
-    }
-
-    public void setVerbalization(String verbalization) {
-        this.verbalization = verbalization;
-    }
-
-    public String[] getOptions() {
-        return option;
-    }
-
     public void setOptions(String options, int pos) {
         this.option[pos] = options;
     }
 
-    public int getSolutionOptions() {
-        return solutionOptions;
-    }
-
-    public void setSolutionOptions(int solutionOptions) {
-        this.solutionOptions = solutionOptions;
-    }
-
-    public String getSolution() {
-
-        return solution;
-    }
-
-    public void setSolution(String solution) {
-        this.solution = solution;
-    }
-
     /**
      * Jason output für rest API
-     * @return
+     * @return gibt den String zurueck mit Frage und Antworten
      */
     public String toString(){
-        StringBuilder sb = new StringBuilder();
-        sb.append("{\"Verbalization\": "+"\"" + verbalization + "\", " +
+        return ("{\"Verbalization\": "+"\"" + verbalization + "\", " +
                 "\"Option0\": "+"\""+ option[0]+ "\", " +
                 "\"Option1\": "+"\""+ option[1] + "\", " +
                 "\"Option2\": "+"\""+ option[2] + "\", " +
                 "\"Option3\": "+"\""+ option[3] + "\", " +
                 "\"Solution\": "+"\""+ solution + "\", " +
                 "\"SolutionNumber\": "+"\""+ solutionOptions + "\"}");
-        return sb.toString();
     }
 
     /**

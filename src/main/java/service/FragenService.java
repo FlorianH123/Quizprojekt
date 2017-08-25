@@ -11,9 +11,7 @@ import singlePlayer.SinglePlayerALL;
  */
 public class FragenService {
     public List<Level> getFragen(int anzahl, int resource){
-        List<Level> list = new SinglePlayerALL().SinglePlayerStart(anzahl, resource);
-        //System.out.println("Anzahl: " + anzahl + "\nResource: "+ resource);
-        return list;
+        return new SinglePlayerALL().SinglePlayerStart(anzahl, resource);
     }
 
 }

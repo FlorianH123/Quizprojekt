@@ -11,7 +11,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
 import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
