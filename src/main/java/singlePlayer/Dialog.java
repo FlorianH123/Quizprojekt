@@ -3,10 +3,7 @@ package singlePlayer;
 import java.sql.SQLException;
 import java.util.*;
 
-import dao.ConnectionKlasse;
 import model.Frage;
-
-import java.sql.Connection;
 
 
 public class Dialog {

@@ -65,10 +65,10 @@ public class SinglePlayer10 {
 
     /**
      * Setting the Prepared Statement with the given indexes
-      * @param cat
-     * @param anzahlFragen
-     * @param connection
-     * @return
+      * @param cat ?
+     * @param anzahlFragen die Anzahl an Fragen die generiert werden sollen
+     * @param connection die Verbindung
+     * @return gibt das zusammengebaute Statement zurueck
      */
     public PreparedStatement setPstatement(int cat, int anzahlFragen, Connection connection){
             PreparedStatement pstatement;

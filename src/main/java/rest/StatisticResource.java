@@ -3,8 +3,6 @@ package rest;
 import model.ConfirmMessage;
 import model.Game;
 import model.Statistik;
-import model.User;
-import service.ProfileService;
 import service.StatistikService;
 
 import javax.ws.rs.*;
