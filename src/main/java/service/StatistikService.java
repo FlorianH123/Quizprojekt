@@ -43,8 +43,8 @@ public class StatistikService {
         sch.trackNewGame(game);
     }
 
-    public List<Statistik> getTopTenOverall(){
-        return sch.getTopTenOverallWorldWide();
+    public List<Statistik> getTopTenOverall(String gameMode){
+        return sch.getTopTenOverallWorldWide(gameMode);
     }
 
     public List<Statistik> getTopTenPlayer(ContainerRequestContext requestContext, String gameMode) throws IOException{

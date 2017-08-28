@@ -53,7 +53,7 @@ public class StatisticResource {
 
     @GET
     @Path(STATISTIC_TOP_TEN_OA)
-    public List<Statistik> getTopTenOverall(){
-        return statistikService.getTopTenOverall();
+    public List<Statistik> getTopTenOverall(@PathParam("gamemode") String gameMode) {
+        return statistikService.getTopTenOverall(gameMode);
     }
 }
