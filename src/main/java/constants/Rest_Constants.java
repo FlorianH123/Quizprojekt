@@ -35,9 +35,9 @@ public static final String QUERY = "query";
 public static final String STATISTIC_PATH = "/stats";
 public static final String STATISTIC_ID_PATH = "/auth/{statisticID}";
 public static final String STATISTIC_ID = "statisticID";
-public static final String STATISTIC_TOP_TEN_PLAYER = "/auth/TopTenPlayer";
+public static final String STATISTIC_TOP_TEN_PLAYER = "/auth/TopTenPlayer/{gameMode}";
 public static final String STATISTIC_ADD = "/auth";
-public static final String STATISTIC_TOP_TEN_OA = "/auth/topTenOverall";
+public static final String STATISTIC_TOP_TEN_OA = "/auth/topTenOverall/{gameMode}";
 public static final String MSG_STATISTIC_ADDED = "Statistik wurder erfolgreich aktualisiert";
 //----------------------------------------------------------------------------------------------------------------------
 
