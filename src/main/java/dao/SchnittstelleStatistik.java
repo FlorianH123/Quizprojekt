@@ -85,14 +85,6 @@ public class SchnittstelleStatistik {
         }
     }
 
-
-
-
-
-
-
-    //------------------------------------------------------------------------------------------------------------------
-
     /**
      * Methode um die Top 10 Spieler im jeweiligen Game Mode zurueck zugeben
      * @return Liste der Top 10 Spieler im jeweiligen Game Mode
@@ -156,14 +148,6 @@ public class SchnittstelleStatistik {
         }
         return topTenList;
     }
-
-    //------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-
 
     /**
      * Methode um die Overall Statistik zu einer gegebenen User ID + Game Mode aus der DB zurueckzugeben
