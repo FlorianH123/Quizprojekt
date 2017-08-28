@@ -35,7 +35,7 @@ public class StatisticResource {
 
     @GET
     @Path(STATISTIC_TOP_TEN_PLAYER)
-    public List<Statistik> getTopTenPlayer(@PathParam("gameMode") String gameMode, ContainerRequestContext requestContext) throws IOException{
+    public List<Statistik> getTopTenPlayer(@PathParam(STATISTIC_GAME_MODE) String gameMode, ContainerRequestContext requestContext) throws IOException{
         return statistikService.getTopTenPlayer(requestContext, gameMode);
     }
 
@@ -53,7 +53,7 @@ public class StatisticResource {
 
     @GET
     @Path(STATISTIC_TOP_TEN_OA)
-    public List<Statistik> getTopTenOverall(@PathParam("gameMode") String gameMode) {
+    public List<Statistik> getTopTenOverall(@PathParam(STATISTIC_GAME_MODE) String gameMode) {
         return statistikService.getTopTenOverall(gameMode);
     }
 }
