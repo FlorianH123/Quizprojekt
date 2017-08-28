@@ -113,29 +113,32 @@ public class DB_Constants {
     public static final String ANZAHL_SPIELE = "gespielte_spiele";
     public static final String GAME_MODE = "gamemode";
 
-    public static final String ERR_MSG_TRACK_NEW_GAME = "Fehler beim Einfuegen des Spielstatistik!";
+    public static final String ERR_MSG_TRACK_NEW_GAME = "Fehler beim Einfuegen des Spielstatistik!\n";
     public static final String ERR_MSG_GET_OVERALL_STATISTIK = "Fehler: Es konnte keine Overall Statistik aus der DB " +
-            "gelesen werden!";
+            "gelesen werden!\n";
     public static final String ERR_MSG_INIT_STATSTIK_OVERALL = "Fehler: Es konnte die Overall Statistik nicht " +
-            "initialisiert werden!";
-    public static final String ERR_MSG_CHANGE_OVERALL_STATISTIK = "Fehler: Es konnte die Overall Statistik nicht geupdatet werden!";
-    public static final String ERR_MSG_GET_TOP_OVERALL = "Fehler: Top 10 konnten nicht geladen werden";
+            "initialisiert werden!\n";
+    public static final String ERR_MSG_CHANGE_OVERALL_STATISTIK = "Fehler: Es konnte die Overall Statistik nicht geupdatet werden!\n";
+    public static final String ERR_MSG_GET_TOP_OVERALL = "Fehler: Top 10 konnten nicht geladen werden!\n";
 
     //Prepared Statements
     public static final String PS_TACK_NEW_GAME_TO_SINGLEPLAYER_STAT = "INSERT INTO singleplayer_stat VALUES (?,?,?,?,?)";
-    public static final String PS_GET_OVERALL_STATISTIK = "SELECT * FROM singleplayer_stat_result " +
+    public static final String PS_GET_OVERALL_STATISTIK = "SELECT * " +
+            "FROM singleplayer_stat_result " +
             "WHERE user_id = ? AND gamemode = ?";
     public static final String PS_INIT_STATISTIK_OVERALL = "INSERT INTO singleplayer_stat_result VALUES (?,0,0,0,0,?)";
-    public static final String PS_CHANGE_OVERALL_STATISTIK = "UPDATE singleplayer_stat_result SET fragen_beantwortet = ?, " +
-            "fragen_richtig = ?, hoechste_punktezahl = ?, gespielte_spiele = ? " +
+    public static final String PS_CHANGE_OVERALL_STATISTIK = "UPDATE singleplayer_stat_result " +
+            "SET fragen_beantwortet = ?, fragen_richtig = ?, hoechste_punktezahl = ?, gespielte_spiele = ? " +
             "WHERE user_id = ? AND gamemode = ?";
+
     public static final String PS_GET_TOP_10 = "SELECT * " +
-            "FROM singleplayer_stat_result " +
-            "ORDER BY hoechste_punktezahl DESC " +
+            "FROM singleplayer_stat_result, benutzer " +
+            "WHERE singleplayer_stat_result.user_id = benutzer.id " +
+            "ORDER BY singleplayer_stat_result.hoechste_punktezahl DESC " +
             "LIMIT 10";
     public static final String PS_GET_TOP_10_PLAYER = "SELECT * " +
-            "FROM singleplayer_stat " +
-            "WHERE id_user = ? " +
+            "FROM singleplayer_stat, benutzer " +
+            "WHERE singleplayer_stat.id_user = benutzer.id AND id_user = ? AND gamemode = ? " +
             "ORDER BY punkte " +
             "LIMIT 10";
 }

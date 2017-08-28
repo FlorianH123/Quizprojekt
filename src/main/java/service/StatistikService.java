@@ -25,11 +25,11 @@ public class StatistikService {
             throw new DataNotFoundException(MSG_ID_NOT_FOUND);
         }
 
-        return sch.getOverallStatistik(id, gamemode);
+        return sch.getOverallStatistikPersonal(id, gamemode);
     }
 
     public void updateStatistik(Game game){
-        Statistik statistik = sch.getOverallStatistik(game.getUser_id(), game.getGameMode());
+        Statistik statistik = sch.getOverallStatistikPersonal(game.getUser_id(), game.getGameMode());
         if(statistik.getPunktZahl() < game.getPunkte()){
             statistik.setPunktZahl(game.getPunkte());
         }
@@ -44,10 +44,10 @@ public class StatistikService {
     }
 
     public List<Statistik> getTopTenOverall(){
-        return sch.getTopTenOverall();
+        return sch.getTopTenOverallWorldWide();
     }
 
-    public List<Statistik> getTopTenPlayer(ContainerRequestContext requestContext) throws IOException{
-        return sch.getTopTenPlayer(ProfileService.getAuthorizationData(requestContext).getId());
+    public List<Statistik> getTopTenPlayer(ContainerRequestContext requestContext, String gameMode) throws IOException{
+        return sch.getTopTenOverallPersonal(ProfileService.getAuthorizationData(requestContext).getId(), gameMode);
     }
 }

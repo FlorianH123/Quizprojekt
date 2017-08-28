@@ -50,7 +50,7 @@ public class SchnittstelleStatistik {
      * @param gamemode Gamemode
      * @return Overall Statistik des Users in einem bestimmten Gamemode
      */
-    public Statistik getOverallStatistik(int userID, String gamemode) {
+    public Statistik getOverallStatistikPersonal(int userID, String gamemode) {
         Validator.check(userID > 0, ERR_MSG_CHECK_ID);
 
         ResultSet rs;
@@ -68,7 +68,7 @@ public class SchnittstelleStatistik {
                 throw new DataNotFoundException(ERR_MSG_ID_NOT_FOUND);
             }
 
-            stat.setUserId(rs.getInt(USER_ID_STAT));
+            stat.setUserName(rs.getString(USER_ID_STAT));
             stat.setAnzahlFragen(rs.getInt(ANZAHL_BEANTWORTETER_FRAGEN));
             stat.setFragenRichtig(rs.getInt(ANZAHL_FRAGEN_RICHTIG_BEANTWORTET));
             stat.setPunktZahl(rs.getInt(HOECHSTE_PUNKTZAHL));
@@ -126,7 +126,7 @@ public class SchnittstelleStatistik {
         }
     }
 
-    public List<Statistik> getTopTenOverall(){
+    public List<Statistik> getTopTenOverallWorldWide(){
         ResultSet rs;
         ArrayList<Statistik> topTenList = null;
         Statistik statistik;
@@ -142,7 +142,7 @@ public class SchnittstelleStatistik {
                 statistik.setFragenRichtig(rs.getInt("fragen_richtig"));
                 statistik.setGameMode(rs.getString("gamemode"));
                 statistik.setPunktZahl(rs.getInt("hoechste_punktezahl"));
-                statistik.setUserId(rs.getInt("user_id"));
+                statistik.setUserName(rs.getString("name"));
                 topTenList.add(statistik);
             }
         } catch (SQLException e) {
@@ -152,13 +152,14 @@ public class SchnittstelleStatistik {
         return topTenList;
     }
 
-    public List<Statistik> getTopTenPlayer(int id) {
+    public List<Statistik> getTopTenOverallPersonal(int id, String gameMode) {
         ResultSet rs;
         ArrayList<Statistik> topTenList = null;
         Statistik statistik;
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(PS_GET_TOP_10_PLAYER)) {
             statement.setInt(INDEX_1, id);
+            statement.setString(INDEX_2, gameMode);
             topTenList = new ArrayList<>();
             rs = statement.executeQuery();
             while(rs.next()){
@@ -168,7 +169,7 @@ public class SchnittstelleStatistik {
                 statistik.setFragenRichtig(rs.getInt("fragen_richtig"));
                 statistik.setGameMode(rs.getString("gamemode"));
                 statistik.setPunktZahl(rs.getInt("punkte"));
-                statistik.setUserId(rs.getInt("id_user"));
+                statistik.setUserName(rs.getString("name"));
                 topTenList.add(statistik);
             }
         } catch (SQLException e) {
