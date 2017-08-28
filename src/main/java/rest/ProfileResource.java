@@ -102,9 +102,9 @@ public class ProfileResource {
     public Response changeAvatarLink (User user) {
         profileService.changeAvatarLink(user);
 
-        ConfirmMessage msg = new ConfirmMessage(MSG_AVATAR_LINK_GEANDERT, Response.Status.CREATED.getStatusCode());
+        //ConfirmMessage msg = new ConfirmMessage(MSG_AVATAR_LINK_GEANDERT, Response.Status.OK.getStatusCode());
         return Response.ok()
-                .entity(msg)
+                //.entity(msg)
                 .build();
     }
 }
