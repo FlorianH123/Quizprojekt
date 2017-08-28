@@ -1,7 +1,7 @@
 package rest;
 
-import model.ConfirmMessage;
 import model.User;
+import org.json.simple.JSONObject;
 import service.ProfileService;
 
 import javax.ws.rs.*;
@@ -12,7 +12,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.io.IOException;
 import java.net.URI;
-
 import static constants.Rest_Constants.*;
 
 
@@ -38,16 +37,16 @@ public class ProfileResource {
      * Ansonsten wird Statuscode Internal Server Error zurueckgegeben
      * Path: profile
      */
-    @POST
+    @PUT
     @Path(PATH_ADD_USER)
     public Response addUser (User aUser, @Context UriInfo uriInfo) {
         String newID = String.valueOf(aUser.getId());
         URI uri = uriInfo.getAbsolutePathBuilder().path(newID).build();
-        ConfirmMessage msg = new ConfirmMessage(MSG_BENUTZER_ANGELEGT, Response.Status.CREATED.getStatusCode());
-
+        JSONObject returnMessage = new JSONObject();
+        returnMessage.put("message","User erfolgreich hinzugefügt");
         profileService.addUser(aUser);
         return Response.created(uri)
-                .entity(msg)
+                .entity(returnMessage.toJSONString())
                 .build();
     }
 
@@ -80,14 +79,15 @@ public class ProfileResource {
      * @param user bei dem das Passwort geaendert werden soll
      * Path: auth/chPas
      */
-    @POST
+    @PUT
     @Path(PATH_CHANGE_PASSWORD)
     public Response changePassword (User user) {
         profileService.changePassword(user);
 
-        ConfirmMessage msg = new ConfirmMessage(MSG_PASSWORT_GEAENDERT, Response.Status.CREATED.getStatusCode());
+        JSONObject returnMessage = new JSONObject();
+        returnMessage.put("message","Passwort erfolgreich geändert");
         return Response.ok()
-                .entity(msg)
+                .entity(returnMessage.toJSONString())
                 .build();
     }
 
@@ -97,14 +97,15 @@ public class ProfileResource {
      * @return ConfirmMessage
      * Path: auth/profile/chAvl
      */
-    @POST
+    @PUT
     @Path(PATH_CHANGE_AVATAR)
     public Response changeAvatarLink (User user) {
         profileService.changeAvatarLink(user);
 
-        //ConfirmMessage msg = new ConfirmMessage(MSG_AVATAR_LINK_GEANDERT, Response.Status.OK.getStatusCode());
+        JSONObject returnMessage = new JSONObject();
+        returnMessage.put("message","Avatar erfolgreich verändert");
         return Response.ok()
-                //.entity(msg)
+                .entity(returnMessage.toJSONString())
                 .build();
     }
 }
