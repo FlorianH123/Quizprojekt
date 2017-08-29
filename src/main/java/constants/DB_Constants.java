@@ -78,7 +78,7 @@ public class DB_Constants {
 
     public static final String PS_GET_RANDOM_QUESTION = "SELECT level.levelid, level.catid, level.solution, level.verbalization " +
             "FROM level " +
-            "WHERE level.ready = false " +
+            "WHERE level.ready = true " +
             "ORDER BY Random() " +
             "LIMIT ?; ";
 
