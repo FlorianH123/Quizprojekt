@@ -174,7 +174,7 @@ public class SchnittstelleStatistik {
                 throw new DataNotFoundException(ERR_MSG_ID_NOT_FOUND);
             }
 
-            stat.setUserName(rs.getString(USER_ID_STAT));
+            stat.setUserId(rs.getInt(USER_ID_STAT));
             stat.setAnzahlFragen(rs.getInt(ANZAHL_BEANTWORTETER_FRAGEN));
             stat.setFragenRichtig(rs.getInt(ANZAHL_FRAGEN_RICHTIG_BEANTWORTET));
             stat.setPunktZahl(rs.getInt(HOECHSTE_PUNKTZAHL));

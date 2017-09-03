@@ -3,14 +3,19 @@ package rest;
 import model.ConfirmMessage;
 import model.Game;
 import model.Statistik;
+import org.json.simple.JSONObject;
 import service.StatistikService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.container.ContainerRequestContext;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
 import java.util.List;
 
 import static constants.Rest_Constants.*;
@@ -39,15 +44,18 @@ public class StatisticResource {
         return statistikService.getTopTenPlayer(requestContext, gameMode);
     }
 
-    @POST
+    @PUT
     @Path(STATISTIC_ADD)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addStatistik(Game game){
-        ConfirmMessage msg = new ConfirmMessage(MSG_STATISTIC_ADDED, Response.Status.CREATED.getStatusCode());
         statistikService.updateStatistik(game);
         statistikService.addGame(game);
+
+        JSONObject returnMessage = new JSONObject();
+        returnMessage.put("message","Statistik erfolgreich angelegt");
+
         return Response.ok()
-                .entity(msg)
+                .entity(returnMessage.toJSONString())
                 .build();
     }
 
