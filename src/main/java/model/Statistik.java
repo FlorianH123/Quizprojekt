@@ -79,7 +79,7 @@ public class Statistik {
     }
 
     public String toString() {
-        return "User ID: " + userName + ",\n" +
+        return "User ID: " + userId + ",\n" +
                 "Anzahl Fragen: " + anzahlFragen + ",\n" +
                 "richtige Fragen: " + fragenRichtig + ",\n" +
                 "hoechste Punkte: " + punktZahl + ",\n" +
