@@ -134,7 +134,7 @@ public class DB_Constants {
     public static final String PS_GET_TOP_10 = "SELECT * " +
             "FROM singleplayer_stat_result, benutzer " +
             "WHERE singleplayer_stat_result.user_id = benutzer.id AND gamemode = ?" +
-            "ORDER BY singleplayer_stat_result.hoechste_punktezahl DESC " +
+            "ORDER BY singleplayer_stat_result.hoechste_punktezahl DESC, singleplayer_stat_result.fragen_beantwortet DESC " +
             "LIMIT 10";
     public static final String PS_GET_TOP_10_PLAYER = "SELECT * " +
             "FROM singleplayer_stat, benutzer " +
