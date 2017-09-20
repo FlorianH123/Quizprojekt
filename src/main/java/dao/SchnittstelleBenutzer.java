@@ -53,6 +53,12 @@ public class SchnittstelleBenutzer {
         return aUser;
     }
 
+    /**
+     * Methode um einen Benutzer per E-Mail zurueck zu geben
+     *
+     * @param eMail E-Mail des Users
+     * @return User
+     */
     public User getUserByEmail(String eMail) {
         Validator.check(!eMail.isEmpty(), ERR_MSG_CHECK_MAIL);
 
@@ -112,6 +118,11 @@ public class SchnittstelleBenutzer {
         return passwort;
     }
 
+    /**
+     * Methode die ueberprueft, ob diese ID schon verwendet wird
+     * @param id id
+     * @return true/ false
+     */
     public boolean checkID(int id) {
         Validator.check(id > 0, ERR_MSG_ID_GREATER_ZERO);
 
@@ -193,6 +204,11 @@ public class SchnittstelleBenutzer {
         }
     }
 
+    /**
+     * Methode um das Passwort eines Benutzers zu aendern
+     *
+     * @param user User bei dem das Passwort geaendet werden soll
+     */
     public void changePassword (User user) {
         try(Connection connection = getConnection();
             PreparedStatement statement = connection.prepareStatement(PS_CHANGE_PW)){
@@ -205,6 +221,12 @@ public class SchnittstelleBenutzer {
         }
     }
 
+    /**
+     * Methode um die Id des Users per E-Mail zu bekommen
+     *
+     * @param aUser der User
+     * @return id des Users
+     */
     public int getIDbyEMail(User aUser) {
         ResultSet rs;
         int id = 0;
@@ -228,6 +250,11 @@ public class SchnittstelleBenutzer {
         return id;
     }
 
+    /**
+     * Methode um den Avatar des Benutzers zu aendern
+     *
+     * @param user User bei dem der Avatar geaendert wird
+     */
     public void changeAvatarLink(User user) {
         try(Connection connection = getConnection();
             PreparedStatement statement = connection.prepareStatement(PS_CHANGE_AVL)){
