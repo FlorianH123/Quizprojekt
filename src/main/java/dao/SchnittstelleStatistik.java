@@ -85,6 +85,23 @@ public class SchnittstelleStatistik {
         }
     }
 
+    public int getPlayerRanking(int id, String gameMode) {
+        ResultSet rs;
+        int rank = -1;
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(PG_GET_PLAYER_RANK)) {
+            statement.setString(INDEX_1, gameMode);
+            statement.setInt(INDEX_2, id);
+            rs = statement.executeQuery();
+            rs.next();
+            rank = rs.getInt("row_number");
+        } catch (SQLException e) {
+            System.err.println(ERR_MSG_GET_TOP_OVERALL);
+            e.printStackTrace();
+        }
+        return rank;
+    }
+
     /**
      * Methode um die Top 10 Spieler im jeweiligen Game Mode zurueck zugeben
      * @return Liste der Top 10 Spieler im jeweiligen Game Mode

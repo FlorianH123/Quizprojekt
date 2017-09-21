@@ -141,4 +141,16 @@ public class DB_Constants {
             "WHERE singleplayer_stat.id_user = benutzer.id AND id_user = ? AND gamemode = ? " +
             "ORDER BY punkte DESC " +
             "LIMIT 10";
+    public static final String PG_GET_PLAYER_RANK = "SELECT row_number" +
+            " FROM (" +
+            " SELECT row_number, user_id" +
+            " FROM (" +
+            " SELECT *," +
+            " ROW_NUMBER () OVER (ORDER BY hoechste_punktezahl DESC)" +
+            " FROM singleplayer_stat_result" +
+            " WHERE gamemode = ?" +
+            " AND hoechste_punktezahl > 0" +
+            " ) as ranking " +
+            " WHERE user_id = ?" +
+            " ) as ranking";
 }

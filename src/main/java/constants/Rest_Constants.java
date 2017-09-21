@@ -40,6 +40,8 @@ public static final String STATISTIC_ADD = "/auth";
 public static final String STATISTIC_TOP_TEN_OA = "/auth/topTenOverall/{gameMode}";
 public static final String MSG_STATISTIC_ADDED = "Statistik wurder erfolgreich aktualisiert";
 public static final String STATISTIC_GAME_MODE = "gameMode";
+public static final String STATISTIC_PLAYER_RANKING = "/auth/ranking/{id}/{gameMode}";
+public static final String STATISTIC_PLAYER_ID = "id";
 //----------------------------------------------------------------------------------------------------------------------
 
 //fuer ApplicationHandler-----------------------------------------------------------------------------------------------

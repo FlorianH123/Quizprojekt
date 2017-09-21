@@ -5,6 +5,7 @@ import dao.SchnittstelleStatistik;
 import exception.DataNotFoundException;
 import model.Game;
 import model.Statistik;
+import model.User;
 
 import javax.ws.rs.container.ContainerRequestContext;
 import java.io.IOException;
@@ -49,5 +50,9 @@ public class StatistikService {
 
     public List<Statistik> getTopTenPlayer(ContainerRequestContext requestContext, String gameMode) throws IOException{
         return sch.getTopTenOverallPersonal(ProfileService.getAuthorizationData(requestContext).getId(), gameMode);
+    }
+
+    public int getPlayerRanking(int id, String gameMode) {
+        return sch.getPlayerRanking(id, gameMode);
     }
 }

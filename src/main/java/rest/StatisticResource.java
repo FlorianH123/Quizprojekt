@@ -1,21 +1,16 @@
 package rest;
 
-import model.ConfirmMessage;
 import model.Game;
 import model.Statistik;
+import model.User;
 import org.json.simple.JSONObject;
 import service.StatistikService;
-
 import javax.ws.rs.*;
 import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
-
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 import static constants.Rest_Constants.*;
@@ -63,5 +58,17 @@ public class StatisticResource {
     @Path(STATISTIC_TOP_TEN_OA)
     public List<Statistik> getTopTenOverall(@PathParam(STATISTIC_GAME_MODE) String gameMode) {
         return statistikService.getTopTenOverall(gameMode);
+    }
+
+    @GET
+    @Path(STATISTIC_PLAYER_RANKING)
+
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPlayerRanking(@PathParam(STATISTIC_PLAYER_ID) int id, @PathParam(STATISTIC_GAME_MODE) String gameMode) {
+        JSONObject returnMessage = new JSONObject();
+        returnMessage.put("ranking", statistikService.getPlayerRanking(id, gameMode));
+        return Response.ok()
+                .entity(returnMessage.toJSONString())
+                .build();
     }
 }
